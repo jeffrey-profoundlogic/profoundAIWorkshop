@@ -1,0 +1,1 @@
+{"enableDesigner":true,"adjustColumns":false,"connectionType":"V","workStnFieldId":"D_4_70","detectSubfile":false,"detectSubfilePatterns":true,"outlineSubfile":false,"separateSubfileLines":false,"stripedSubfile":true,"evenRowColor":"#FFFFFF","hiColor":"#DD5700","enlargeHeadings":false,"functionKeyButtons":true,"hideFKeyNames":false}

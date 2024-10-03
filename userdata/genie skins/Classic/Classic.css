@@ -1,0 +1,563 @@
+
+/* Context Menu on a Subfile right-click */
+#menuDiv {
+  border: 2px dashed #CCCCCC; 
+}
+.menu {
+  background: #5588BB;
+}
+.menu TR {
+  cursor: pointer;
+}
+.menu TD {
+  font-family: Arial;
+  font-size: 12px;	
+  color: white;
+}
+.menuHover TD {
+  background: yellow;
+  color: blue;
+}
+
+
+/* 5250 Menu Bar */
+.menu-bar:focus {
+  background-color: white;
+  color: black;
+}
+div.Default.menu-bar-pulldown {
+  border-top: none;
+  border-bottom: 2px solid red;
+  border-left: 2px solid red;
+  border-right: 2px solid red;
+}
+div.menu-bar-separator {
+  position: absolute;
+  border-top: none;
+  border-top: 2px solid red; /* enable this for double-line separator bar */
+  border-bottom: 2px solid red;
+  border-left: none;
+  border-right: none;
+  height: 0px;
+  left: 0px;
+}
+.pull-down-menu:focus {
+  outline: auto;
+}
+.mnemonic {
+  text-decoration: underline;
+}
+
+BODY {
+	background-color: black;
+	/* color: #00FF00; */
+  font-family:  Monospace;
+  font-size: 13px;
+  overflow: auto;	  	
+}
+
+
+div {
+  padding: 1px;
+  z-index: 10;
+  white-space: nowrap;
+}
+
+img {
+  z-index: 10;
+}
+
+
+
+.hand {
+  cursor: pointer;
+}
+
+.input {
+  font-family:  Monospace;
+  font-size: 13px;
+  background-color: black;
+  border: 0px;
+  z-index: 20;
+  color: #00FF00; 	
+}
+
+/* Push Button */
+INPUT.button {
+	color: #335588;
+	font-weight: bold;
+}
+
+
+/* Selector Pen */
+.selpen {
+
+}
+
+.focusInp {
+  font-family:  Monospace;
+  font-size: 13px;
+  background-color: black;
+  border: 0px;
+  z-index: 20;
+  color: #00FF00; 	
+}
+
+
+.label {
+  text-align: right;
+  color: white;
+}
+
+.heading {
+  color: #105184;
+  font-weight: bold;
+  font-size: 20px
+}
+
+INPUT {
+  font-family:  Monospace;
+  font-size: 13px;
+  z-index: 20;
+}
+
+SELECT {
+  z-index: 20;
+}
+
+BUTTON {
+  z-index: 20;
+}
+
+TEXTAREA {
+  z-index: 20;
+}
+
+
+DIV.Spaced {
+  background-color: black;
+  border-style: solid;                                                                                                  
+  border-top-width: 20px; 
+  border-bottom-width: 20px; 
+  border-right-width: 8px ; 
+  border-left-width: 8px;
+  z-index: 30;
+  
+}
+
+DIV.Default {
+  border-color: white;
+  background-color: #000000;
+  border-style: solid;                                                                                                  
+  border-width: 2px; 
+  z-index: 30;
+}
+
+DIV.Default DIV.title {
+  color: white;
+  font-weight: bold;
+  background-color: black;
+}
+
+.Title
+{
+  vertical-align: text-top; 
+  background-color: black; 
+  z-index: 40;
+}
+
+
+A {
+  text-decoration: none;
+  border-bottom: 1px dotted #888888;
+}
+A:hover {
+  border: 1px solid white;
+}
+
+.design a:hover {
+  border-top-style: none;  
+  border-left-style: none;
+  border-right-style: none;
+  border-bottom: 1px dotted #888888;
+  cursor: default; 
+}
+
+.A20 A {
+  color: lime;
+}
+.A3A A /*Blue*/
+{
+  color: #8080FF;
+}
+.A22 A  /*White*/
+{
+  color: white;
+}
+
+
+
+
+
+
+
+/* Regular Green */
+.A20
+{
+  color: lime;
+
+}
+.A21  /*Reverse Green*/
+{
+  background-color: lime;
+  color: black;
+}
+.A22  /*White*/
+{
+  color: white;
+}
+.A23 /*Reverse White*/
+{
+  color: black; 
+  background-color: white;
+}
+.A24 /*Green Underscore*/
+{
+  color: lime;
+  border-bottom: solid 1px lime;
+}
+.A25 /*Green Underscore Reverse*/
+{
+  color: black; 
+  background-color: lime;
+  border-bottom: solid 1px black;
+}
+.A26 /*White Underscore*/
+{
+  color: white;
+  border-bottom: solid 1px white;
+}
+INPUT.A27 /*Nondisplay Input*/
+{
+  color: white; 
+  background-color: black;
+}
+DIV.A27 /*Nondisplay Output*/
+{
+  visibility: hidden; 
+}
+.A28 /*Red*/
+{
+  color: red;
+}
+.A29 /*Reverse Red*/
+{
+  color: black; 
+  background-color: red;
+}
+.A2B /* Red reverse image blink */
+{
+  background-color: red;
+}
+.A2C /*Red Underscore*/
+{
+  color: Red;
+  border-bottom: solid 1px Red;
+  
+}
+.A2D /*Red Underscore Reverse */
+{
+  color: black; 
+  background-color: red;
+  border-bottom: black;
+
+}
+DIV.A2F /*Nondisplay*/
+{
+  visibility: hidden;
+}
+.A30 /*Turquise (Column Seperators)*/ 
+{
+  color: aqua;
+  border-bottom: thin dashed;
+}
+.A31 /*Turquise Reverse (Column Separators)*/ 
+{
+  color: black;
+  background-color: aqua;
+  border-bottom: thin dashed;
+}
+.A32 /*Yellow (Column Separators)*/
+{
+  color: yellow;
+  border-bottom: thin dashed;
+}
+.A33 /*Yellow Reverse (Column Separators)*/ 
+{
+  color: black;
+  background-color: yellow;
+  border-bottom: thin dashed;
+}
+.A34 /*Turquise Underscore*/ 
+{
+  color: aqua;
+  border-bottom: solid 1px aqua;
+}
+.A35 /*Turqouise Underscore Reverse*/
+{
+  color: black;
+  background-color: aqua;
+  border-bottom: solid 1px black;
+}
+.A36 /*Yellow Underscore*/
+{
+  color: yellow;
+  border-bottom: solid 1px yellow;
+}
+.A37 /*Nondisplay*/
+{
+  color: black; 
+  background-color: black;
+}
+.A38 /*Pink*/
+{
+  color: fuchsia;
+}
+.A39 /*Pink Reverse*/
+{
+  color: black;
+  background-color: fuchsia;
+}
+.A3A /*Blue*/
+{
+  color: #8080FF;
+}
+.A3B /*Blue Reverse */
+{
+  color: black; 
+  background-color: #8080FF;
+}
+.A3C /*Pink Underscore*/
+{
+  color: fuchsia;
+  border-bottom: solid 1px fuchsia;
+}
+.A3D /*Pink Underscore Reverse*/
+{
+  color: black; 
+  background-color: fuchsia;
+  border-bottom: solid 1px black;
+}
+.A3E /*Blue Underscore*/
+{
+  color: blue;
+  border-bottom: solid 1px #8080FF;
+}
+
+.hide {
+  visibility: hidden;
+}
+
+.upper {
+  text-transform: uppercase; 
+}
+
+.autocomplete-item {
+
+	border-style: solid;
+	border-width: 1px;
+	border-color: #FFFFFF rgb(255, 255, 255) rgb(238, 238, 238);
+	font-size: 10px;
+	font-family: tahoma, arial, helvetica, sans-serif;
+	color: #555555;
+	background-color: #FFFFFF;
+	cursor: pointer;
+	margin: 0px;
+	padding: 4px 4px 4px 4px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-align: left;	
+
+}
+
+.autocomplete-selected {
+
+	background-color: #DFE8F6;
+	border: 1px dotted #A3BAE9 !important; 
+
+
+}
+
+.autocomplete-col {
+
+	overflow: hidden;
+	white-space: nowrap;
+	background-color: #FFFFFF;
+
+}
+
+
+
+.link1 A {
+  font-family: Verdana;
+  color: #009999;
+  text-decoration: none;
+  border-bottom: 1px dotted #888888;
+}
+.link1 A:hover {
+  border: 1px solid #cccccc;
+}
+
+.link2 A {
+  font-family: Arial;
+  text-decoration: none;
+  border-bottom: 1px dotted #c1b6b6;  
+}
+.link2 A:hover {
+  border: 1px solid #999999;
+  font-weight: bold;
+  font-size: 15px;
+  color: white;
+  background-color: #5588BB;
+}
+
+
+.link3 A {
+  text-decoration: none;
+  border-bottom: 1px dotted #c1b6b6;
+  color: #333333;
+}
+.link3 A:hover {
+  border: 2px solid #c23c00;
+  background-color: #ffd7b2;
+}
+
+.link4 A {
+  text-decoration: none;
+}
+.link4 A:hover {
+  text-decoration: underline;
+}
+
+.link5 A {
+  font-weight: bold;
+  text-decoration: none;
+}
+.link5 A:hover {  
+  border-top: 1px dashed #4866d5;
+  border-bottom: 1px dashed #4866d5;
+}
+
+.link6 A {
+  font-family: Arial;
+  font-size: 14px;
+  color: blue;
+  text-decoration: none;
+}
+.link6 A:hover {  
+  font-weight: bold;
+}
+
+#pui-break-messages {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+#pui-break-messages div.msg-wrap {
+  min-width: 250px;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  padding: 0px;
+  border: solid 1px #777777;
+  background-color: white;
+}
+  
+#pui-break-messages div.msg-titlewrap {
+  padding: 0px;
+  background-color: black;
+  color: white;
+}
+
+#pui-break-messages div.msg-titlewrap div.title { padding: 3px 0px 3px 10px; }
+
+#pui-break-messages div.msg-titlewrap div.closeImg {
+  height: 16px;
+  width: 16px;
+  cursor: pointer;
+  position:absolute;
+  right: 3px;
+  top: 3px;
+  background-image: url("/profoundui/proddata/images/cross.png");
+}
+
+#pui-break-messages div.msg-body { padding: 15px; }
+/* Classic CSS Animation */
+.pui-classic-animation {
+  position: absolute;
+  display: block;
+  top: 0px;
+  left: 0px;
+  width: 50px;
+  height: 50px;
+  z-index: 1001;
+}
+
+.pui-classic-animation:before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  border-radius: 50%;
+  border: 2.5px solid transparent;
+  border-top-color: #FFFFFF;
+  -webkit-animation: pui-spin 1s linear infinite;
+  animation: pui-spin 1s linear infinite;
+}
+
+.pui-classic-animation:after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  border-radius: 50%;
+  border: 2.5px solid transparent;
+  border-top-color: #FFFFFF;
+  -webkit-animation: pui-spin 1.25s linear infinite;
+  animation: pui-spin 1.25s linear infinite;
+}
+
+@-webkit-keyframes pui-spin {
+    0%   {
+        -webkit-transform: rotate(0deg);  
+        -ms-transform: rotate(0deg);
+        -moz-animation: rotate(0deg);  
+        transform: rotate(0deg);  
+    }
+    100% {
+        -webkit-transform: rotate(360deg);  
+        -ms-transform: rotate(360deg);
+        -moz-animation: rotate(360deg);  
+        transform: rotate(360deg);  
+    }
+}
+
+@keyframes pui-spin {
+    0%   {
+        -webkit-transform: rotate(0deg);  
+        -ms-transform: rotate(0deg);
+        -moz-animation: rotate(0deg);  
+        transform: rotate(0deg);  
+    }
+    100% {
+        -webkit-transform: rotate(360deg);  
+        -ms-transform: rotate(360deg); 
+        -moz-animation: rotate(360deg); 
+        transform: rotate(360deg); 
+    }
+}

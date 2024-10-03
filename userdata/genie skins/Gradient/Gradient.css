@@ -1,0 +1,616 @@
+
+#gradient1 {
+  filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr='#4B92D9', endColorStr='#CEDFF6', gradientType='1');
+  background: #73ABE3;
+  font-size: 18px;
+  font-weight: bold;
+  color: #FFFFFF;
+}
+
+#gradient2 {
+  filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr='#CEDFF6', endColorStr='#1E77D3', gradientType='1');
+  text-align: right;
+  padding-right: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color: #FFFFFF;
+  font-family: Trebuchet MS;
+  font-size: 14px;
+  font-weight: bold;  
+  background: #73ABE3;
+}
+
+#content {
+  background: #fbfdff;
+}
+
+.BigText {
+  color: #000066;
+  font-weight: bold;
+  font-size: 15px;
+  text-align: right;
+  font-family: Arial;
+  width: 100px;
+}
+
+
+/* Push Button */
+INPUT.button {
+	color: #335588;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+/* Selector Pen */
+.selpen {
+
+}
+
+/* Calendar Classes */
+.calendar {
+	font-size:11px;
+	font-weight:bold;
+	cursor:pointer;
+}
+.brndrow1 {
+	background-color: #5588BB;
+}
+.brndrow1 A {
+  border: 0px;
+}
+.brndrow1 A:hover {
+  border: 0px;
+}
+
+.brndrow2
+{
+	background-color: #5588BB;
+}
+
+
+/* Context Menu on a Subfile right-click */
+#menuDiv {
+  border: 2px dashed #CCCCCC; 
+}
+.menu {
+  background: #5588BB;
+}
+.menu TR {
+  cursor: pointer;
+}
+.menu TD {
+  font-family: Arial;
+  font-size: 12px;	
+  color: white;
+}
+.menuHover TD {
+  background: #FFFF66;
+  color: #0000FF;
+}
+
+
+.mainDiv {
+  text-align: center;
+  vertical-align: middle;
+  width: 100%;
+  height: 100%;
+  /*background-color: #336699;*/
+  padding: 0px;
+}
+
+.topDiv {
+  width: 100%;
+  padding: 0px;
+}
+
+
+.middleDiv {
+  height: 592px;
+  text-align: center;
+  width: 775px;
+  padding: 0px;
+}
+
+.centered {
+  text-align: -moz-center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.insideDiv {
+  text-align: center;  
+  width: 675px;
+}
+
+body {
+  margin: 0px 0px 0px 0px;
+  text-align: center;
+  vertical-align: middle;
+  background-repeat: repeat-y;
+  background-color: #FFFFFF;
+  font-family: Consolas, monospace;
+  /* font-family: Trebuchet MS; */
+  font-size: 14px;
+  overflow: auto;	
+}
+
+div {
+  padding: 1px;
+  z-index: 10;
+  text-align: left;
+  white-space: nowrap;
+}
+
+img {
+  z-index: 10;
+}
+
+
+
+.hand {
+  cursor: pointer;
+}
+
+
+
+.input {
+  font-family: Monospace;
+  font-weight: bold;
+  font-size: 13px;
+  z-index: 20;
+}
+.focusInp {
+	background: #ffffdd;
+  font-weight: bold;
+  font-family: Monospace;
+  font-size: 13px;
+  z-index: 20;
+}
+
+.label {
+  text-align: right;
+  font-weight: bold;
+  color: #003399;
+}
+
+.heading {
+  color: #105184;
+  font-weight: bold;
+  font-size: 20px
+}
+
+SELECT {
+  font-family:  Monospace;
+  font-size: 13px;
+  background: #F0FFFF;
+  border: 3px double #8EC8FF;
+  z-index: 20;
+}
+
+BUTTON {
+  z-index: 20;
+}
+
+INPUT {
+  font-family: Monospace;
+  font-size: 13px;
+  z-index: 20;
+}
+
+TEXTAREA {
+  z-index: 20;
+}
+
+
+/* Spaced Window Border */
+DIV.Spaced {
+  background-color: #336699;
+  background-color: #FFFFFF;
+  border-style: solid;                                                                                                  
+  border-top-width: 12px; 
+  border-bottom-width: 12px; 
+  border-right-width: 8px ; 
+  border-left-width: 8px;
+  filter: progid:DXImageTransform.Microsoft.Shadow(color=white, direction=135, strength=6);
+  z-index: 30;
+  
+}
+
+/* default window border */
+DIV.Default {
+  border-color: #336699;
+  background-color: #FFFFFF;
+  border-style: solid;                                                                                                  
+  border-width: 3px; 
+  z-index: 30;
+}
+
+DIV.Default DIV.title {
+  color: #336699;
+  font-weight: bold;
+  background-color: #FFFFFF;
+}
+
+.Title
+{
+  vertical-align: text-top; 
+  background-color: #336699; 
+  background-color: #FFFFFF; 
+  z-index: 40;
+}
+
+
+
+
+
+A {
+  text-decoration: none;
+  border-bottom: 1px dotted #c1b6b6;  
+}
+A:hover {
+  border: 2px solid #5588BB;
+  background-color: #6699CC;
+}
+
+.A20 A {
+  color: #003399;
+}
+.A3A A /*Blue*/
+{
+  color: #009B00;
+}
+.A22 A  /*White*/
+{
+  color: #003399;
+}
+
+
+
+
+
+
+/* Regular Green */
+DIV.A20 {
+  color: #003399;
+  font-weight: bold;
+}
+INPUT.A20 {
+  color: #003399;
+  font-weight: bold;
+}
+
+.A21  /*Reverse Green*/
+{
+  background-color: #FFCC00;
+  color: #224E9F;
+}
+INPUT.A22 /* White Input Field */
+{
+  font-weight: bold;
+  color: black;
+}
+.A22  /*White*/
+{
+  color: #3366CC;
+  font-weight: bold;
+  
+}
+.A23 /*Reverse White*/
+{
+  color: #FFFFFF; 
+  background-color: #7A9BE0;
+}
+INPUT.A24 {
+  color: black;
+}
+DIV.A24 /*Green Underscore*/
+{
+  color: #003399;
+  border-bottom: solid 1px #003399;
+}
+DIV.A25 /*Green Underscore Reverse*/
+{
+  color: #224E9F; 
+  background-color: #FFCC00;
+  border-bottom: solid 1px #224E9F;
+}
+INPUT.A25 /*Green Underscore Reverse*/
+{
+  color: #224E9F; 
+  background-color: #FFCC00;
+}
+DIV.A26 /*White Underscore*/
+{
+  color: #003399;
+  border-bottom: solid 1px #003399;
+}
+INPUT.A26 /* White Underscore Input Field */
+{
+  font-weight: bold;
+  color: black;
+}
+INPUT.A27 /* Nondisplay Input */
+{
+  color: black; 
+}
+DIV.A27 /*Nondisplay Output*/
+{
+  visibility: hidden;
+}
+.A28 /*Red*/
+{
+  color: red;
+}
+.A29 /*Reverse Red*/
+{
+  color: #336699; 
+  color: #FFFFFF; 
+  background-color: red;
+}
+.A2B /* Red reverse image blink */
+{
+  color: white;
+  background-color: red;
+}
+DIV.A2C /*Red Underscore*/
+{
+  color: Red;
+  border-bottom: solid 1px Red;  
+}
+INPUT.A2C /*Red Underscore*/
+{
+  color: Red;
+}
+DIV.A2D /*Red Underscore Reverse */
+{
+  color: #336699; 
+  color: #FFFFFF; 
+  background-color: red;
+  border-bottom: #336699;
+
+}
+INPUT.A2D /*Red Underscore Reverse */
+{
+  color: #336699; 
+  color: #FFFFFF; 
+  background-color: red;
+
+}
+
+INPUT.A2A /* Red Blink */
+{
+  color: red;
+}
+
+DIV.A2A /* Red Blink */
+{
+  color: red;
+}
+
+INPUT.A2E /* Red Underscore Blink */
+{
+  color: red;
+}
+
+DIV.A2E /* Red Underscore Blink */
+{
+  color: red;
+  border-bottom: solid 1px Red;  
+}
+
+DIV.A2F /*Nondisplay*/
+{
+  visibility: hidden;
+}
+DIV.A30 /*Turquise (Column Seperators)*/ 
+{
+  color: #3366cc;
+  border-bottom: thin dashed;
+}
+INPUT.A30 /*Turquise (Column Seperators)*/ 
+{
+  color: navy;
+}
+.A31 /*Turquise Reverse*/ 
+{
+  color: #FFFFFF;
+  background-color: #33CCCC;
+}
+DIV.A32 /*Yellow (Column Separators)*/
+{
+  color: #ff8040;
+  border-bottom: thin dashed;
+}
+INPUT.A32 /*Yellow (Column Separators)*/
+{
+  color: black;
+}
+.A33 /*Yellow Reverse*/ 
+{
+  color: #FFFFFF;
+  background-color: #ff8040;
+}
+DIV.A34 /*Turquise Underscore*/ 
+{
+  color: #3366cc;
+  border-bottom: solid 1px #3366cc;
+}
+INPUT.A34 /*Turquise Underscore*/ 
+{
+  color: black;
+}
+DIV.A35 /*Turqouise Underscore Reverse*/
+{
+  color: #336699;
+  color: #FFFFFF;
+  background-color: aqua;
+  border-bottom: solid 1px #336699;
+}
+INPUT.A35 /*Turqouise Underscore Reverse*/
+{
+  color: #336699;
+  color: #FFFFFF;
+  background-color: aqua;
+}
+DIV.A36 /*Yellow Underscore*/
+{
+  color: #ff8040;
+  border-bottom: solid 1px #ff8040;
+}
+INPUT.A36 /*Yellow Underscore*/
+{
+  color: black;
+}
+.A37 /*Nondisplay*/
+{
+  color: #336699; 
+  color: #FFFFFF; 
+  background-color: #336699;
+  background-color: #FFFFFF;
+}
+.A38 /*Pink*/
+{
+  color: fuchsia;
+}
+.A39 /*Pink Reverse*/
+{
+  color: #336699;
+  color: #FFFFFF;
+  background-color: fuchsia;
+}
+.A3A /*Blue*/
+{
+  color: #009B00;
+  font-size: 14px;
+  font-weight: bold;
+}
+.A3B /*Blue Reverse */
+{
+  color: #FFFFFF; 
+  background-color: #9999FF;
+}
+DIV.A3C /*Pink Underscore*/
+{
+  color: fuchsia;
+  border-bottom: solid 1px fuchsia;
+}
+INPUT.A3C /*Pink Underscore*/
+{
+  color: fuchsia;
+}
+DIV.A3D /*Pink Underscore Reverse*/
+{
+  color: #336699; 
+  background-color: fuchsia;
+  border-bottom: solid 1px #336699;
+}
+INPUT.A3D /*Pink Underscore Reverse*/
+{
+  color: #336699; 
+  background-color: fuchsia;
+}
+DIV.A3E /*Blue Underscore*/
+{
+  color: #6666FF;
+  border-bottom: solid 1px #6666FF;
+}
+INPUT.A3E /*Blue Underscore*/
+{
+  color: #333399;
+}
+
+/**************************************/
+
+.hide {
+  visibility: hidden;
+}
+
+.upper {
+  text-transform: uppercase; 
+}
+
+
+
+
+
+INPUT.readOnly {
+	background: #FFFFFF;
+	border: 0px;
+  color: #003399;	
+}
+
+.autocomplete-item {
+
+	border-style: solid;
+	border-width: 1px;
+	border-color: #FFFFFF rgb(255, 255, 255) rgb(238, 238, 238);
+	font-size: 10px;
+	font-family: tahoma, arial, helvetica, sans-serif;
+	color: #555555;
+	background-color: #FFFFFF;
+	cursor: pointer;
+	margin: 0px;
+	padding: 4px 4px 4px 4px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-align: left;	
+
+}
+
+.autocomplete-selected {
+
+	background-color: #DFE8F6;
+	border: 1px dotted #A3BAE9 !important; 
+
+
+}
+
+.autocomplete-col {
+
+	overflow: hidden;
+	white-space: nowrap;
+
+}
+
+INPUT.empty-text, TEXTAREA.empty-text {
+  color: gray;
+  border: 1px solid #B5B8C8;
+}
+/* Gradient CSS Animation */
+.pui-gradient-animation {
+  position: absolute;
+  display: block;
+  top: 0px;
+  left: 0px;
+  width: 50px;
+  height: 50px;
+  z-index: 1001;
+}
+
+.pui-gradient-animation:before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  border-radius: 50%;
+  border: 2.5px solid transparent;
+  border-top-color: #009B00;
+  -webkit-animation: pui-spin 1s linear infinite;
+  animation: pui-spin 1s linear infinite;
+}
+
+.pui-gradient-animation:after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  border-radius: 50%;
+  border: 2.5px solid transparent;
+  border-top-color: #73ABE3;
+  -webkit-animation: pui-spin 1.25s linear infinite;
+  animation: pui-spin 1.25s linear infinite;
+}

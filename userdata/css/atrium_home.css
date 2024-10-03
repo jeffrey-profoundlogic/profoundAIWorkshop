@@ -1,0 +1,37 @@
+
+body {
+
+  margin: 0px;
+  font-family: "Segoe UI", tahoma, arial, helvetica, sans-serif;
+  
+}
+
+div.container {
+
+  margin: auto;
+  width: 1704px;
+  height: 788px;
+  background-image: url(/profoundui/proddata/images/splash/atrium_hp.jpg);
+  background-repeat: no-repeat;
+  
+}
+
+div.content {
+
+  padding-top: 225px;
+  padding-left: 32%;
+  width: 650px;
+  text-align: center;
+  font-family: "Segoe UI", tahoma, arial, helvetica, sans-serif;
+  font-size: 22px;
+  color: #004876;
+
+}
+
+h2 {
+
+  text-align: center;
+  font-family: "Segoe UI", tahoma, arial, helvetica, sans-serif;
+  font-size: 32px;
+  color: #004876;
+}

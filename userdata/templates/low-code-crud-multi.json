@@ -1,0 +1,687 @@
+{
+  "text": "",
+  "logic": {
+    "load records #suffix": {
+      "steps": [
+        {
+          "text": "Search criteria entered?",
+          "answers": {
+            "plugin": "Conditions:comparison",
+            "variable": "mainScreen_#suffix[\"searchValue\"]",
+            "type": "truthy",
+            "and-or": ""
+          },
+          "isStructureStart": true
+        },
+        {
+          "text": "Search records",
+          "answers": {
+            "plugin": "Database:get-records",
+            "connection": "#connection",
+            "tables": "#table",
+            "columns": "#grid_and_key_columns",
+            "criteria": "#search_criteria",
+            "add_order_by": false,
+            "limit": "5000",
+            "destination": "Grid",
+            "grid": "grid_#suffix"
+          }
+        },
+        {
+          "isStructureEnd": true
+        },
+        {
+          "text": "Otherwise",
+          "answers": {
+            "plugin": "Conditions:else"
+          },
+          "isStructureStart": true
+        },
+        {
+          "text": "Load all records",
+          "answers": {
+            "plugin": "Database:get-records",
+            "connection": "#connection",
+            "tables": "#table",
+            "columns": "#grid_and_key_columns",
+            "criteria": "",
+            "add_order_by": false,
+            "limit": "5000",
+            "destination": "Grid",
+            "grid": "grid_#suffix"
+          }
+        },
+        {
+          "isStructureEnd": true
+        }
+      ]
+    },
+    "clear search #suffix": {
+      "steps": [
+        {
+          "text": "Clear search value",
+          "answers": {
+            "plugin": "Program Data:set-screen-fields",
+            "screen": "mainScreen_#suffix",
+            "source": "Specify each value individually",
+            "screen-values": {
+              "searchValue": "''"
+            }
+          }
+        }
+      ]
+    },
+    "add button click #suffix": {
+      "steps": [
+        {
+          "text": "Show detail screen for adding a record",
+          "answers": {
+            "plugin": "Navigation:show-screen",
+            "screen": "detailScreen_#suffix",
+            "populate": true,
+            "source": "Specify each value individually",
+            "screen-values": {
+              "#fieldKey": "''",
+              "dialogTitle": "'Add Record'",
+              "#field": "''"
+            }
+          }
+        }
+      ]
+    },
+    "edit icon click #suffix": {
+      "steps": [
+        {
+          "text": "Retrieve record",
+          "answers": {
+            "plugin": "Database:get-record",
+            "connection": "#connection",
+            "tables": "#table",
+            "columns": "#columns",
+            "criteria": "#criteria",
+            "destination": "Screen",
+            "screen": "detailScreen_#suffix"
+          }
+        },
+        {
+          "text": "Show edit window",
+          "answers": {
+            "plugin": "Navigation:show-screen",
+            "screen": "detailScreen_#suffix",
+            "populate": true,
+            "source": "Specify each value individually",
+            "screen-values": {
+              "dialogTitle": "'Edit Record'"
+            }
+          }
+        }
+      ]
+    },
+    "delete icon click #suffix": {
+      "steps": [
+        {
+          "text": "Ask to confirm",
+          "answers": {
+            "plugin": "Navigation:show-message-box",
+            "title": "Delete Record",
+            "message": "Are you sure?",
+            "icon": "question",
+            "button1": "Yes",
+            "button2": "No",
+            "button3": "",
+            "button4": "",
+            "button5": "",
+            "capture_response": true,
+            "destination": "Work variable",
+            "work_variable": "sure"
+          }
+        },
+        {
+          "text": "If sure",
+          "answers": {
+            "plugin": "Conditions:comparison",
+            "variable": "sure",
+            "type": "==",
+            "value": "'Yes'",
+            "and-or": ""
+          },
+          "isStructureStart": true
+        },
+        {
+          "text": "Delete record",
+          "answers": {
+            "plugin": "Database:delete-records",
+            "connection": "#connection",
+            "table": "#table",
+            "criteria": "#criteria"
+          }
+        },
+        {
+          "text": "Any problems?",
+          "answers": {
+            "plugin": "Conditions:success",
+            "not": true
+          },
+          "isStructureStart": true
+        },
+        {
+          "text": "Show message",
+          "answers": {
+            "plugin": "Navigation:show-message-box",
+            "title": "Error",
+            "message": "Record could not be deleted.\r\n<br/>\r\n<br/>\r\n${_error.message}",
+            "icon": "error",
+            "button1": "",
+            "button2": "",
+            "button3": "",
+            "button4": "",
+            "button5": "",
+            "capture_response": false
+          }
+        },
+        {
+          "isStructureEnd": true
+        },
+        {
+          "isStructureEnd": true
+        }
+      ]
+    },
+    "save button click #suffix": {
+      "steps": [
+        {
+          "text": "Update/insert record",
+          "answers": {
+            "plugin": "Database:update-insert-record",
+            "connection": "#connection",
+            "table": "#table",
+            "criteria": "#criteria",
+            "record_source": "From a screen",
+            "screen": "detailScreen_#suffix"
+          }
+        },
+        {
+          "text": "Any problems?",
+          "answers": {
+            "plugin": "Conditions:success",
+            "not": true
+          },
+          "isStructureStart": true
+        },
+        {
+          "text": "Show message",
+          "answers": {
+            "plugin": "Navigation:show-message-box",
+            "title": "Error",
+            "message": "Record could not be saved.\r\n<br/>\r\n<br/>\r\n${_error.message}",
+            "icon": "error",
+            "button1": "",
+            "button2": "",
+            "button3": "",
+            "button4": "",
+            "button5": "",
+            "capture_response": false
+          }
+        },
+        {
+          "text": "Stop",
+          "answers": {
+            "plugin": "Navigation:terminate-routine"
+          }
+        },
+        {
+          "isStructureEnd": true
+        },
+        {
+          "text": "Go back",
+          "answers": {
+            "plugin": "Navigation:show-screen",
+            "screen": "mainScreen_#suffix",
+            "populate": false
+          }
+        }
+      ]
+    },
+    "cancel button click #suffix": {
+      "steps": [
+        {
+          "text": "Go back",
+          "answers": {
+            "plugin": "Navigation:show-screen",
+            "screen": "mainScreen_#suffix",
+            "populate": false
+          }
+        }
+      ]
+    },
+    "work with icon click #suffix": {
+      "steps": [
+        {
+          "text": "Retrieve record",
+          "answers": {
+            "plugin": "Database:get-record",
+            "tables": "#table",
+            "columns": "#columns",
+            "criteria": "#criteria",
+            "destination": "Screen",
+            "screen": "detailScreen_#suffix"
+          }
+        },
+        {
+          "text": "Show main screen detail",
+          "isNew": true,
+          "answers": {
+            "plugin": "Navigation:show-screen",
+            "screen": "mainScreen_#suffix",
+            "populate": false
+          }
+        }
+      ]
+    },
+    "previous link click #suffix": {
+      "steps": [
+        {
+          "text": "Go to previous list",
+          "isNew": true,
+          "answers": {
+            "plugin": "Navigation:show-screen",
+            "screen": "mainScreen_#suffix",
+            "populate": false
+          }
+        }
+      ]
+    }
+  },
+  "formats": [
+    {
+      "screen": {
+        "record format name": "mainScreen_#suffix",
+        "initial routine": {
+          "routine": "load records #suffix",
+          "designValue": "load records #suffix"
+        },
+        "description": "List or Search Records"
+      },
+      "items": [
+        {
+          "id": "CenteringLayout_#suffix",
+          "field type": "layout",
+          "left": "calc(50% - 252px)",
+          "top": "20px",
+          "template": "simple container",
+          "height": "525px",
+          "width": "505px",
+          "center horizontally": "true",
+          "locked in place": "true"
+        },
+        {
+          "id": "SearchBox_#suffix",
+          "field type": "textbox",
+          "css class": "blueprint-defaults",
+          "left": "30px",
+          "top": "25px",
+          "width": "345px",
+          "height": "25px",
+          "css class 2": "blueprint-textbox",
+          "value": {
+            "fieldName": "searchValue",
+            "trimLeading": "false",
+            "trimTrailing": "true",
+            "blankFill": "false",
+            "rjZeroFill": "false",
+            "dataType": "string",
+            "formatting": "Text",
+            "textTransform": "none",
+            "designValue": "[searchValue]"
+          },
+          "layout": "CenteringLayout_#suffix",
+          "container": "1"
+        },
+        {
+          "id": "SearchButton_#suffix",
+          "field type": "graphic button",
+          "css class": "blueprint-button",
+          "value": "Search",
+          "top": "25px",
+          "width": "100px",
+          "icon position": "left",
+          "css class 2": "blueprint-alt-defaults",
+          "css class 3": "no-icon",
+          "height": "25px",
+          "icon": "material:search",
+          "left": "390px",
+          "response": {
+            "fieldName": "searchButton",
+            "customTrue": "",
+            "customFalse": "",
+            "dataType": "indicator",
+            "formatting": "Indicator",
+            "indFormat": "1 / 0"
+          },
+          "layout": "CenteringLayout_#suffix",
+          "container": "1"
+        },
+        {
+          "id": "AddButton_#suffix",
+          "field type": "graphic button",
+          "css class": "blueprint-button",
+          "value": "Add",
+          "left": "30px",
+          "top": "80px",
+          "width": "80px",
+          "icon position": "left",
+          "css class 2": "blueprint-alt-defaults",
+          "css class 3": "no-icon",
+          "height": "25px",
+          "onclick": {
+            "routine": "add button click #suffix",
+            "designValue": "add button click #suffix"
+          },
+          "icon": "material:playlist_add",
+          "layout": "CenteringLayout_#suffix",
+          "container": "1"
+        },
+        {
+          "id": "Grid_#suffix",
+          "field type": "grid",
+          "css class": "blueprint-grid",
+          "left": "25px",
+          "top": "75px",
+          "number of rows": "10",
+          "number of columns": "2",
+          "column widths": "125,209",
+          "column headings": ",#heading",
+          "header height": "35",
+          "row height": "39",
+          "height": "386px",
+          "width": "335px",
+          "css class 2": "blueprint-defaults",
+          "visibility": "visible",
+          "border color": "transparent",
+          "record format name": "grid_#suffix",
+          "xlsx export": "true",
+          "position at top": "true",
+          "filter option": "true",
+          "sortable columns": "true",
+          "hide columns option": "true",
+          "description": "Grid of Records",
+          "subfile record number": {
+            "fieldName": "topRecordNumber",
+            "dataLength": "5",
+            "decPos": "0",
+            "curSym": "",
+            "dataType": "zoned",
+            "formatting": "Number",
+            "negNum": "-999.00",
+            "units": ""
+          },
+          "subfile return rrn": {
+            "fieldName": "topRecordNumber",
+            "dataLength": "5",
+            "decPos": "0",
+            "curSym": "",
+            "dataType": "zoned",
+            "formatting": "Number",
+            "negNum": "-999.00",
+            "units": ""
+          },
+          "export with headings": "true",
+          "layout": "CenteringLayout_#suffix",
+          "container": "1"
+        },
+        {
+          "id": "ClearIcon_#suffix",
+          "field type": "icon",
+          "icon": "material:clear",
+          "left": "350px",
+          "top": "25px",
+          "z index": "22",
+          "cursor": "pointer",
+          "onclick": {
+            "routine": "clear search #suffix",
+            "designValue": "clear search #suffix"
+          },
+          "height": "25px",
+          "layout": "CenteringLayout_#suffix",
+          "container": "1"
+        },
+        {
+          "id": "PreviousLink_#suffix",
+          "field type": "hyperlink",
+          "css class": "link",
+          "value": "< Back to previous list",
+          "left": "25px",
+          "top": "5px",
+          "color": "#0066CC",
+          "height": "15px",
+          "width": "180px",
+          "layout": "CenteringLayout_#suffix",
+          "container": "1",
+          "onclick": {
+            "routine": "previous link click #suffix",
+            "designValue": "previous link click #suffix"
+          }
+        },
+        {
+          "id": "EditIcon_#suffix",
+          "field type": "icon",
+          "left": "15px",
+          "top": "5px",
+          "icon": "fontAwesome-solid:edit",
+          "color": "#0099CC",
+          "cursor": "pointer",
+          "tool tip": "Edit record...",
+          "onclick": {
+            "routine": "edit icon click #suffix",
+            "designValue": "edit icon click #suffix"
+          },
+          "user defined data": {
+            "fieldName": "#key",
+            "refField": "#key #table",
+            "trimLeading": "false",
+            "trimTrailing": "true",
+            "blankFill": "false",
+            "rjZeroFill": "false",
+            "dataType": "reference",
+            "formatting": "Text",
+            "textTransform": "none"
+          },
+          "grid": "Grid_#suffix",
+          "column": "0"
+        },
+        {
+          "id": "DeleteIcon_#suffix",
+          "field type": "icon",
+          "left": "50px",
+          "top": "5px",
+          "icon": "material:delete_forever",
+          "color": "#FF0000",
+          "cursor": "pointer",
+          "tool tip": "Delete record...",
+          "onclick": {
+            "routine": "delete icon click #suffix",
+            "designValue": "delete icon click #suffix"
+          },
+          "user defined data": {
+            "fieldName": "#key",
+            "refField": "#key #table",
+            "trimLeading": "false",
+            "trimTrailing": "true",
+            "blankFill": "false",
+            "rjZeroFill": "false",
+            "dataType": "reference",
+            "formatting": "Text",
+            "textTransform": "none"
+          },
+          "grid": "Grid_#suffix",
+          "column": "0"
+        },
+        {
+          "id": "#field_#suffix",
+          "field type": "output field",
+          "css class": "outputField",
+          "value": {
+            "fieldName": "#field",
+            "refField": "#field #table",
+            "trimLeading": "false",
+            "trimTrailing": "true",
+            "blankFill": "false",
+            "rjZeroFill": "false",
+            "dataType": "reference",
+            "formatting": "Text",
+            "textTransform": "none",
+            "designValue": "[#field]"
+          },
+          "left": "10px",
+          "top": "10px",
+          "css class 2": "blueprint-defaults",
+          "css class 3": "blueprint-output-field",
+          "grid": "Grid_#suffix",
+          "column": "1"
+        },
+        {
+          "id": "WorkWithIcon_#suffix",
+          "field type": "icon",
+          "color": "#0099CC",
+          "icon": "material:list",
+          "left": "85px",
+          "top": "5px",
+          "cursor": "pointer",
+          "tool tip": "Detail records...",
+          "onclick": {
+            "routine": "work with icon click #suffix",
+            "designValue": "work with icon click #suffix"
+          },
+          "grid": "Grid_#suffix",
+          "column": "0"
+        }
+      ]
+    },
+    {
+      "screen": {
+        "record format name": "detailScreen_#suffix",
+        "animated screen": "new",
+        "animation": "slide-down",
+        "overlay screens": "true",
+        "user defined data": {
+          "fieldName": "#fieldKey",
+          "refField": "#field #table",
+          "trimLeading": "false",
+          "trimTrailing": "true",
+          "blankFill": "false",
+          "rjZeroFill": "false",
+          "dataType": "reference",
+          "formatting": "Text",
+          "textTransform": "none"
+        },
+        "description": "Add / Edit Records"
+      },
+      "items": [
+        {
+          "id": "DetailPanel_#suffix",
+          "field type": "layout",
+          "css class": "blueprint-defaults",
+          "left": "10%",
+          "top": "40px",
+          "template": "css panel",
+          "header text": {
+            "fieldName": "dialogTitle",
+            "trimLeading": "false",
+            "trimTrailing": "true",
+            "blankFill": "false",
+            "rjZeroFill": "false",
+            "dataType": "string",
+            "formatting": "Text",
+            "textTransform": "none",
+            "designValue": "[dialogTitle]"
+          },
+          "header theme": "blueprint-light-blue-header",
+          "body theme": "blueprint-white-body",
+          "height": "165px",
+          "width": "80%",
+          "css class 2": "blueprint-panel",
+          "center horizontally": "true",
+          "max width": "800px"
+        },
+        {
+          "id": "#field_#suffix",
+          "field type": "textbox",
+          "css class": "blueprint-defaults",
+          "value": {
+            "fieldName": "#field",
+            "refField": "#field #table",
+            "trimLeading": "false",
+            "trimTrailing": "true",
+            "blankFill": "false",
+            "rjZeroFill": "false",
+            "dataType": "reference",
+            "formatting": "Text",
+            "textTransform": "none",
+            "designValue": "[#field]"
+          },
+          "left": "35%",
+          "top": "15px",
+          "height": "25px",
+          "width": "60%",
+          "css class 2": "blueprint-textbox",
+          "layout": "DetailPanel_#suffix",
+          "container": "1"
+        },
+        {
+          "id": "#label_#suffix",
+          "field type": "output field",
+          "css class": "label",
+          "value": "#label",
+          "left": "20px",
+          "top": "20px",
+          "css class 2": "blueprint-defaults",
+          "css class 3": "blueprint-label",
+          "layout": "DetailPanel_#suffix",
+          "container": "1"
+        },
+        {
+          "id": "SaveButton_#suffix",
+          "field type": "graphic button",
+          "css class": "pui-solid-button-yes",
+          "value": "Save",
+          "left": "35%",
+          "top": "70px",
+          "width": "100px",
+          "icon position": "left",
+          "css class 2": "blueprint-defaults",
+          "icon": "material:check",
+          "height": "25px",
+          "onclick": {
+            "routine": "save button click #suffix",
+            "designValue": "save button click #suffix"
+          },
+          "shortcut key": "Enter",
+          "layout": "DetailPanel_#suffix",
+          "container": "1"
+        },
+        {
+          "id": "CancelButton_#suffix",
+          "field type": "graphic button",
+          "css class": "pui-solid-button-no",
+          "value": "Cancel",
+          "left": "calc(35% + 120px)",
+          "top": "70px",
+          "width": "100px",
+          "icon position": "left",
+          "css class 2": "blueprint-defaults",
+          "icon": "material:clear",
+          "height": "25px",
+          "onclick": {
+            "routine": "cancel button click #suffix",
+            "designValue": "cancel button click #suffix"
+          },
+          "bypass validation": "true",
+          "layout": "DetailPanel_#suffix",
+          "container": "1"
+        }
+      ]
+    }
+  ],
+  "keywords": [],
+  "long name aliases": true
+}

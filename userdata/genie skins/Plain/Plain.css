@@ -1,0 +1,546 @@
+
+#5250 {
+  text-align: center;
+}
+
+.BigText {
+  color: #000066;
+  font-weight: bold;
+  font-size: 15px;
+  text-align: right;
+  font-family: arial;
+  width: 100px;
+}
+
+
+/* Push Button */
+INPUT.button {
+	color: #335588;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+/* Selector Pen */
+.selpen {
+
+}
+
+/* Calendar Classes */
+.calendar {
+	font-size:11px;
+	font-weight:bold;
+	cursor:pointer;
+}
+.brndrow1 {
+	background-color: #5588BB;
+}
+.brndrow1 A {
+  border: 0px;
+}
+.brndrow1 A:hover {
+  border: 0px;
+}
+
+.brndrow2
+{
+	background-color: #5588BB;
+}
+
+
+/* Context Menu on a Subfile right-click */
+#menuDiv {
+  border: 2px dashed #CCCCCC; 
+}
+.menu {
+  background: #5588BB;
+}
+.menu TR {
+  cursor: pointer;
+}
+.menu TD {
+  font-family: Arial;
+  font-size: 12px;	
+  color: white;
+}
+.menuHover TD {
+  background: #FFFF66;
+  color: #0000FF;
+}
+
+
+
+body {
+  margin: 0px 0px 0px 0px;
+  text-align: center;
+  vertical-align: middle;
+  background-repeat: repeat-y;
+  background-color: #c6e2ff;
+  font-family: Trebuchet MS; 
+  font-size: 14px;
+  overflow: auto;	  	
+}
+
+div {
+  padding: 1px;
+  z-index: 10;
+  text-align: left;
+}
+
+img {
+  z-index: 10;
+}
+
+
+
+.hand {
+  cursor: pointer;
+}
+
+
+
+.input {
+  font-family: Monospace;
+  font-weight: bold;
+  font-size: 13px;
+  z-index: 20;
+}
+.focusInp {
+	background: #ffffdd;
+  font-weight: bold;
+  font-family: Monospace;
+  font-size: 13px;
+  z-index: 20;
+}
+
+.label {
+  text-align: right;
+  font-weight: bold;
+  color: #003399;
+}
+
+.heading {
+  color: #105184;
+  font-weight: bold;
+  font-size: 20px
+}
+
+SELECT {
+  font-family:  Monospace;
+  font-size: 13px;
+  background: #F0FFFF;
+  border: 3px double #8EC8FF;
+  z-index: 20;
+}
+
+BUTTON {
+  z-index: 20;
+}
+
+INPUT {
+  font-family: Monospace;
+  font-size: 13px;
+  z-index: 20;
+}
+
+TEXTAREA {
+  z-index: 20;
+}
+
+
+
+/* Spaced Window Border */
+DIV.Spaced {
+  background-color: #FFFFFF;
+  border-style: solid;                                                                                                  
+  border-top-width: 12px; 
+  border-bottom-width: 12px; 
+  border-right-width: 8px ; 
+  border-left-width: 8px;
+  filter: progid:DXImageTransform.Microsoft.Shadow(color=white, direction=135, strength=6);
+  z-index: 30;
+  
+}
+
+/* default window border */
+DIV.Default {
+  background-color: #FFFFFF;
+  border-style: solid;                                                                                                  
+  border-top-width: 2px; 
+  border-bottom-width: 2px; 
+  border-right-width: 2px ; 
+  border-left-width: 2px;
+  border-right-style: outset;
+  border-bottom-style: outset;
+  z-index: 30;
+}
+
+.Title
+{
+  vertical-align: text-top; 
+  background-color: #FFFFFF; 
+  z-index: 40;
+}
+
+
+
+
+
+A {
+  text-decoration: none;
+  border-bottom: 1px dotted #c1b6b6;  
+}
+A:hover {
+  border: 2px solid #5588BB;
+  background-color: #6699CC;
+}
+
+.A20 A {
+  color: #003399;
+}
+.A3A A /*Blue*/
+{
+  color: #336699;
+}
+.A22 A  /*White*/
+{
+  color: #003399;
+}
+
+
+
+
+
+
+/* Regular Green */
+DIV.A20 {
+  color: #003399;
+  font-weight: bold;
+}
+INPUT.A20 {
+  color: #003399;
+  font-weight: bold;
+}
+
+.A21  /*Reverse Green*/
+{
+  background-color: #FFCC00;
+  color: #224E9F;
+}
+INPUT.A22 /* White Input Field */
+{
+  font-weight: bold;
+  color: black;
+}
+.A22  /*White*/
+{
+  color: 3366CC;
+  font-weight: bold;
+  
+}
+.A23 /*Reverse White*/
+{
+  color: #FFFFFF; 
+  background-color: white;
+}
+INPUT.A24 {
+  color: black;
+}
+DIV.A24 /*Green Underscore*/
+{
+  color: #FFCC00;
+  border-bottom: solid 1px #FFCC00;
+}
+DIV.A25 /*Green Underscore Reverse*/
+{
+  color: #224E9F; 
+  background-color: #FFCC00;
+  border-bottom: solid 1px #224E9F;
+}
+INPUT.A25 /*Green Underscore Reverse*/
+{
+  color: #224E9F; 
+  background-color: #FFCC00;
+}
+DIV.A26 /*White Underscore*/
+{
+  color: white;
+  border-bottom: solid 1px white;
+}
+INPUT.A26 /* White Underscore Input Field */
+{
+  font-weight: bold;
+  color: black;
+}
+INPUT.A27 /* Nondisplay Input */
+{
+  color: black; 
+}
+DIV.A27 /*Nondisplay Output*/
+{
+  visibility: hidden;
+}
+.A28 /*Red*/
+{
+  color: red;
+}
+.A29 /*Reverse Red*/
+{
+  color: #FFFFFF; 
+  background-color: red;
+}
+DIV.A2C /*Red Underscore*/
+{
+  color: Red;
+  border-bottom: solid 1px Red;  
+}
+INPUT.A2C /*Red Underscore*/
+{
+  color: Red;
+}
+DIV.A2D /*Red Underscore Reverse */
+{
+  color: #FFFFFF; 
+  background-color: red;
+  border-bottom: #336699;
+
+}
+INPUT.A2D /*Red Underscore Reverse */
+{
+  color: #FFFFFF; 
+  background-color: red;
+
+}
+DIV.A2F /*Nondisplay*/
+{
+  visibility: hidden;
+}
+DIV.A30 /*Turquise (Column Seperators)*/ 
+{
+  color: aqua;
+  border-bottom: thin dashed;
+}
+INPUT.A30 /*Turquise (Column Seperators)*/ 
+{
+  color: navy;
+}
+.A31 /*Turquise Reverse*/ 
+{
+  color: #FFFFFF;
+  background-color: aqua;
+}
+DIV.A32 /*Yellow (Column Separators)*/
+{
+  color: yellow;
+  border-bottom: thin dashed;
+}
+INPUT.A32 /*Yellow (Column Separators)*/
+{
+  color: black;
+}
+.A33 /*Yellow Reverse*/ 
+{
+  color: #FFFFFF;
+  background-color: yellow;
+}
+DIV.A34 /*Turquise Underscore*/ 
+{
+  color: aqua;
+  border-bottom: solid 1px aqua;
+}
+INPUT.A34 /*Turquise Underscore*/ 
+{
+  color: black;
+}
+DIV.A35 /*Turqouise Underscore Reverse*/
+{
+  color: #FFFFFF;
+  background-color: aqua;
+  border-bottom: solid 1px #336699;
+}
+INPUT.A35 /*Turqouise Underscore Reverse*/
+{
+  color: #FFFFFF;
+  background-color: aqua;
+}
+DIV.A36 /*Yellow Underscore*/
+{
+  color: yellow;
+  border-bottom: solid 1px yellow;
+}
+INPUT.A36 /*Yellow Underscore*/
+{
+  color: black;
+}
+.A37 /*Nondisplay*/
+{ 
+  color: #FFFFFF; 
+  background-color: #FFFFFF;
+}
+.A38 /*Pink*/
+{
+  color: fuchsia;
+}
+.A39 /*Pink Reverse*/
+{
+  color: #FFFFFF;
+  background-color: fuchsia;
+}
+.A3A /*Blue*/
+{
+  color: #336699;
+  font-size: 14px;
+  font-weight: bold;
+}
+.A3B /*Blue Reverse */
+{
+  color: #FFFFFF; 
+  background-color: #CCCCFF;
+}
+DIV.A3C /*Pink Underscore*/
+{
+  color: fuchsia;
+  border-bottom: solid 1px fuchsia;
+}
+INPUT.A3C /*Pink Underscore*/
+{
+  color: fuchsia;
+}
+DIV.A3D /*Pink Underscore Reverse*/
+{
+  color: #336699; 
+  background-color: fuchsia;
+  border-bottom: solid 1px #336699;
+}
+INPUT.A3D /*Pink Underscore Reverse*/
+{
+  color: #336699; 
+  background-color: fuchsia;
+}
+DIV.A3E /*Blue Underscore*/
+{
+  color: #CCCCFF;
+  border-bottom: solid 1px #CCCCFF;
+}
+INPUT.A3E /*Blue Underscore*/
+{
+  color: #CCCCFF;
+}
+
+.hide {
+  visibility: hidden;
+}
+
+.upper {
+  text-transform: uppercase; 
+}
+
+
+
+
+
+INPUT.readOnly {
+	background: #c6e2ff;
+	border: 0px;
+  color: #003399;	
+}
+
+.autocomplete-item {
+
+	border-style: solid;
+	border-width: 1px;
+	border-color: #FFFFFF rgb(255, 255, 255) rgb(238, 238, 238);
+	font-size: 10px;
+	font-family: tahoma, arial, helvetica, sans-serif;
+	color: #555555;
+	background-color: #FFFFFF;
+	cursor: pointer;
+	margin: 0px;
+	padding: 4px 4px 4px 4px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-align: left;	
+
+}
+
+.autocomplete-selected {
+
+	background-color: #DFE8F6;
+	border: 1px dotted #A3BAE9 !important; 
+
+
+}
+
+.autocomplete-col {
+
+	overflow: hidden;
+	white-space: nowrap;
+
+}
+
+
+
+
+.link1 A {
+  font-family: Verdana;
+  color: #009999;
+  text-decoration: none;
+  border-bottom: 1px dotted #888888;
+}
+.link1 A:hover {
+  border: 1px solid #cccccc;
+}
+
+.link2 A {
+  font-family: Arial;
+  text-decoration: none;
+  border-bottom: 1px dotted #c1b6b6;  
+}
+.link2 A:hover {
+  border: 1px solid #999999;
+  font-weight: bold;
+  font-size: 15px;
+  color: white;
+  background-color: #5588BB;
+}
+
+
+.link3 A {
+  text-decoration: none;
+  border-bottom: 1px dotted #c1b6b6;
+  color: #333333;
+}
+.link3 A:hover {
+  border: 2px solid #c23c00;
+  background-color: #ffd7b2;
+}
+
+.link4 A {
+  text-decoration: none;
+}
+.link4 A:hover {
+  text-decoration: underline;
+}
+
+.link5 A {
+  font-weight: bold;
+  text-decoration: none;
+}
+.link5 A:hover {  
+  border-top: 1px dashed #4866d5;
+  border-bottom: 1px dashed #4866d5;
+}
+
+.link6 A {
+  font-family: Arial;
+  font-size: 14px;
+  color: blue;
+  text-decoration: none;
+}
+.link6 A:hover {  
+  font-weight: bold;
+}
+
+INPUT.empty-text, TEXTAREA.empty-text {
+  color: gray;
+  border: 1px solid #B5B8C8;
+}

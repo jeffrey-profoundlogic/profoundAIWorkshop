@@ -1,0 +1,17 @@
+{
+  "routines": [
+    {
+      "name": "Unnamed Routine - 1",
+      "steps": [
+        {
+          "text": "Custom Node.js",
+          "answers": {
+            "plugin": "Custom:code",
+            "custom-code": "console.log(\"Test.module.json\");",
+            "comment": ""
+          }
+        }
+      ]
+    }
+  ]
+}

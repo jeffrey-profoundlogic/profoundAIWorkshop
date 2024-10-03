@@ -1,0 +1,2129 @@
+{
+  "text": "",
+  "logic": {
+    "load customers": {
+      "steps": [
+        {
+          "text": "Set work variable(s)",
+          "answers": {
+            "plugin": "Program Data:set-work-variable",
+            "work-variable-values": {
+              "htmlKPI": "''"
+            },
+            "comment": ""
+          }
+        },
+        {
+          "text": "Ask AI Agent",
+          "answers": {
+            "plugin": "Custom:ask-ai-agent",
+            "agent-name": "customerservice.agent.json",
+            "agent-data-values": {
+              "orderID": "'10398'",
+              "customerID": "'SAVEA'"
+            },
+            "message": "Run this SQL Statement:  sql SELECT Customers.CompanyName, SUM(Orders.Freight) as TotalSales FROM Orders JOIN Customers ON Orders.CustomerID = Customers.CustomerID WHERE YEAR(OrderDate) = 2023 GROUP BY Customers.CompanyName ORDER BY SUM(Orders.Freight) DESC\n\nThen output the results in kpi format using html",
+            "custom-config": "",
+            "work-variable": "htmlKPI",
+            "comment": ""
+          }
+        },
+        {
+          "text": "Set screen field(s)",
+          "answers": {
+            "plugin": "Program Data:set-screen-fields",
+            "screen": "customers",
+            "source": "Specify each value individually",
+            "screen-values": {
+              "htmlKPIContent": "htmlKPI"
+            },
+            "comment": ""
+          }
+        },
+        {
+          "text": "Custom Node.js",
+          "answers": {
+            "plugin": "Custom:code",
+            "custom-code": "console.log(htmlKPI)",
+            "comment": ""
+          }
+        },
+        {
+          "text": "Search criteria entered?",
+          "answers": {
+            "plugin": "Conditions:comparison",
+            "variable": "customers[\"searchValue\"]",
+            "type": "truthy",
+            "and-or": ""
+          },
+          "isStructureStart": true,
+          "collapsed": false
+        },
+        {
+          "text": "Search records",
+          "answers": {
+            "plugin": "Database:get-records",
+            "connection": "MSSQL",
+            "tables": "NORTHWIND/CUSTOMERS",
+            "columns": "customerid,companyname,city,country",
+            "criteria": "UPPER(customerid) LIKE CONCAT(CONCAT('%', UPPER(?)), '%') OR UPPER(companyname) LIKE CONCAT(CONCAT('%', UPPER(?)), '%') OR upper(contactname) LIKE CONCAT(CONCAT('%', UPPER(?)), '%') OR upper(contacttitle) LIKE CONCAT(CONCAT('%', UPPER(?)), '%') OR upper(address) LIKE CONCAT(CONCAT('%', UPPER(?)), '%') OR upper(city) LIKE CONCAT(CONCAT('%', UPPER(?)), '%') OR upper(region) LIKE CONCAT(CONCAT('%', UPPER(?)), '%') OR postalcode LIKE CONCAT(CONCAT('%', ?), '%') OR upper(country) LIKE CONCAT(CONCAT('%', UPPER(?)), '%') OR phone LIKE CONCAT(CONCAT('%', ?), '%') OR fax LIKE CONCAT(CONCAT('%', ?), '%')",
+            "parameter": "customers[\"searchValue\"]",
+            "parameter_2": "customers[\"searchValue\"]",
+            "parameter_3": "customers[\"searchValue\"]",
+            "parameter_4": "customers[\"searchValue\"]",
+            "parameter_5": "customers[\"searchValue\"]",
+            "parameter_6": "customers[\"searchValue\"]",
+            "parameter_7": "customers[\"searchValue\"]",
+            "parameter_8": "customers[\"searchValue\"]",
+            "parameter_9": "customers[\"searchValue\"]",
+            "parameter_10": "customers[\"searchValue\"]",
+            "parameter_11": "customers[\"searchValue\"]",
+            "add_order_by": false,
+            "limit": "5000",
+            "skip": "",
+            "destination": "Grid",
+            "grid": "cgrid",
+            "comment": ""
+          }
+        },
+        {
+          "isStructureEnd": true
+        },
+        {
+          "text": "Otherwise",
+          "answers": {
+            "plugin": "Conditions:else"
+          },
+          "isStructureStart": true,
+          "collapsed": false
+        },
+        {
+          "text": "Load all records",
+          "answers": {
+            "plugin": "Database:get-records",
+            "connection": "MSSQL",
+            "tables": "NORTHWIND/CUSTOMERS",
+            "columns": "customerid,companyname,city,country",
+            "criteria": "",
+            "add_order_by": false,
+            "limit": "5000",
+            "skip": "",
+            "destination": "Grid",
+            "grid": "cgrid",
+            "comment": ""
+          }
+        },
+        {
+          "isStructureEnd": true
+        }
+      ]
+    },
+    "clear search": {
+      "steps": [
+        {
+          "text": "Clear search value",
+          "answers": {
+            "plugin": "Program Data:set-screen-fields",
+            "screen": "customers",
+            "source": "Specify each value individually",
+            "screen-values": {
+              "searchValue": "''"
+            }
+          }
+        }
+      ]
+    },
+    "save button click": {
+      "steps": [
+        {
+          "text": "Update/insert record",
+          "answers": {
+            "plugin": "Database:update-insert-record",
+            "connection": "MSSQL",
+            "table": "CUSTOMERS",
+            "criteria": "customerid = ?",
+            "parameter": "customerDetail[\"customeridKey\"]",
+            "record_source": "From a screen",
+            "screen": "customerDetail",
+            "results": "",
+            "comment": ""
+          }
+        },
+        {
+          "text": "Any problems?",
+          "answers": {
+            "plugin": "Conditions:success",
+            "not": true
+          },
+          "isStructureStart": true,
+          "collapsed": false
+        },
+        {
+          "text": "Show message",
+          "answers": {
+            "plugin": "Navigation:show-message-box",
+            "title": "Error",
+            "message": "Record could not be saved.\r\n<br/>\r\n<br/>\r\n${_error.message}",
+            "icon": "error",
+            "button1": "",
+            "button2": "",
+            "button3": "",
+            "button4": "",
+            "button5": "",
+            "capture_response": false
+          }
+        },
+        {
+          "text": "Stop",
+          "answers": {
+            "plugin": "Navigation:terminate-routine"
+          }
+        },
+        {
+          "isStructureEnd": true
+        },
+        {
+          "text": "Go back",
+          "answers": {
+            "plugin": "Navigation:show-screen",
+            "screen": "customers",
+            "populate": false
+          }
+        }
+      ]
+    },
+    "cancel button click": {
+      "steps": [
+        {
+          "text": "Go back",
+          "answers": {
+            "plugin": "Navigation:show-screen",
+            "screen": "customers",
+            "populate": false
+          }
+        }
+      ]
+    },
+    "exit button click": {
+      "steps": [
+        {
+          "text": "Call external routine",
+          "answers": {
+            "plugin": "Custom:call-external-routine",
+            "module-name": "my.module.json",
+            "routine-name": "Unnamed Routine - 1",
+            "module-input-parameters": {},
+            "module-output-parameters": {},
+            "comment": ""
+          }
+        },
+        {
+          "text": "Exit",
+          "answers": {
+            "plugin": "Navigation:exit-program",
+            "comment": ""
+          }
+        }
+      ]
+    },
+    "display orders": {
+      "steps": [
+        {
+          "text": "Custom SQL",
+          "answers": {
+            "plugin": "Database:custom-sql",
+            "connection": "MSSQL",
+            "sql": "SELECT \r\n    o.*,\r\n    s.COMPANYNAME as shipper,\r\n    COUNT(od.PRODUCTID) AS lines,\r\n    SUM((od.UNITPRICE * od.QUANTITY) * (1 - od.DISCOUNT)) AS total\r\nFROM \r\n    ORDERS o\r\nJOIN \r\n    ORDERDETAILS od ON o.ORDERID = od.ORDERID\r\nJOIN \r\n    SHIPPERS s ON o.SHIPVIA = s.SHIPPERID\r\nWHERE \r\n    o.CUSTOMERID = ?\r\n    \r\nGROUP BY \r\n    o.ORDERID, \r\n    o.CUSTOMERID, \r\n    o.EMPLOYEEID, \r\n    o.ORDERDATE, \r\n    o.REQUIREDDATE, \r\n    o.SHIPPEDDATE, \r\n    o.SHIPVIA, \r\n    o.FREIGHT, \r\n    o.SHIPNAME, \r\n    o.SHIPADDRESS, \r\n    o.SHIPCITY, \r\n    o.SHIPREGION, \r\n    o.SHIPPOSTALCODE, \r\n    o.SHIPCOUNTRY,\r\n    s.COMPANYNAME\r\nORDER BY \r\n    o.ORDERID;",
+            "parameter": "activeGridRecord[\"customerid\"]",
+            "save_result": true,
+            "first_record_only": false,
+            "destination": "Work variable",
+            "work_variable": "_results",
+            "comment": ""
+          },
+          "disabled": true
+        },
+        {
+          "text": "Custom Node.js",
+          "answers": {
+            "plugin": "Custom:code",
+            "custom-code": "console.log(_results)",
+            "comment": ""
+          },
+          "disabled": true
+        },
+        {
+          "text": "Custom SQL",
+          "answers": {
+            "plugin": "Database:custom-sql",
+            "connection": "MSSQL",
+            "sql": "SELECT \r\n    o.OrderID as orderid,\r\n    o.CustomerID as customerid,\r\n    o.EmployeeID as employeeid,\r\n    o.OrderDate as orderdate,\r\n    o.RequiredDate as requireddate,\r\n    o.ShippedDate as shippeddate,\r\n    o.ShipVia as shivia,\r\n    o.Freight as freight,\r\n    o.ShipName as shipname,\r\n    o.ShipAddress as shipaddress,\r\n    o.ShipCity as shipcity,\r\n    o.ShipRegion as shipregion,\r\n    o.ShipPostalCode as shippostalcode,\r\n    o.ShipCountry as shipcounty,\r\n    s.COMPANYNAME as shipper,\r\n    COUNT(od.PRODUCTID) AS lines,\r\n    SUM((od.UNITPRICE * od.QUANTITY) * (1 - od.DISCOUNT)) AS total\r\nFROM \r\n    ORDERS o\r\nJOIN \r\n    ORDERDETAILS od ON o.ORDERID = od.ORDERID\r\nJOIN \r\n    SHIPPERS s ON o.SHIPVIA = s.SHIPPERID\r\nWHERE \r\n    o.CUSTOMERID = ?\r\n    \r\nGROUP BY \r\n    o.ORDERID, \r\n    o.CUSTOMERID, \r\n    o.EMPLOYEEID, \r\n    o.ORDERDATE, \r\n    o.REQUIREDDATE, \r\n    o.SHIPPEDDATE, \r\n    o.SHIPVIA, \r\n    o.FREIGHT, \r\n    o.SHIPNAME, \r\n    o.SHIPADDRESS, \r\n    o.SHIPCITY, \r\n    o.SHIPREGION, \r\n    o.SHIPPOSTALCODE, \r\n    o.SHIPCOUNTRY,\r\n    s.COMPANYNAME\r\nORDER BY \r\n    o.ORDERID;",
+            "parameter": "activeGridRecord[\"customerid\"]",
+            "save_result": true,
+            "first_record_only": false,
+            "destination": "Grid",
+            "grid": "ogrid",
+            "comment": ""
+          }
+        },
+        {
+          "text": "Set screen field(s)",
+          "answers": {
+            "plugin": "Program Data:set-screen-fields",
+            "screen": "orders",
+            "source": "Specify each value individually",
+            "screen-values": {
+              "customerid": "activeGridRecord[\"customerid\"]",
+              "companyname": "activeGridRecord[\"companyname\"]"
+            },
+            "comment": ""
+          }
+        },
+        {
+          "text": "Show different screen",
+          "answers": {
+            "plugin": "Navigation:show-screen",
+            "screen": "orders",
+            "populate": false,
+            "comment": ""
+          }
+        }
+      ]
+    },
+    "Return to order list": {
+      "steps": [
+        {
+          "text": "Return to Previous Screen",
+          "answers": {
+            "plugin": "Navigation:show-previous-screen",
+            "comment": ""
+          }
+        }
+      ]
+    },
+    "Order Detail Screen": {
+      "steps": [
+        {
+          "text": "Set screen field(s)",
+          "answers": {
+            "plugin": "Program Data:set-screen-fields",
+            "screen": "orderdetails",
+            "source": "Specify each value individually",
+            "screen-values": {
+              "customerid": "orders[\"customerid\"]",
+              "companyname": "orders[\"companyname\"]",
+              "orderid": "activeGridRecord[\"orderid\"]",
+              "orderdate": "activeGridRecord[\"orderdate\"]",
+              "shipper": "activeGridRecord[\"shipper\"]",
+              "freight": "activeGridRecord[\"freight\"]"
+            },
+            "comment": ""
+          }
+        },
+        {
+          "text": "Show different screen",
+          "answers": {
+            "plugin": "Navigation:show-screen",
+            "screen": "orderdetails",
+            "comment": ""
+          }
+        }
+      ]
+    },
+    "Exit Back to Customers": {
+      "steps": [
+        {
+          "text": "Show different screen",
+          "answers": {
+            "plugin": "Navigation:show-screen",
+            "screen": "customers",
+            "comment": ""
+          }
+        }
+      ]
+    },
+    "Load Order Detail": {
+      "steps": [
+        {
+          "text": "Custom SQL",
+          "answers": {
+            "plugin": "Database:custom-sql",
+            "connection": "MSSQL",
+            "sql": "SELECT \r\n    o.ORDERID as orderid,\r\n    o.CUSTOMERID as customerid,\r\n    o.EMPLOYEEID as employeeid,\r\n    o.ORDERDATE as orderdate,\r\n    o.REQUIREDDATE as requiredate,\r\n    o.SHIPPEDDATE as shippeddate,\r\n    o.SHIPVIA as shipvia,\r\n    o.FREIGHT as freight,\r\n    o.SHIPNAME as shipname,\r\n    o.SHIPADDRESS as shipaddress,\r\n    o.SHIPCITY as shipcity,\r\n    o.SHIPREGION as shipregion,\r\n    o.SHIPPOSTALCODE as shippostalcode,\r\n    o.SHIPCOUNTRY as shipcountry,\r\n    od.PRODUCTID as productid,\r\n    p.PRODUCTNAME as productname,\r\n    p.CATEGORYID as categoryid,\r\n    c.CATEGORYNAME as categoryname,\r\n    od.UNITPRICE as unitprice,\r\n    od.QUANTITY as quantity,\r\n    (od.DISCOUNT * 100) as discount,\r\n    (od.UNITPRICE * od.QUANTITY * (1 - od.DISCOUNT)) AS extended,\r\n    s.COMPANYNAME AS shippername,\r\n    s.PHONE AS shipperphone,\r\n    p.UNITSINSTOCK as unitsinstock,\r\n    p.UNITSONORDER as unitsonorder\r\nFROM \r\n    ORDERS o\r\nINNER JOIN \r\n    ORDERDETAILS od ON o.ORDERID = od.ORDERID\r\nINNER JOIN \r\n    PRODUCTS p ON od.PRODUCTID = p.PRODUCTID\r\nINNER JOIN \r\n    SHIPPERS s ON o.SHIPVIA = s.SHIPPERID\r\nLEFT JOIN \r\n    CATEGORIES c ON p.CATEGORYID = c.CATEGORYID\r\nWHERE \r\n    o.CUSTOMERID = ? AND\r\n    o.ORDERID = ?       \r\nORDER BY  \r\n    o.ORDERID, od.PRODUCTID;  ",
+            "parameter": "orders[\"customerid\"]",
+            "parameter_2": "activeGridRecord[\"orderid\"]",
+            "save_result": true,
+            "first_record_only": false,
+            "destination": "Grid",
+            "grid": "odggrid",
+            "comment": ""
+          }
+        }
+      ]
+    }
+  },
+  "formats": [
+    {
+      "screen": {
+        "record format name": "customers",
+        "initial routine": {
+          "routine": "load customers",
+          "designValue": "load customers"
+        },
+        "description": "List or Search Records"
+      },
+      "items": [
+        {
+          "id": "CssButton1",
+          "field type": "graphic button",
+          "value": "Exit",
+          "left": "965px",
+          "top": "105px",
+          "width": "90px",
+          "onclick": {
+            "routine": "exit button click",
+            "designValue": "exit button click"
+          },
+          "icon": "material:exit_to_app",
+          "icon position": "left",
+          "css class": "ai--button--primary",
+          "css class 2": "no-icon",
+          "height": "25px"
+        },
+        {
+          "id": "Layout1",
+          "field type": "layout",
+          "left": "0px",
+          "top": "0px",
+          "template": "responsive layout",
+          "height": "640px",
+          "width": "2010px",
+          "layout items": "1",
+          "style rules": "@media screen { #_id_ > .puiresp { display:grid; grid-template-rows:auto; grid-template-columns:repeat(4, 1fr); grid-column-gap:3px; grid-row-gap:3px; } #_id_ > .puiresp > div:nth-of-type(1) { grid-column-end:span 5; } } ",
+          "use viewport": "true"
+        },
+        {
+          "id": "SearchBox",
+          "field type": "textbox",
+          "css class": "input",
+          "left": "35px",
+          "top": "95px",
+          "width": "345px",
+          "height": "25px",
+          "css class 2": "--ai--input",
+          "value": {
+            "fieldName": "searchValue",
+            "trimLeading": "false",
+            "trimTrailing": "true",
+            "blankFill": "false",
+            "rjZeroFill": "false",
+            "dataType": "string",
+            "formatting": "Text",
+            "textTransform": "none",
+            "designValue": "[searchValue]"
+          },
+          "layout": "Layout1",
+          "container": "1"
+        },
+        {
+          "id": "SearchButton",
+          "field type": "graphic button",
+          "css class": "ai--button--secondary",
+          "value": "Search",
+          "top": "95px",
+          "width": "130px",
+          "icon position": "left",
+          "height": "25px",
+          "icon": "material:search",
+          "left": "410px",
+          "response": {
+            "fieldName": "searchButton",
+            "customTrue": "",
+            "customFalse": "",
+            "dataType": "indicator",
+            "formatting": "Indicator",
+            "indFormat": "1 / 0"
+          },
+          "css class 2": "no-icon",
+          "layout": "Layout1",
+          "container": "1"
+        },
+        {
+          "id": "Grid",
+          "field type": "grid",
+          "css class": "office-copy-grid",
+          "left": "20px",
+          "top": "140px",
+          "number of rows": "10",
+          "number of columns": "4",
+          "column widths": "94,347,312,227",
+          "column headings": "ID,Company Name,City,Country",
+          "header height": "35",
+          "row height": "39",
+          "height": "386px",
+          "width": "981px",
+          "css class 2": "office-copy-defaults",
+          "visibility": "visible",
+          "border color": "transparent",
+          "record format name": "cgrid",
+          "xlsx export": "true",
+          "position at top": "true",
+          "filter option": "true",
+          "sortable columns": "true",
+          "hide columns option": "true",
+          "description": "Grid of Records",
+          "subfile record number": {
+            "fieldName": "topRecordNumber",
+            "dataLength": "5",
+            "decPos": "0",
+            "curSym": "",
+            "dataType": "zoned",
+            "formatting": "Number",
+            "negNum": "-999.00",
+            "units": ""
+          },
+          "subfile return rrn": {
+            "fieldName": "topRecordNumber",
+            "dataLength": "5",
+            "decPos": "0",
+            "curSym": "",
+            "dataType": "zoned",
+            "formatting": "Number",
+            "negNum": "-999.00",
+            "units": ""
+          },
+          "export with headings": "true",
+          "context menu id": "gridMenu",
+          "onrowclick": {
+            "routine": "display orders",
+            "designValue": "display orders"
+          },
+          "css class 3": "--ai--grid",
+          "layout": "Layout1",
+          "container": "1"
+        },
+        {
+          "id": "ClearIcon",
+          "field type": "icon",
+          "icon": "material:clear",
+          "left": "350px",
+          "top": "95px",
+          "z index": "22",
+          "cursor": "pointer",
+          "onclick": {
+            "routine": "clear search",
+            "designValue": "clear search"
+          },
+          "height": "25px",
+          "layout": "Layout1",
+          "container": "1"
+        },
+        {
+          "id": "OutputField3",
+          "field type": "output field",
+          "css class": "heading",
+          "value": "Customers",
+          "left": "40px",
+          "top": "40px",
+          "css class 2": "ai--h1",
+          "layout": "Layout1",
+          "container": "1"
+        },
+        {
+          "id": "topcustomers",
+          "field type": "html container",
+          "left": "1285px",
+          "top": "145px",
+          "html": {
+            "fieldName": "htmlKPIContent",
+            "dataLength": "5000",
+            "trimLeading": "false",
+            "trimTrailing": "true",
+            "blankFill": "false",
+            "rjZeroFill": "false",
+            "dataType": "varchar",
+            "formatting": "Text",
+            "textTransform": "none",
+            "designValue": "[htmlKPIContent]"
+          },
+          "white space": "normal",
+          "width": "555px",
+          "height": "410px",
+          "layout": "Layout1",
+          "container": "1"
+        },
+        {
+          "field type": "output field",
+          "css class": "outputField",
+          "css class 2": "ai--output",
+          "value": {
+            "fieldName": "customerid",
+            "refField": "customerid CUSTOMERS",
+            "refFieldConnection": "MSSQL",
+            "trimLeading": "false",
+            "trimTrailing": "true",
+            "blankFill": "false",
+            "rjZeroFill": "false",
+            "dataType": "reference",
+            "formatting": "Text",
+            "textTransform": "none",
+            "designValue": "[customerid]"
+          },
+          "top": "10px",
+          "left": "10px",
+          "id": "customerid",
+          "grid": "Grid",
+          "column": "0"
+        },
+        {
+          "field type": "output field",
+          "css class": "outputField",
+          "css class 2": "ai--output",
+          "value": {
+            "fieldName": "companyname",
+            "refField": "companyname CUSTOMERS",
+            "refFieldConnection": "MSSQL",
+            "trimLeading": "false",
+            "trimTrailing": "true",
+            "blankFill": "false",
+            "rjZeroFill": "false",
+            "dataType": "reference",
+            "formatting": "Text",
+            "textTransform": "none",
+            "designValue": "[companyname]"
+          },
+          "top": "10px",
+          "left": "10px",
+          "id": "companyname",
+          "grid": "Grid",
+          "column": "1"
+        },
+        {
+          "id": "OutputField1",
+          "field type": "output field",
+          "css class": "outputField",
+          "value": {
+            "fieldName": "city",
+            "refField": "CITY CUSTOMERS",
+            "refFieldConnection": "MSSQL",
+            "trimLeading": "false",
+            "trimTrailing": "true",
+            "blankFill": "false",
+            "rjZeroFill": "false",
+            "dataType": "reference",
+            "formatting": "Text",
+            "textTransform": "none",
+            "designValue": "[city]"
+          },
+          "left": "10px",
+          "top": "10px",
+          "css class 2": "ai--output",
+          "grid": "Grid",
+          "column": "2"
+        },
+        {
+          "id": "OutputField2",
+          "field type": "output field",
+          "css class": "outputField",
+          "value": {
+            "fieldName": "country",
+            "refField": "COUNTRY CUSTOMERS",
+            "refFieldConnection": "MSSQL",
+            "trimLeading": "false",
+            "trimTrailing": "true",
+            "blankFill": "false",
+            "rjZeroFill": "false",
+            "dataType": "reference",
+            "formatting": "Text",
+            "textTransform": "none",
+            "designValue": "[country]"
+          },
+          "left": "10px",
+          "top": "10px",
+          "css class 2": "ai--output",
+          "grid": "Grid",
+          "column": "3"
+        }
+      ]
+    },
+    {
+      "screen": {
+        "record format name": "customerDetail",
+        "animated screen": "new",
+        "animation": "slide-down",
+        "overlay screens": "true",
+        "description": "Add / Edit Records",
+        "user defined data": {
+          "fieldName": "customeridKey",
+          "refField": "customerid CUSTOMERS",
+          "trimLeading": "false",
+          "trimTrailing": "true",
+          "blankFill": "false",
+          "rjZeroFill": "false",
+          "dataType": "reference",
+          "formatting": "Text",
+          "textTransform": "none"
+        },
+        "user defined data 2": {
+          "fieldName": "editMode",
+          "customTrue": "",
+          "customFalse": "",
+          "dataType": "indicator",
+          "formatting": "Indicator",
+          "indFormat": "true / false"
+        }
+      },
+      "items": [
+        {
+          "id": "DetailPanel",
+          "field type": "layout",
+          "css class": "blueprint-defaults",
+          "left": "10%",
+          "top": "40px",
+          "template": "css panel",
+          "header text": {
+            "fieldName": "dialogTitle",
+            "trimLeading": "false",
+            "trimTrailing": "true",
+            "blankFill": "false",
+            "rjZeroFill": "false",
+            "dataType": "string",
+            "formatting": "Text",
+            "textTransform": "none",
+            "designValue": "[dialogTitle]"
+          },
+          "header theme": "blueprint-light-blue-header",
+          "body theme": "blueprint-white-body",
+          "height": "465px",
+          "width": "80%",
+          "css class 2": "blueprint-panel",
+          "center horizontally": "true",
+          "max width": "800px"
+        },
+        {
+          "id": "customerid_label",
+          "field type": "output field",
+          "css class": "label",
+          "value": "Customerid",
+          "left": "20px",
+          "top": "20px",
+          "css class 2": "blueprint-defaults",
+          "css class 3": "blueprint-label",
+          "layout": "DetailPanel",
+          "container": "1"
+        },
+        {
+          "field type": "textbox",
+          "height": "25px",
+          "width": "60%",
+          "css class": "blueprint-defaults",
+          "css class 2": "blueprint-textbox",
+          "value": {
+            "fieldName": "customerid",
+            "designValue": "[customerid]",
+            "refField": "customerid CUSTOMERS",
+            "dataType": "reference",
+            "trimLeading": "false",
+            "trimTrailing": "true",
+            "blankFill": "false",
+            "rjZeroFill": "false",
+            "formatting": "Text",
+            "textTransform": "none"
+          },
+          "top": "15px",
+          "left": "35%",
+          "id": "customerid",
+          "layout": "DetailPanel",
+          "container": "1"
+        },
+        {
+          "id": "companyname_label",
+          "field type": "output field",
+          "css class": "label",
+          "value": "Companyname",
+          "left": "20px",
+          "top": "50px",
+          "css class 2": "blueprint-defaults",
+          "css class 3": "blueprint-label",
+          "layout": "DetailPanel",
+          "container": "1"
+        },
+        {
+          "field type": "textbox",
+          "height": "25px",
+          "width": "60%",
+          "css class": "blueprint-defaults",
+          "css class 2": "blueprint-textbox",
+          "value": {
+            "fieldName": "COMPA00001",
+            "longName": "companyname",
+            "designValue": "[companyname]",
+            "refField": "companyname CUSTOMERS",
+            "dataType": "reference",
+            "trimLeading": "false",
+            "trimTrailing": "true",
+            "blankFill": "false",
+            "rjZeroFill": "false",
+            "formatting": "Text",
+            "textTransform": "none"
+          },
+          "top": "45px",
+          "left": "35%",
+          "id": "companyname",
+          "layout": "DetailPanel",
+          "container": "1"
+        },
+        {
+          "id": "contactname_label",
+          "field type": "output field",
+          "css class": "label",
+          "value": "Contactname",
+          "left": "20px",
+          "top": "80px",
+          "css class 2": "blueprint-defaults",
+          "css class 3": "blueprint-label",
+          "layout": "DetailPanel",
+          "container": "1"
+        },
+        {
+          "field type": "textbox",
+          "height": "25px",
+          "width": "60%",
+          "css class": "blueprint-defaults",
+          "css class 2": "blueprint-textbox",
+          "value": {
+            "fieldName": "CONTA00001",
+            "longName": "contactname",
+            "designValue": "[contactname]",
+            "refField": "contactname CUSTOMERS",
+            "dataType": "reference",
+            "trimLeading": "false",
+            "trimTrailing": "true",
+            "blankFill": "false",
+            "rjZeroFill": "false",
+            "formatting": "Text",
+            "textTransform": "none"
+          },
+          "top": "75px",
+          "left": "35%",
+          "id": "contactname",
+          "layout": "DetailPanel",
+          "container": "1"
+        },
+        {
+          "id": "contacttitle_label",
+          "field type": "output field",
+          "css class": "label",
+          "value": "Contacttitle",
+          "left": "20px",
+          "top": "110px",
+          "css class 2": "blueprint-defaults",
+          "css class 3": "blueprint-label",
+          "layout": "DetailPanel",
+          "container": "1"
+        },
+        {
+          "field type": "textbox",
+          "height": "25px",
+          "width": "60%",
+          "css class": "blueprint-defaults",
+          "css class 2": "blueprint-textbox",
+          "value": {
+            "fieldName": "CONTA00002",
+            "longName": "contacttitle",
+            "designValue": "[contacttitle]",
+            "refField": "contacttitle CUSTOMERS",
+            "dataType": "reference",
+            "trimLeading": "false",
+            "trimTrailing": "true",
+            "blankFill": "false",
+            "rjZeroFill": "false",
+            "formatting": "Text",
+            "textTransform": "none"
+          },
+          "top": "105px",
+          "left": "35%",
+          "id": "contacttitle",
+          "layout": "DetailPanel",
+          "container": "1"
+        },
+        {
+          "id": "address_label",
+          "field type": "output field",
+          "css class": "label",
+          "value": "Address",
+          "left": "20px",
+          "top": "140px",
+          "css class 2": "blueprint-defaults",
+          "css class 3": "blueprint-label",
+          "layout": "DetailPanel",
+          "container": "1"
+        },
+        {
+          "field type": "textbox",
+          "height": "25px",
+          "width": "60%",
+          "css class": "blueprint-defaults",
+          "css class 2": "blueprint-textbox",
+          "value": {
+            "fieldName": "address",
+            "designValue": "[address]",
+            "refField": "address CUSTOMERS",
+            "dataType": "reference",
+            "trimLeading": "false",
+            "trimTrailing": "true",
+            "blankFill": "false",
+            "rjZeroFill": "false",
+            "formatting": "Text",
+            "textTransform": "none"
+          },
+          "top": "135px",
+          "left": "35%",
+          "id": "address",
+          "layout": "DetailPanel",
+          "container": "1"
+        },
+        {
+          "id": "city_label",
+          "field type": "output field",
+          "css class": "label",
+          "value": "City",
+          "left": "20px",
+          "top": "170px",
+          "css class 2": "blueprint-defaults",
+          "css class 3": "blueprint-label",
+          "layout": "DetailPanel",
+          "container": "1"
+        },
+        {
+          "field type": "textbox",
+          "height": "25px",
+          "width": "60%",
+          "css class": "blueprint-defaults",
+          "css class 2": "blueprint-textbox",
+          "value": {
+            "fieldName": "city",
+            "designValue": "[city]",
+            "refField": "city CUSTOMERS",
+            "dataType": "reference",
+            "trimLeading": "false",
+            "trimTrailing": "true",
+            "blankFill": "false",
+            "rjZeroFill": "false",
+            "formatting": "Text",
+            "textTransform": "none"
+          },
+          "top": "165px",
+          "left": "35%",
+          "id": "city",
+          "layout": "DetailPanel",
+          "container": "1"
+        },
+        {
+          "id": "region_label",
+          "field type": "output field",
+          "css class": "label",
+          "value": "Region",
+          "left": "20px",
+          "top": "200px",
+          "css class 2": "blueprint-defaults",
+          "css class 3": "blueprint-label",
+          "layout": "DetailPanel",
+          "container": "1"
+        },
+        {
+          "field type": "textbox",
+          "height": "25px",
+          "width": "60%",
+          "css class": "blueprint-defaults",
+          "css class 2": "blueprint-textbox",
+          "value": {
+            "fieldName": "region",
+            "designValue": "[region]",
+            "refField": "region CUSTOMERS",
+            "dataType": "reference",
+            "trimLeading": "false",
+            "trimTrailing": "true",
+            "blankFill": "false",
+            "rjZeroFill": "false",
+            "formatting": "Text",
+            "textTransform": "none"
+          },
+          "top": "195px",
+          "left": "35%",
+          "id": "region",
+          "layout": "DetailPanel",
+          "container": "1"
+        },
+        {
+          "id": "postalcode_label",
+          "field type": "output field",
+          "css class": "label",
+          "value": "Postalcode",
+          "left": "20px",
+          "top": "230px",
+          "css class 2": "blueprint-defaults",
+          "css class 3": "blueprint-label",
+          "layout": "DetailPanel",
+          "container": "1"
+        },
+        {
+          "field type": "textbox",
+          "height": "25px",
+          "width": "60%",
+          "css class": "blueprint-defaults",
+          "css class 2": "blueprint-textbox",
+          "value": {
+            "fieldName": "postalcode",
+            "designValue": "[postalcode]",
+            "refField": "postalcode CUSTOMERS",
+            "dataType": "reference",
+            "trimLeading": "false",
+            "trimTrailing": "true",
+            "blankFill": "false",
+            "rjZeroFill": "false",
+            "formatting": "Text",
+            "textTransform": "none"
+          },
+          "top": "225px",
+          "left": "35%",
+          "id": "postalcode",
+          "layout": "DetailPanel",
+          "container": "1"
+        },
+        {
+          "id": "country_label",
+          "field type": "output field",
+          "css class": "label",
+          "value": "Country",
+          "left": "20px",
+          "top": "260px",
+          "css class 2": "blueprint-defaults",
+          "css class 3": "blueprint-label",
+          "layout": "DetailPanel",
+          "container": "1"
+        },
+        {
+          "field type": "textbox",
+          "height": "25px",
+          "width": "60%",
+          "css class": "blueprint-defaults",
+          "css class 2": "blueprint-textbox",
+          "value": {
+            "fieldName": "country",
+            "designValue": "[country]",
+            "refField": "country CUSTOMERS",
+            "dataType": "reference",
+            "trimLeading": "false",
+            "trimTrailing": "true",
+            "blankFill": "false",
+            "rjZeroFill": "false",
+            "formatting": "Text",
+            "textTransform": "none"
+          },
+          "top": "255px",
+          "left": "35%",
+          "id": "country",
+          "layout": "DetailPanel",
+          "container": "1"
+        },
+        {
+          "id": "phone_label",
+          "field type": "output field",
+          "css class": "label",
+          "value": "Phone",
+          "left": "20px",
+          "top": "290px",
+          "css class 2": "blueprint-defaults",
+          "css class 3": "blueprint-label",
+          "layout": "DetailPanel",
+          "container": "1"
+        },
+        {
+          "field type": "textbox",
+          "height": "25px",
+          "width": "60%",
+          "css class": "blueprint-defaults",
+          "css class 2": "blueprint-textbox",
+          "value": {
+            "fieldName": "phone",
+            "designValue": "[phone]",
+            "refField": "phone CUSTOMERS",
+            "dataType": "reference",
+            "trimLeading": "false",
+            "trimTrailing": "true",
+            "blankFill": "false",
+            "rjZeroFill": "false",
+            "formatting": "Text",
+            "textTransform": "none"
+          },
+          "top": "285px",
+          "left": "35%",
+          "id": "phone",
+          "layout": "DetailPanel",
+          "container": "1"
+        },
+        {
+          "id": "fax_label",
+          "field type": "output field",
+          "css class": "label",
+          "value": "Fax",
+          "left": "20px",
+          "top": "320px",
+          "css class 2": "blueprint-defaults",
+          "css class 3": "blueprint-label",
+          "layout": "DetailPanel",
+          "container": "1"
+        },
+        {
+          "field type": "textbox",
+          "height": "25px",
+          "width": "60%",
+          "css class": "blueprint-defaults",
+          "css class 2": "blueprint-textbox",
+          "value": {
+            "fieldName": "fax",
+            "designValue": "[fax]",
+            "refField": "fax CUSTOMERS",
+            "dataType": "reference",
+            "trimLeading": "false",
+            "trimTrailing": "true",
+            "blankFill": "false",
+            "rjZeroFill": "false",
+            "formatting": "Text",
+            "textTransform": "none"
+          },
+          "top": "315px",
+          "left": "35%",
+          "id": "fax",
+          "layout": "DetailPanel",
+          "container": "1"
+        },
+        {
+          "id": "SaveButton",
+          "field type": "graphic button",
+          "css class": "pui-solid-button-yes",
+          "value": "Save",
+          "left": "35%",
+          "top": "370px",
+          "width": "100px",
+          "icon position": "left",
+          "css class 2": "blueprint-defaults",
+          "icon": "material:check",
+          "height": "25px",
+          "onclick": {
+            "routine": "save button click",
+            "designValue": "save button click"
+          },
+          "shortcut key": "Enter",
+          "layout": "DetailPanel",
+          "container": "1"
+        },
+        {
+          "id": "CancelButton",
+          "field type": "graphic button",
+          "css class": "pui-solid-button-no",
+          "value": "Cancel",
+          "left": "calc(35% + 120px)",
+          "top": "370px",
+          "width": "100px",
+          "icon position": "left",
+          "css class 2": "blueprint-defaults",
+          "icon": "material:clear",
+          "height": "25px",
+          "onclick": {
+            "routine": "cancel button click",
+            "designValue": "cancel button click"
+          },
+          "bypass validation": "true",
+          "layout": "DetailPanel",
+          "container": "1"
+        }
+      ]
+    },
+    {
+      "screen": {
+        "record format name": "orders",
+        "description": "List or Search Records",
+        "user defined routine": {
+          "routine": "Order Detail Screen",
+          "designValue": "Order Detail Screen"
+        },
+        "user defined routine 2": {
+          "routine": "Load Order Detail",
+          "designValue": "Load Order Detail"
+        }
+      },
+      "items": [
+        {
+          "id": "CenteringLayout",
+          "field type": "layout",
+          "left": "calc(50% - 252px)",
+          "top": "40px",
+          "template": "simple container",
+          "height": "670px",
+          "width": "1040px",
+          "center horizontally": "true"
+        },
+        {
+          "id": "Grid",
+          "field type": "grid",
+          "css class": "office-copy-grid",
+          "left": "25px",
+          "top": "135px",
+          "number of rows": "6",
+          "number of columns": "6",
+          "column widths": "94,104,319,104,111,226",
+          "column headings": "Order #,Order Date,Ship To Address,# Lines,Order Total,Freight",
+          "header height": "35",
+          "row height": "87",
+          "height": "470px",
+          "width": "959px",
+          "css class 2": "office-copy-defaults",
+          "visibility": "visible",
+          "border color": "transparent",
+          "record format name": "ogrid",
+          "xlsx export": "true",
+          "position at top": "true",
+          "filter option": "true",
+          "sortable columns": "true",
+          "hide columns option": "true",
+          "description": "Grid of Records",
+          "subfile record number": {
+            "fieldName": "topRecordNumber",
+            "dataLength": "5",
+            "decPos": "0",
+            "curSym": "",
+            "dataType": "zoned",
+            "formatting": "Number",
+            "negNum": "-999.00",
+            "units": ""
+          },
+          "subfile return rrn": {
+            "fieldName": "topRecordNumber",
+            "dataLength": "5",
+            "decPos": "0",
+            "curSym": "",
+            "dataType": "zoned",
+            "formatting": "Number",
+            "negNum": "-999.00",
+            "units": ""
+          },
+          "export with headings": "true",
+          "onrowclick": {
+            "routine": "Order Detail Screen",
+            "designValue": "Order Detail Screen"
+          },
+          "css class 3": "--ai--grid",
+          "layout": "CenteringLayout",
+          "container": "1"
+        },
+        {
+          "id": "OutputField5",
+          "field type": "output field",
+          "css class": "outputField",
+          "value": {
+            "fieldName": "customerid",
+            "refField": "CUSTOMERID CUSTOMERS",
+            "refFieldConnection": "MSSQL",
+            "trimLeading": "false",
+            "trimTrailing": "true",
+            "blankFill": "false",
+            "rjZeroFill": "false",
+            "dataType": "reference",
+            "formatting": "Text",
+            "textTransform": "none",
+            "designValue": "[customerid]"
+          },
+          "left": "520px",
+          "top": "15px",
+          "css class 2": "blueprint-defaults",
+          "css class 3": "blueprint-output-field",
+          "visibility": "hidden",
+          "layout": "CenteringLayout",
+          "container": "1"
+        },
+        {
+          "id": "OutputField6",
+          "field type": "output field",
+          "css class": "heading",
+          "value": {
+            "fieldName": "companyname",
+            "refField": "COMPANYNAME CUSTOMERS",
+            "refFieldConnection": "MSSQL",
+            "trimLeading": "false",
+            "trimTrailing": "true",
+            "blankFill": "false",
+            "rjZeroFill": "false",
+            "dataType": "reference",
+            "formatting": "Text",
+            "textTransform": "none",
+            "designValue": "[companyname]"
+          },
+          "left": "25px",
+          "top": "80px",
+          "css class 2": "ai--h2",
+          "width": "470px",
+          "layout": "CenteringLayout",
+          "container": "1"
+        },
+        {
+          "id": "Button1",
+          "field type": "graphic button",
+          "value": "Previous",
+          "left": "890px",
+          "top": "95px",
+          "width": "120px",
+          "height": "25px",
+          "color": "#ffffff",
+          "onclick": {
+            "routine": "Exit Back to Customers",
+            "designValue": "Exit Back to Customers"
+          },
+          "css class": "ai--button--primary",
+          "icon": "material:keyboard_return",
+          "icon position": "left",
+          "layout": "CenteringLayout",
+          "container": "1"
+        },
+        {
+          "id": "OutputField3_copy",
+          "field type": "output field",
+          "css class": "heading",
+          "value": "Orders",
+          "left": "25px",
+          "top": "20px",
+          "css class 2": "ai--h1",
+          "layout": "CenteringLayout",
+          "container": "1"
+        },
+        {
+          "field type": "output field",
+          "css class": "outputField",
+          "css class 2": "ai--output",
+          "value": {
+            "fieldName": "orderid",
+            "refField": "orderid ORDERS",
+            "refFieldConnection": "MSSQL",
+            "numSep": "false",
+            "zeroBalance": "false",
+            "numBlankFill": "false",
+            "zeroFill": "false",
+            "noExtraSpaces": "false",
+            "curSym": "",
+            "dataType": "reference",
+            "formatting": "Number",
+            "negNum": "-999.00",
+            "units": "",
+            "designValue": "[orderid]"
+          },
+          "top": "10px",
+          "left": "10px",
+          "id": "orderid",
+          "width": "70px",
+          "text align": "center",
+          "grid": "Grid",
+          "column": "0"
+        },
+        {
+          "field type": "output field",
+          "css class": "outputField",
+          "css class 2": "ai--output",
+          "value": {
+            "fieldName": "orderdate",
+            "refField": "orderdate ORDERS",
+            "refFieldConnection": "MSSQL",
+            "dataType": "reference",
+            "formatting": "Date",
+            "dateFormat": "",
+            "locale": "en_US",
+            "designValue": "[orderdate]"
+          },
+          "top": "10px",
+          "left": "10px",
+          "id": "orderdate",
+          "text align": "center",
+          "grid": "Grid",
+          "column": "1"
+        },
+        {
+          "id": "OutputField1",
+          "field type": "output field",
+          "css class": "outputField",
+          "value": {
+            "fieldName": "shipname",
+            "refField": "SHIPNAME ORDERS",
+            "refFieldConnection": "MSSQL",
+            "trimLeading": "false",
+            "trimTrailing": "true",
+            "blankFill": "false",
+            "rjZeroFill": "false",
+            "dataType": "reference",
+            "formatting": "Text",
+            "textTransform": "none",
+            "designValue": "[shipname]"
+          },
+          "left": "10px",
+          "top": "10px",
+          "css class 2": "ai--output",
+          "grid": "Grid",
+          "column": "2"
+        },
+        {
+          "id": "OutputField2",
+          "field type": "output field",
+          "css class": "outputField",
+          "value": {
+            "fieldName": "shipaddress",
+            "refField": "SHIPADDRESS ORDERS",
+            "refFieldConnection": "MSSQL",
+            "trimLeading": "false",
+            "trimTrailing": "true",
+            "blankFill": "false",
+            "rjZeroFill": "false",
+            "dataType": "reference",
+            "formatting": "Text",
+            "textTransform": "none",
+            "designValue": "[shipaddress]"
+          },
+          "left": "10px",
+          "top": "35px",
+          "css class 2": "ai--output",
+          "grid": "Grid",
+          "column": "2"
+        },
+        {
+          "id": "OutputField3",
+          "field type": "output field",
+          "css class": "outputField",
+          "value": {
+            "fieldName": "shipcity",
+            "refField": "SHIPCITY ORDERS",
+            "refFieldConnection": "MSSQL",
+            "trimLeading": "false",
+            "trimTrailing": "true",
+            "blankFill": "false",
+            "rjZeroFill": "false",
+            "dataType": "reference",
+            "formatting": "Text",
+            "textTransform": "none",
+            "designValue": "[shipcity]"
+          },
+          "left": "10px",
+          "top": "60px",
+          "css class 2": "ai--output",
+          "grid": "Grid",
+          "column": "2"
+        },
+        {
+          "id": "OutputField4",
+          "field type": "output field",
+          "css class": "outputField",
+          "value": {
+            "fieldName": "shipregion",
+            "refField": "SHIPREGION ORDERS",
+            "refFieldConnection": "MSSQL",
+            "trimLeading": "false",
+            "trimTrailing": "true",
+            "blankFill": "false",
+            "rjZeroFill": "false",
+            "dataType": "reference",
+            "formatting": "Text",
+            "textTransform": "none",
+            "designValue": "[shipregion]"
+          },
+          "left": "200px",
+          "top": "60px",
+          "css class 2": "ai--output",
+          "grid": "Grid",
+          "column": "2"
+        },
+        {
+          "id": "OutputField7",
+          "field type": "output field",
+          "css class": "outputField",
+          "value": {
+            "fieldName": "freight",
+            "dataLength": "15",
+            "decPos": "2",
+            "numSep": "true",
+            "zeroBalance": "false",
+            "numBlankFill": "false",
+            "zeroFill": "false",
+            "noExtraSpaces": "false",
+            "curSym": "$",
+            "dataType": "zoned",
+            "formatting": "Number",
+            "negNum": "-999.00",
+            "units": "",
+            "designValue": "[freight]"
+          },
+          "left": "10px",
+          "top": "10px",
+          "css class 2": "ai--output",
+          "grid": "Grid",
+          "column": "5"
+        },
+        {
+          "id": "OutputField8",
+          "field type": "output field",
+          "css class": "outputField",
+          "value": {
+            "fieldName": "total",
+            "dataLength": "15",
+            "decPos": "2",
+            "numSep": "true",
+            "zeroBalance": "false",
+            "numBlankFill": "false",
+            "zeroFill": "false",
+            "noExtraSpaces": "false",
+            "curSym": "$",
+            "dataType": "zoned",
+            "formatting": "Number",
+            "negNum": "-999.00",
+            "units": "",
+            "designValue": "[total]"
+          },
+          "left": "10px",
+          "top": "10px",
+          "css class 2": "ai--output",
+          "width": "90px",
+          "text align": "center",
+          "grid": "Grid",
+          "column": "4"
+        },
+        {
+          "id": "OutputField8_copy",
+          "field type": "output field",
+          "css class": "outputField",
+          "value": {
+            "fieldName": "lines",
+            "dataLength": "3",
+            "decPos": "0",
+            "numSep": "false",
+            "zeroBalance": "false",
+            "numBlankFill": "false",
+            "zeroFill": "false",
+            "noExtraSpaces": "false",
+            "curSym": "",
+            "dataType": "zoned",
+            "formatting": "Number",
+            "negNum": "-999.00",
+            "units": "",
+            "designValue": "[lines]"
+          },
+          "left": "calc(50% - 30px)",
+          "top": "10px",
+          "css class 2": "ai--output",
+          "width": "80px",
+          "text align": "center",
+          "grid": "Grid",
+          "column": "3"
+        },
+        {
+          "id": "OutputField7_copy",
+          "field type": "output field",
+          "css class": "outputField",
+          "value": {
+            "fieldName": "shipper",
+            "trimLeading": "false",
+            "trimTrailing": "true",
+            "blankFill": "false",
+            "rjZeroFill": "false",
+            "dataType": "string",
+            "formatting": "Text",
+            "textTransform": "none",
+            "designValue": "[shipper]"
+          },
+          "left": "10px",
+          "top": "35px",
+          "css class 2": "ai--output",
+          "grid": "Grid",
+          "column": "5"
+        }
+      ]
+    },
+    {
+      "screen": {
+        "record format name": "orderdetails",
+        "description": "List or Search Records",
+        "initial routine": {
+          "routine": "Load Order Detail",
+          "designValue": "Load Order Detail"
+        },
+        "onload": "profound.ai.startAgent({\n  agent: \"customerservice.agent.json\",\n  data: () => ({\n    // Replace these sample values for dynamic agent instructions\n    \"orderID\": get(\"orderid\"),\n    \"customerID\": get(\"customerid\")\n  }),\n  server: \"http://profound.iinthecloud.com:8080\",\n  embed: true\n});\n",
+        "onsubmit": "try {\nprofound.ai.removeEmbedIcon()\n} catch {}\n"
+      },
+      "items": [
+        {
+          "id": "CenteringLayout",
+          "field type": "layout",
+          "left": "calc(50% - 252px)",
+          "top": "40px",
+          "template": "simple container",
+          "height": "625px",
+          "width": "1040px",
+          "center horizontally": "true"
+        },
+        {
+          "id": "Grid",
+          "field type": "grid",
+          "css class": "office-copy-grid",
+          "left": "25px",
+          "top": "160px",
+          "number of rows": "6",
+          "number of columns": "6",
+          "column widths": "214,89,106,104,111,227",
+          "column headings": "Item,Qty,Unit Price,Discount,Extended Price,Inventory Position",
+          "header height": "35",
+          "row height": "75",
+          "height": "410px",
+          "width": "852px",
+          "css class 2": "office-copy-defaults",
+          "visibility": "visible",
+          "border color": "transparent",
+          "record format name": "odggrid",
+          "xlsx export": "true",
+          "position at top": "true",
+          "filter option": "true",
+          "sortable columns": "true",
+          "hide columns option": "true",
+          "description": "Grid of Records",
+          "subfile record number": {
+            "fieldName": "topRecordNumber",
+            "dataLength": "5",
+            "decPos": "0",
+            "curSym": "",
+            "dataType": "zoned",
+            "formatting": "Number",
+            "negNum": "-999.00",
+            "units": ""
+          },
+          "subfile return rrn": {
+            "fieldName": "topRecordNumber",
+            "dataLength": "5",
+            "decPos": "0",
+            "curSym": "",
+            "dataType": "zoned",
+            "formatting": "Number",
+            "negNum": "-999.00",
+            "units": ""
+          },
+          "export with headings": "true",
+          "header text align": ",center,center,center,center,left",
+          "css class 3": "--ai--grid",
+          "layout": "CenteringLayout",
+          "container": "1"
+        },
+        {
+          "id": "customerid",
+          "field type": "output field",
+          "css class": "outputField",
+          "value": {
+            "fieldName": "customerid",
+            "refField": "CUSTOMERID CUSTOMERS",
+            "refFieldConnection": "MSSQL",
+            "trimLeading": "false",
+            "trimTrailing": "true",
+            "blankFill": "false",
+            "rjZeroFill": "false",
+            "dataType": "reference",
+            "formatting": "Text",
+            "textTransform": "none",
+            "designValue": "[customerid]"
+          },
+          "left": "340px",
+          "top": "80px",
+          "css class 2": "blueprint-defaults",
+          "css class 3": "blueprint-output-field",
+          "visibility": "hidden",
+          "layout": "CenteringLayout",
+          "container": "1"
+        },
+        {
+          "id": "OutputField6",
+          "field type": "output field",
+          "css class": "outputField",
+          "value": {
+            "fieldName": "companyname",
+            "refField": "COMPANYNAME CUSTOMERS",
+            "refFieldConnection": "MSSQL",
+            "trimLeading": "false",
+            "trimTrailing": "true",
+            "blankFill": "false",
+            "rjZeroFill": "false",
+            "dataType": "reference",
+            "formatting": "Text",
+            "textTransform": "none",
+            "designValue": "[companyname]"
+          },
+          "left": "175px",
+          "top": "85px",
+          "css class 2": "ai--output",
+          "text align": "left",
+          "layout": "CenteringLayout",
+          "container": "1"
+        },
+        {
+          "id": "Button1",
+          "field type": "graphic button",
+          "value": "Previous",
+          "left": "890px",
+          "top": "115px",
+          "width": "120px",
+          "height": "25px",
+          "color": "#ffffff",
+          "onclick": {
+            "routine": "Return to order list",
+            "designValue": "Return to order list"
+          },
+          "css class": "ai--button--primary",
+          "icon": "material:keyboard_return",
+          "icon position": "left",
+          "layout": "CenteringLayout",
+          "container": "1"
+        },
+        {
+          "field type": "output field",
+          "css class": "outputField",
+          "css class 2": "ai--output",
+          "value": {
+            "fieldName": "orderid",
+            "refField": "orderid ORDERS",
+            "refFieldConnection": "MSSQL",
+            "numSep": "false",
+            "zeroBalance": "false",
+            "numBlankFill": "false",
+            "zeroFill": "false",
+            "noExtraSpaces": "false",
+            "curSym": "",
+            "dataType": "reference",
+            "formatting": "Number",
+            "negNum": "-999.00",
+            "units": "",
+            "designValue": "[orderid]"
+          },
+          "top": "115px",
+          "left": "170px",
+          "id": "orderid",
+          "width": "70px",
+          "text align": "left",
+          "layout": "CenteringLayout",
+          "container": "1"
+        },
+        {
+          "field type": "output field",
+          "css class": "outputField",
+          "css class 2": "ai--output",
+          "value": {
+            "fieldName": "orderdate",
+            "refField": "orderdate ORDERS",
+            "refFieldConnection": "MSSQL",
+            "dataType": "reference",
+            "formatting": "Date",
+            "dateFormat": "",
+            "locale": "en_US",
+            "designValue": "[orderdate]"
+          },
+          "top": "115px",
+          "left": "425px",
+          "id": "orderdate",
+          "text align": "left",
+          "layout": "CenteringLayout",
+          "container": "1"
+        },
+        {
+          "id": "OutputField7_copy",
+          "field type": "output field",
+          "css class": "outputField",
+          "value": {
+            "fieldName": "shipper",
+            "trimLeading": "false",
+            "trimTrailing": "true",
+            "blankFill": "false",
+            "rjZeroFill": "false",
+            "dataType": "string",
+            "formatting": "Text",
+            "textTransform": "none",
+            "designValue": "[shipper]"
+          },
+          "left": "665px",
+          "top": "85px",
+          "css class 2": "ai--output",
+          "layout": "CenteringLayout",
+          "container": "1"
+        },
+        {
+          "id": "Label1",
+          "field type": "output field",
+          "css class": "label",
+          "value": "Order Number : ",
+          "left": "0px",
+          "top": "115px",
+          "width": "150px",
+          "layout": "CenteringLayout",
+          "container": "1"
+        },
+        {
+          "id": "Label1_copy",
+          "field type": "output field",
+          "css class": "label",
+          "value": "Customer :",
+          "left": "0px",
+          "top": "85px",
+          "width": "150px",
+          "layout": "CenteringLayout",
+          "container": "1"
+        },
+        {
+          "id": "Label1_copy2",
+          "field type": "output field",
+          "css class": "label",
+          "value": "Order Date :",
+          "left": "250px",
+          "top": "115px",
+          "width": "150px",
+          "layout": "CenteringLayout",
+          "container": "1"
+        },
+        {
+          "id": "OutputField3",
+          "field type": "output field",
+          "css class": "outputField",
+          "value": {
+            "fieldName": "freight",
+            "dataLength": "15",
+            "decPos": "2",
+            "numSep": "true",
+            "zeroBalance": "true",
+            "numBlankFill": "false",
+            "zeroFill": "false",
+            "noExtraSpaces": "false",
+            "curSym": "$",
+            "dataType": "zoned",
+            "formatting": "Number",
+            "negNum": "-999.00",
+            "units": "",
+            "designValue": "[freight]"
+          },
+          "left": "665px",
+          "top": "115px",
+          "css class 2": "ai--output",
+          "text align": "left",
+          "layout": "CenteringLayout",
+          "container": "1"
+        },
+        {
+          "id": "Label1_copy3",
+          "field type": "output field",
+          "css class": "label",
+          "value": "Freight :",
+          "left": "495px",
+          "top": "115px",
+          "width": "150px",
+          "layout": "CenteringLayout",
+          "container": "1"
+        },
+        {
+          "id": "Label1_copy4",
+          "field type": "output field",
+          "css class": "label",
+          "value": "Shipper:",
+          "left": "495px",
+          "top": "85px",
+          "width": "150px",
+          "layout": "CenteringLayout",
+          "container": "1"
+        },
+        {
+          "id": "OutputField3_copy",
+          "field type": "output field",
+          "css class": "heading",
+          "value": "Order Details",
+          "left": "30px",
+          "top": "20px",
+          "css class 2": "ai--h1",
+          "layout": "CenteringLayout",
+          "container": "1"
+        },
+        {
+          "id": "OutputField8",
+          "field type": "output field",
+          "css class": "outputField",
+          "value": {
+            "fieldName": "extended",
+            "dataLength": "15",
+            "decPos": "2",
+            "numSep": "true",
+            "zeroBalance": "true",
+            "numBlankFill": "false",
+            "zeroFill": "false",
+            "noExtraSpaces": "false",
+            "curSym": "$",
+            "dataType": "zoned",
+            "formatting": "Number",
+            "negNum": "-999.00",
+            "units": "",
+            "designValue": "[extended]"
+          },
+          "left": "10px",
+          "top": "10px",
+          "css class 2": "ai--output",
+          "width": "90px",
+          "text align": "center",
+          "grid": "Grid",
+          "column": "4"
+        },
+        {
+          "id": "OutputField9",
+          "field type": "output field",
+          "css class": "outputField",
+          "value": {
+            "fieldName": "productid",
+            "refField": "PRODUCTID PRODUCTS",
+            "refFieldConnection": "MSSQL",
+            "numSep": "false",
+            "zeroBalance": "false",
+            "numBlankFill": "false",
+            "zeroFill": "false",
+            "noExtraSpaces": "false",
+            "curSym": "",
+            "dataType": "reference",
+            "formatting": "Number",
+            "negNum": "-999.00",
+            "units": "",
+            "designValue": "[productid]"
+          },
+          "left": "135px",
+          "top": "15px",
+          "css class 2": "blueprint-defaults",
+          "css class 3": "blueprint-output-field",
+          "width": "25px",
+          "visibility": "hidden",
+          "grid": "Grid",
+          "column": "0"
+        },
+        {
+          "id": "OutputField10",
+          "field type": "output field",
+          "css class": "outputField",
+          "value": {
+            "fieldName": "productname",
+            "refField": "PRODUCTNAME PRODUCTS",
+            "refFieldConnection": "MSSQL",
+            "trimLeading": "false",
+            "trimTrailing": "true",
+            "blankFill": "false",
+            "rjZeroFill": "false",
+            "dataType": "reference",
+            "formatting": "Text",
+            "textTransform": "none",
+            "designValue": "[productname]"
+          },
+          "left": "10px",
+          "top": "10px",
+          "css class 2": "ai--output",
+          "grid": "Grid",
+          "column": "0"
+        },
+        {
+          "id": "OutputField11",
+          "field type": "output field",
+          "css class": "outputField",
+          "value": {
+            "fieldName": "quantity",
+            "refField": "QUANTITY OrderDetails",
+            "refFieldConnection": "MSSQL",
+            "numSep": "false",
+            "zeroBalance": "false",
+            "numBlankFill": "false",
+            "zeroFill": "false",
+            "noExtraSpaces": "false",
+            "curSym": "",
+            "dataType": "reference",
+            "formatting": "Number",
+            "negNum": "-999.00",
+            "units": "",
+            "designValue": "[quantity]"
+          },
+          "left": "10px",
+          "top": "10px",
+          "css class 2": "ai--output",
+          "text align": "center",
+          "width": "60px",
+          "grid": "Grid",
+          "column": "1"
+        },
+        {
+          "id": "OutputField1",
+          "field type": "output field",
+          "css class": "outputField",
+          "value": {
+            "fieldName": "unitprice",
+            "dataLength": "15",
+            "decPos": "2",
+            "numSep": "true",
+            "zeroBalance": "true",
+            "numBlankFill": "false",
+            "zeroFill": "false",
+            "noExtraSpaces": "false",
+            "curSym": "$",
+            "dataType": "zoned",
+            "formatting": "Number",
+            "negNum": "-999.00",
+            "units": "",
+            "designValue": "[unitprice]"
+          },
+          "left": "-5px",
+          "top": "10px",
+          "css class 2": "ai--output",
+          "text align": "center",
+          "width": "110px",
+          "grid": "Grid",
+          "column": "2"
+        },
+        {
+          "id": "OutputField2",
+          "field type": "output field",
+          "css class": "outputField",
+          "value": {
+            "fieldName": "discount",
+            "dataLength": "5",
+            "decPos": "0",
+            "numSep": "false",
+            "zeroBalance": "false",
+            "numBlankFill": "false",
+            "zeroFill": "false",
+            "noExtraSpaces": "false",
+            "edtWrd": "'    0%'",
+            "curSym": "",
+            "dataType": "zoned",
+            "formatting": "Number",
+            "negNum": "-999.00",
+            "units": "",
+            "designValue": "[discount]"
+          },
+          "left": "0px",
+          "top": "10px",
+          "css class 2": "ai--output",
+          "text align": "center",
+          "width": "105px",
+          "grid": "Grid",
+          "column": "3"
+        },
+        {
+          "id": "OutputField4",
+          "field type": "output field",
+          "css class": "outputField",
+          "value": {
+            "fieldName": "categoryname",
+            "refField": "CATEGORYNAME CATEGORIES",
+            "refFieldConnection": "MSSQL",
+            "trimLeading": "false",
+            "trimTrailing": "true",
+            "blankFill": "false",
+            "rjZeroFill": "false",
+            "dataType": "reference",
+            "formatting": "Text",
+            "textTransform": "none",
+            "designValue": "[categoryname]"
+          },
+          "left": "10px",
+          "top": "40px",
+          "css class 2": "ai--output",
+          "font weight": "bold",
+          "font style": "italic",
+          "grid": "Grid",
+          "column": "0"
+        },
+        {
+          "id": "OutputField7",
+          "field type": "output field",
+          "css class": "outputField",
+          "value": {
+            "fieldName": "unitsinstock",
+            "refField": "UNITSINSTOCK PRODUCTS",
+            "refFieldConnection": "MSSQL",
+            "numSep": "false",
+            "zeroBalance": "true",
+            "numBlankFill": "true",
+            "zeroFill": "false",
+            "noExtraSpaces": "false",
+            "curSym": "",
+            "dataType": "reference",
+            "formatting": "Number",
+            "negNum": "-999.00",
+            "units": "",
+            "designValue": "[unitsinstock]"
+          },
+          "left": "35px",
+          "top": "10px",
+          "css class 2": "ai--output",
+          "text align": "right",
+          "font weight": "bold",
+          "width": "161px",
+          "grid": "Grid",
+          "column": "5"
+        },
+        {
+          "id": "OutputField12",
+          "field type": "output field",
+          "css class": "outputField",
+          "value": {
+            "fieldName": "unitsonorder",
+            "refField": "UNITSONORDER PRODUCTS",
+            "refFieldConnection": "MSSQL",
+            "numSep": "false",
+            "zeroBalance": "true",
+            "numBlankFill": "true",
+            "zeroFill": "false",
+            "noExtraSpaces": "false",
+            "curSym": "",
+            "dataType": "reference",
+            "formatting": "Number",
+            "negNum": "-999.00",
+            "units": "",
+            "designValue": "[unitsonorder]"
+          },
+          "left": "29px",
+          "top": "40px",
+          "css class 2": "ai--output",
+          "text align": "right",
+          "font weight": "bold",
+          "width": "166px",
+          "grid": "Grid",
+          "column": "5"
+        },
+        {
+          "id": "Label2",
+          "field type": "output field",
+          "css class": "label",
+          "value": "Stock:",
+          "left": "-75px",
+          "top": "10px",
+          "width": "150px",
+          "font weight": "bold",
+          "css class 2": "ai--output",
+          "grid": "Grid",
+          "column": "5"
+        },
+        {
+          "id": "Label2_copy",
+          "field type": "output field",
+          "css class": "label",
+          "value": "On Order",
+          "font weight": "bold",
+          "left": "-75px",
+          "top": "40px",
+          "width": "150px",
+          "css class 2": "ai--output",
+          "grid": "Grid",
+          "column": "5"
+        }
+      ]
+    }
+  ],
+  "keywords": [],
+  "canvas zoom": 75,
+  "long name aliases": true
+}

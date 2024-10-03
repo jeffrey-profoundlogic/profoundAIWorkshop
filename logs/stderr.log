@@ -1,0 +1,40 @@
+2024-10-03T17:05:05.058Z - Error: Invalid value for configuration option: connectorCredentials. Unable to read connectorCredentials file. ENOENT: no such file or directory, open 'C:\profoundjs-applications\profoundAIWorkshop\modules\credentials'.
+    at profound.applyConfigSetting (C:\profoundjs-applications\profoundAIWorkshop\node_modules\profoundjs\utils\applyConfig.jse:1160:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async profound.applyConfig (C:\profoundjs-applications\profoundAIWorkshop\node_modules\profoundjs\utils\applyConfig.jse:1042:5)
+    at async startPJS (C:\profoundjs-applications\profoundAIWorkshop\start.js:4:3)
+2024-10-03T17:06:03.372Z - Error: Invalid type for configuration option: port. Expected number, got string.
+    at profound.applyConfigSetting (C:\profoundjs-applications\profoundAIWorkshop\node_modules\profoundjs\utils\applyConfig.jse:1137:11)
+    at profound.applyConfig (C:\profoundjs-applications\profoundAIWorkshop\node_modules\profoundjs\utils\applyConfig.jse:1042:20)
+    at async startPJS (C:\profoundjs-applications\profoundAIWorkshop\start.js:4:3)
+2024-10-03T17:06:49.368Z - Error: Invalid value for configuration option: userdataDirectory. C:\profoundjs-applications\profoundAIWorkshop\userdata does not exist or is not accessible.
+    at profound.applyConfigSetting (C:\profoundjs-applications\profoundAIWorkshop\node_modules\profoundjs\utils\applyConfig.jse:1160:13)
+    at async profound.applyConfig (C:\profoundjs-applications\profoundAIWorkshop\node_modules\profoundjs\utils\applyConfig.jse:1042:5)
+    at async startPJS (C:\profoundjs-applications\profoundAIWorkshop\start.js:4:3)
+2024-10-03T17:11:57.995Z - WARNING: Server is configured as PJSCALL service without SSL. IBM i data, including credentials, will be exchanged in the clear.
+Configure SSL to encrypt traffic between this service and clients.
+2024-10-03T17:17:59.253Z - WARNING: Server is configured as PJSCALL service without SSL. IBM i data, including credentials, will be exchanged in the clear.
+Configure SSL to encrypt traffic between this service and clients.
+2024-10-03T17:17:59.259Z - Error: listen EADDRINUSE: address already in use 0.0.0.0:9090
+    at Server.setupListenHandle [as _listen2] (node:net:1898:16)
+    at listenInCluster (node:net:1946:12)
+    at doListen (node:net:2116:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:83:21) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '0.0.0.0',
+  port: 9090
+}
+2024-10-03T17:18:30.120Z - WARNING: Server is configured as PJSCALL service without SSL. IBM i data, including credentials, will be exchanged in the clear.
+Configure SSL to encrypt traffic between this service and clients.
+2024-10-03T17:20:23.185Z - (node:30284) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+2024-10-03T17:39:41.212Z - Error: Invalid value for configuration option: databaseConnections. Index 1: Unable to read credentials file. ENOENT: no such file or directory, open 'C:\profoundjs-applications\profoundAIWorkshop\modules\creds\mssql_credentials'.
+    at profound.applyConfigSetting (C:\profoundjs-applications\profoundAIWorkshop\node_modules\profoundjs\utils\applyConfig.jse:1160:13)
+    at async profound.applyConfig (C:\profoundjs-applications\profoundAIWorkshop\node_modules\profoundjs\utils\applyConfig.jse:1042:5)
+    at async startPJS (C:\profoundjs-applications\profoundAIWorkshop\start.js:4:3)
+2024-10-03T17:40:31.061Z - WARNING: Server is configured as PJSCALL service without SSL. IBM i data, including credentials, will be exchanged in the clear.
+Configure SSL to encrypt traffic between this service and clients.
+2024-10-03T17:44:01.910Z - (node:14400) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)

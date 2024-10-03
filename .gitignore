@@ -1,0 +1,12 @@
+
+.vscode
+node_modules
+call.js
+complete_install.js
+gen_key.js
+get_pjscall_key.js
+lic_client.js
+package-lock.json
+start.js
+store_credentials.js
+store_options.js

@@ -1,0 +1,188 @@
+{
+  "routes": [
+    {
+      "type": "getlist",
+      "name": "Get List",
+      "enableCors": true,
+      "summary": "Get list of #pluralForm#",
+      "description": "Get a list of #pluralForm# based on criteria",
+      "method": "get",
+      "tag": "#pluralForm#",
+      "path": "/#pluralForm#",
+      "outputdescription": "Returns an array of #pluralForm# along with total count if requested.",
+      "inputs": [
+        { "type": "boolean", "from": "query", "name": "countOnly", "description": "Send true to only return the total count of the matching records" },
+        { "type": "string", "from": "query", "name": "select", "multipleValues": true, "description": "Array of all the fields to be returned." },
+        { "type": "string", "from": "query", "name": "filter", "description": "Enter the query filter." },
+        { "type": "string", "from": "query", "name": "orderby", "multipleValues": true, "description": "Array of all the fields to be sorted by." },
+        { "type": "boolean", "from": "query", "name": "count", "description": "Send true if you want the total count of the matching records" },
+        { "type": "integer", "from": "query", "name": "limit", "description": "Enter the number of records to return" },
+        { "type": "integer", "from": "query", "name": "skip", "description": "Enter the number of records to skip. This is useful when loading a page of records at a time." }
+      ],
+      "outputs": [ { "name": "totalCount", "type": "integer" } ],
+      "steps": [
+        {
+          "text": "Count requested?",
+          "answers": {
+            "plugin": "Conditions:comparison",
+            "variable": "input[\"count\"]",
+            "type": "truthy",
+            "and-or": "or",
+            "variable2": "input[\"countOnly\"]",
+            "type2": "truthy",
+            "and-or2": ""
+          },
+          "isStructureStart": true
+        },
+        {
+          "text": "Get record count",
+          "answers": {
+            "plugin": "Database:get-record-count",
+            "connection": "#connection#",
+            "tables": "#table#",
+            "criteria": "${input[\"filter\"]}",
+            "destination": "API output",
+            "api_output": "output[\"totalCount\"]"
+          }
+        },
+        {
+          "isStructureEnd": true
+        },
+        {
+          "text": "Records requested?",
+          "answers": {
+            "plugin": "Conditions:comparison",
+            "variable": "input[\"countOnly\"]",
+            "type": "falsy",
+            "and-or": ""
+          },
+          "isStructureStart": true
+        },
+        {
+          "text": "Get records",
+          "answers": {
+            "plugin": "Database:get-records",
+            "connection": "#connection#",
+            "tables": "#table#",
+            "columns": "${input[\"select\"]}",
+            "criteria": "${input[\"filter\"]}",
+            "add_order_by": true,
+            "order_by": "${input[\"orderby\"]}",
+            "limit": "${input[\"limit\"]}",
+            "skip": "${input[\"skip\"]}",
+            "destination": "API output",
+            "api_output": "output[\"data\"]"
+          }
+        },
+        {
+          "isStructureEnd": true
+        }
+      ]
+    },
+    {
+      "type": "getone",
+      "name": "Get One",
+      "enableCors": true,
+      "summary": "Get one #singleForm#",
+      "description": "Get one #singleForm#",
+      "method": "get",
+      "tag": "#pluralForm#",
+      "path": "/#pluralForm#/#pathKeys#",
+      "outputdescription": "Returns one #singleForm#.",
+      "inputs": [],
+      "outputs": [],
+      "steps": [
+        {
+          "text": "Get record",
+          "answers": {
+            "plugin": "Database:get-record",
+            "connection": "#connection#",
+            "tables": "#table#",
+            "columns": "#columns#",
+            "criteria": "#criteria#",
+            "destination": "API output",
+            "api_output": "output[\"data\"]"
+          }
+        }
+      ]
+    },
+    {
+      "type": "addone",
+      "name": "Add One",
+      "enableCors": true,
+      "summary": "Add one #singleForm#",
+      "description": "Add one #singleForm#",
+      "method": "post",
+      "tag": "#pluralForm#",
+      "path": "/#pluralForm#",
+      "outputdescription": "Returns the status of the request.",
+      "inputs": [],
+      "outputs": [ { "type": "object", "name": "status", "children": [ { "type": "boolean", "name": "success" }, { "type": "integer", "name": "affectedRows", "example": 1 } ] } ],
+      "steps": [
+        {
+          "text": "Insert",
+          "answers": {
+            "plugin": "Database:insert-record",
+            "connection": "#connection#",
+            "table": "#table#",
+            "record_source": "From API input",
+            "api_input": "input[\"data\"]",
+            "results": "output[\"status\"]"
+          }
+        }
+      ]
+    },
+    {
+      "type": "updateone",
+      "name": "Update One",
+      "enableCors": true,
+      "summary": "Update one #singleForm#",
+      "description": "Update one #singleForm#",
+      "tag": "#pluralForm#",
+      "method": "put",
+      "path": "/#pluralForm#/#pathKeys#",
+      "outputdescription": "Returns the status of the request.",
+      "inputs": [],
+      "outputs": [ { "type": "object", "name": "status", "children": [ { "type": "boolean", "name": "success" }, { "type": "integer", "name": "affectedRows", "example": 1 } ] } ],
+      "steps": [
+        {
+          "text": "Update",
+          "answers": {
+            "plugin": "Database:update-records",
+            "connection": "#connection#",
+            "table": "#table#",
+            "criteria": "#criteria#",
+            "record_source": "From API input",
+            "api_input": "input[\"data\"]",
+            "results": "output[\"status\"]"
+          }
+        }
+      ]
+    },
+    {
+      "type": "deleteone",
+      "name": "Delete One",
+      "enableCors": true,
+      "summary": "Delete one #singleForm#",
+      "description": "Delete one #singleForm#",
+      "method": "delete",
+      "tag": "#pluralForm#",
+      "path": "/#pluralForm#/#pathKeys#",
+      "outputdescription": "Returns the status of the request.",
+      "inputs": [],
+      "outputs": [ { "type": "object", "name": "status", "children": [ { "type": "boolean", "name": "success" }, { "type": "integer", "name": "affectedRows", "example": 1 } ] } ],
+      "steps": [
+        {
+          "text": "Delete",
+          "answers": {
+            "plugin": "Database:delete-records",
+            "connection": "#connection#",
+            "table": "#table#",
+            "criteria": "#criteria#",
+            "results": "output[\"status\"]"
+          }
+        }
+      ]
+    }
+  ]
+}

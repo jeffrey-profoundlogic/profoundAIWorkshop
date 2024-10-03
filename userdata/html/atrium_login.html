@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  <title>Atrium Web Portal</title>
+  <script type="text/javascript" src="/profoundui/proddata/js/signon.js"></script>
+  <script type="text/javascript">
+  
+    var authMessages = {
+    
+      "user required": "User name is required.",
+      "password required": "Password is required.",
+      "invalid credentials": "User name or password is invalid.",
+      "password expired": "Your password is expired.",
+      "password pending expiration": "Your password will expire in {DAYS} days.\n\n" + 
+                                     "Would you like to set a new password now?\n\n" + 
+                                     "Click \"OK\" to set a new password or \"Cancel\" to sign on without changing your password."
+      
+    };
+    
+  </script>
+  
+  <style type="text/css">
+  
+    body {
+    
+      font-family: "Segoe UI", tahoma, arial, helvetica, sans-serif;
+      font-size: 12px;
+      margin: 0;
+      padding: 0;
+	  background: url(/profoundui/userdata/images/Atrium-blocks.jpg);
+    }
+   
+    div.auth-box {
+    
+	  background-image: none;
+	  background: #FFFFFF;
+      width: 450px;
+      height: 550px;  
+      position: absolute;
+      left: calc(50% - 50px);
+      top: 30%;
+      margin: -111px 0 0 -191.5px;
+    
+    }
+    
+    form.auth-form {
+    
+      margin: 90px 0px 0px 135px;
+    
+    }
+    
+    form.auth-form div {
+    
+      margin-bottom: 3px;
+    
+    }
+    
+	#auth-user {
+		position: absolute;
+		top: 245px;
+		left: 100px;
+		border-style: solid;
+		border-color: #acb5bd; 
+		
+	}
+	
+	#auth-password {
+		position: absolute;
+		top: 300px;
+		left: 100px;
+		border-style: solid;
+		border-color: #acb5bd;
+	}
+	
+    #subBtn {
+		position: absolute;
+		top: 390px;
+		left: 100px;
+		padding: 15px;
+		width: 250px;
+		margin-top: 15px;
+		font-family: "Segoe UI", tahoma, arial, helvetica, sans-serif;
+		font-size: 16px;
+		background: #004677;
+		color: #ffffff;
+		outline: 0;
+		border: 0;
+		cursor: pointer;
+		
+	}	
+	
+	#subBtn:focus, #subBtn:active, #subBtn:hover {
+		background: #195884;
+		color: #ffffff;
+	}
+	
+	#logoImg {
+		position: absolute;
+		top: 35px;
+		left: 0px;
+		margin-left: 60px;
+	}
+    
+    form.auth-form input.auth-textbox {
+	
+	  font-family: "Segoe UI", tahoma, arial, helvetica, sans-serif;
+	  font-size: 17px;
+	  margin: 0 0 15px;
+      width: 225px;
+	  padding: 12px;
+	  
+    }
+	
+	   
+    form.auth-form span.auth-message {
+
+	  font-family: "Segoe UI", tahoma, arial, helvetica, sans-serif;
+	  font-size: 15px;
+      color: #004677;
+	  position: absolute;
+	  top: 495px;
+	  text-align: center;
+	  left: 1px;
+	  width: 100%;
+	
+    }
+	
+  </style>
+  
+</head>
+
+<body onload="pui.signOnInit();">
+
+  <div class="auth-box" id="auth-box" style="display: none;">
+  
+    <form id="auth-form" class="auth-form" method="post" action="/profoundui/atrium/menu" onsubmit="return pui.signOn();" autocomplete="off" >
+	
+	  <div><img src="/profoundui/userdata/images/atrium-logo.png" alt="Logo" id="logoImg" /></div>
+    
+      <div><input id="auth-user" name="auth-user" type="text" class="auth-textbox" placeholder="Username" /></div>
+      
+      <div><input id="auth-password" name="auth-password" type="password" class="auth-textbox" placeholder="Password" /></div>
+      
+      <div><input id="subBtn" type="submit" value="LOGIN" /></div>
+      
+      <div><span id="auth-message" class="auth-message"></span></div>
+      
+    </form>
+    
+  </div>
+  
+</body>
+
+</html>

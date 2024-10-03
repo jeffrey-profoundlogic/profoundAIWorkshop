@@ -1,0 +1,743 @@
+
+@font-face {
+
+  font-family: "Inconsolata";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Inconsolata"), url("/profoundui/proddata/fonts/InconsolataV5.woff") format("woff");
+  
+}
+
+@font-face {
+
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Open Sans"), local("OpenSans"), url("/profoundui/proddata/fonts/OpenSansV6.woff") format("woff");
+  
+}
+
+html {
+
+ background: #CFD5DE url("/profoundui/userdata/genie skins/Tablet/images/pagebg.jpg") repeat-x;
+
+}
+
+body {
+
+  font-family: Inconsolata, monospace;
+  font-size: 21px;
+  color: #181B20;
+  background: transparent url("/profoundui/userdata/genie skins/Tablet/images/bodybg.jpg") no-repeat;  
+  margin: 0px;
+
+}
+
+body.lowres-wide, body.highres-wide {
+
+  font-size: 15px;
+
+}
+
+div#main {
+
+  width: 1024px;
+  margin: 15px auto 0px auto;
+  padding: 0px;
+
+}
+
+body.lowres-normal div#main, body.lowres-wide div#main {
+
+  margin-top: 0px;
+
+}
+
+div#header {
+
+  padding: 0px;
+  margin: 0px;
+  width: 100%;
+  height: 60px;
+  border-bottom: 1px solid #0C3459;
+  border-top: 1px solid #96D0F7;  
+  border-radius: 10px;
+  background: #2C84AF url("/profoundui/userdata/genie skins/Tablet/images/headerbg.jpg") no-repeat;
+  color: white;
+  font-family: "Open Sans", sans-serif;
+
+}
+
+body.lowres-normal div#header, body.lowres-wide div#header {
+
+  display: none;
+
+}
+
+div#title {
+
+  text-align: center;
+  font-size: 24px;
+
+}
+
+div#user {
+
+  float: right;
+  margin-right: 10px;
+  font-size: 16px;
+  font-weight: bold;
+
+}
+
+div.genie {
+
+  width: 100%;
+  height: 100%;
+}
+
+div#contain5250 {
+    background-color: #FAFAFA;
+    border-left: 1px solid #FFFFFF;
+    border-radius: 10px 10px 0 0;
+    border-right: 1px solid #FFFFFF;
+    border-top: 1px solid #FFFFFF;
+    height: 635px;
+    margin-top: 15px;
+    padding: 0;
+    position: relative;
+    width: 100%;
+}
+
+body.lowres-normal div#contain5250, body.lowres-wide div#contain5250{
+
+  margin-top: 0px;
+
+}
+
+body.lowres-wide div#contain5250, body.highres-wide div#contain5250 {
+
+  height: 535px;
+
+}
+
+body.lowres-wide div#contain5250 {
+
+  margin-top: 50px;
+
+}
+
+div#nav-buttons {
+
+  margin: 0px;
+  padding: 0px;
+  padding-top: 5px; 
+  padding-bottom: 5px;
+  width: 100%;
+  background-color: #FAFAFA;  
+  border-bottom: 1px solid #FFFFFF;
+  border-left: 1px solid #FFFFFF;
+  border-right: 1px solid #FFFFFF;  
+  border-radius: 0px 0px 10px 10px;
+
+}
+
+div#nav-buttons div {
+
+  margin-left: 22px;
+
+}
+
+body.lowres-wide div#nav-buttons div, body.highres-wide div#nav-buttons div {
+
+  margin-left: 14px;
+
+}
+
+div.genie input[type="button"], input.tablet-button {
+
+  height: 23px;
+  font-family: Inconsolata, monospace;
+  font-size: 19px;
+  cursor: pointer;
+  color: white;
+  font-weight: normal; 
+  vertical-align: baseline;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3); 
+  background: transparent url("/profoundui/userdata/genie skins/Tablet/images/buttonbg.png") repeat-x;
+  border: 1px solid #555;
+  border-radius: 5px;
+	
+}
+
+body.lowres-wide div.genie input[type="button"], body.lowres-wide input.tablet-button,
+body.highres-wide div.genie input[type="button"], body.highres-wide input.tablet-button {
+
+  font-size: 13px;
+  height: 18px;
+
+}
+
+input.input, input.focusInp {
+
+  font-family: Inconsolata, monospace;
+  font-size: 20px;
+  background-color: white;
+  padding: 1px;
+
+}
+
+body.lowres-wide input.input, body.lowres-wide input.focusInp,
+body.highres-wide input.input, body.highres-wide input.focusInp {
+
+  font-size: 14px;
+
+}
+
+input.focusInp {
+
+	background: inherit none;
+	font-weight: normal;
+	
+}
+
+a {
+
+  color: #0F458F;
+
+}
+
+a:hover {}
+
+div#menuDiv {
+
+	background-color: #EDEDED;
+	border: 1px solid #0F458F;
+	
+}
+
+div#menuDiv table.menu {
+
+}
+
+div#menuDiv table.menu tr {
+
+	cursor: pointer;
+
+}
+
+div#menuDiv table.menu td {
+
+	border-bottom: 1px solid #0F458F;
+
+}
+
+div#menuDiv table.menu tr.menuHover td {
+
+	background-color: #0F458F;
+	color: white;
+
+}
+
+div.Default {
+
+	border: 2px solid #0F458F;
+	background-color: #EDEDED;
+	z-index: 30;
+  
+}
+
+div.Default DIV.title {
+
+	color: white;
+	background-color: #0F458F;
+	
+}
+
+div#subfile div.cell div {
+
+  font-family: Inconsolata, monospace;
+  font-size: 20px;
+
+}
+
+input[type="button"]#up-button, input[type="button"]#down-button {
+
+  width: 55px;
+
+}
+
+body.lowres-wide div#subfile div.cell div, body.highres-wide div#subfile div.cell div {
+
+  font-size: 14px;
+
+}
+
+/* Non-display */
+
+.hide, div.A27, div.A2F, div.A37, div.A3F {
+
+	visibility: hidden;
+
+}
+
+/* Green */
+
+div.A20 {
+
+}
+
+input.A20 {
+
+}
+
+/* Green/Reverse image */
+
+div.A21 {
+
+  color: white;
+  background-color: #0F458F;  
+
+}
+
+input.A21 {
+
+}
+
+/* Green Underscore */
+
+div.A24 {
+
+  border-bottom: 1px solid;
+
+}
+
+input.A24 {
+
+}
+
+/* Green/Underscore/Reverse image */
+
+div.A25 {
+
+  color: white;
+  background-color: #0F458F;  
+  border-bottom: 1px solid;
+
+}
+
+input.A25 {
+
+  background: #FFFFDD none; 
+
+}
+
+/* White */
+
+div.A22 {
+
+  color: #0F458F; 
+
+}
+
+input.A22 {
+
+}
+
+/* White/Reverse image */
+
+div.A23 {
+
+  color: white;
+  background-color: #0F458F;
+
+}
+
+input.A23 {
+
+  background: #FFFFDD none; 
+
+}
+
+/* White/Underscore */
+
+div.A26 {
+
+  color: #0F458F;
+  border-bottom: 1px solid;
+
+}
+
+input.A26 {
+
+}
+
+/* Red */
+
+div.A28 {
+
+  color: #CC0033;
+
+}
+
+input.A28 {
+
+}
+
+/* Red/Reverse image */
+
+div.A29 {
+
+  color: white;
+  background-color: #CC0033;
+
+}
+
+input.A29 {
+
+}
+
+/* Red/Blink */
+
+div.A2A {
+
+  color: #CC0033;
+
+}
+
+input.A2A {
+
+}
+
+/* Red/Reverse image/Blink */
+
+div.A2B {
+
+  color: white;
+  background-color: #CC0033;
+
+}
+
+input.A2B {
+
+}
+
+/* Red/Underscore */
+
+div.A2C {
+
+  color: #CC0033;
+  border-bottom: 1px solid;
+
+}
+
+input.A2C {
+
+}
+
+/* Red/Underscore/Reverse image */
+
+div.A2D {
+
+  color: white;
+  background-color: #CC0033;
+
+}
+
+input.A2D {
+
+  background: #FFFFDD none; 
+
+}
+
+/* Red/Underscore/Blink */
+
+div.A2E {
+
+  color: #CC0033;
+  border-bottom: 1px solid;
+
+}
+
+input.A2E {
+
+}
+
+/* Turquoise/Column Separators */
+
+div.A30 {
+
+  color: #007D7D;
+  border-bottom: thin dashed;
+
+}
+
+input.A30 {
+
+}
+
+/* Turquoise/Column Separators/Reverse Image */
+
+div.A31 {
+
+  color: white;
+  background-color: #007D7D;  
+  border-bottom: thin dashed;
+
+}
+
+input.A31 {
+
+}
+
+/* Turqoise/Underscore */
+
+div.A34 {
+
+  color: #007D7D;
+  border-bottom: 1px solid;
+
+}
+
+input.A34 {
+
+}
+
+/* Turqoise/Underscore/Reverse image */
+
+div.A35 {
+
+  color: white;
+  background-color: #007D7D;
+
+}
+
+input.A35 {
+
+  background: #FFFFDD none; 
+
+}
+
+/* Yellow/Column Separators */
+
+div.A32 {
+
+  color: #F47A20;
+  border-bottom: thin dashed;
+
+}
+
+input.A32 {
+
+}
+
+/* Yellow/Column Separators/Reverse image */
+
+div.A33 {
+
+  color: white;
+  background-color: #F47A20;
+  border-bottom: thin dashed;
+
+}
+
+input.A33 {
+
+  background: #FFFFDD none; 
+
+}
+
+/* Yellow/Underscore */
+
+div.A36 {
+
+  color: #F47A20;
+  border-bottom: 1px solid;
+
+}
+
+input.A36 {
+
+}
+
+/* Pink */
+
+div.A38 {
+
+  color: #E91370;
+
+}
+
+input.A38 {
+
+}
+
+/* Pink/Reverse image */
+
+div.A39 {
+
+  color: white;
+  background-color: #E91370;
+
+}
+
+input.A39 {
+
+}
+
+/* Pink/Underscore */
+
+div.A3C {
+
+  color: #E91370;
+  border-bottom: 1px solid;
+
+}
+
+input.A3C {
+
+}
+
+/* Pink/Underscore/Reverse image */
+
+div.A3D {
+
+  color: white;
+  background-color: #E91370;
+  border-bottom: 1px solid;
+
+}
+
+input.A3D {
+
+  background: #FFFFDD none; 
+
+}
+
+/* Blue */
+
+div.A3A {
+
+  color: #398A12;
+
+}
+
+input.A3A {
+
+}
+
+/* Blue/Reverse image */
+
+div.A3B {
+
+  color: white;
+  background-color: #0F458F;
+
+}
+
+input.A3B {
+
+  background: #FFFFDD none; 
+
+}
+
+/* Blue/Underscore */
+
+div.A3E {
+
+  color: #398A12;
+  border-bottom: 1px solid;
+
+}
+
+input.A3E {
+
+}
+
+div.genie input.readOnly {
+
+  background: transparent none;
+  border-style: none;
+
+}
+
+div#keypad {
+
+  position: absolute;
+  bottom: 0px;
+  width: 1024px;
+  margin: 0px auto 0px auto;;    
+  white-space: normal;
+  z-index: 100;
+  background-color: #999999;
+
+}
+
+div#keypad table {
+
+  margin: 0px;
+  width: 100%;
+
+}
+
+div#keypad input[type="button"] {
+
+  height: 75px;
+  width: 75px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1px solid #666666;
+  border-bottom: 2px solid #333333;
+  background-color: #E9E9EB;
+  padding: 5px;
+  -webkit-appearance: none;
+  cursor: pointer;
+
+}
+
+div#keypad input[type="button"].close {
+
+  background: #E9E9EB url("/profoundui/proddata/images/icons/keypad.png") no-repeat 20px 25px;
+
+}
+
+/* Tablet CSS Animation */
+.pui-tablet-animation {
+  position: absolute;
+  display: block;
+  top: 0px;
+  left: 0px;
+  width: 50px;
+  height: 50px;
+  z-index: 1001;
+}
+
+.pui-tablet-animation:before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  border-radius: 50%;
+  border: 2.5px solid transparent;
+  border-top-color: #CFD5DE;
+  -webkit-animation: pui-spin 1s linear infinite;
+  animation: pui-spin 1s linear infinite;
+}
+
+.pui-tablet-animation:after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  border-radius: 50%;
+  border: 2.5px solid transparent;
+  border-top-color: #2C84AF;
+  -webkit-animation: pui-spin 1.25s linear infinite;
+  animation: pui-spin 1.25s linear infinite;
+}
+
