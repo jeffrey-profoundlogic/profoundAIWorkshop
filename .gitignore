@@ -1,5 +1,5 @@
 
-logs
+logs/
 .vscode
 node_modules
 call.js

@@ -207,17 +207,6 @@
     "exit button click": {
       "steps": [
         {
-          "text": "Call external routine",
-          "answers": {
-            "plugin": "Custom:call-external-routine",
-            "module-name": "my.module.json",
-            "routine-name": "Unnamed Routine - 1",
-            "module-input-parameters": {},
-            "module-output-parameters": {},
-            "comment": ""
-          }
-        },
-        {
           "text": "Exit",
           "answers": {
             "plugin": "Navigation:exit-program",

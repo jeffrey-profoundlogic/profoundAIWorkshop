@@ -6,16 +6,16 @@ let currentDir = __dirname;
 module.exports = {
   "port": parseInt(process.env.PORT),
   "pathlist": [
-    "PJS_ENV",
     "NORTHWIND",
     "pjssamples",
-    "newAPIs"
+    "customerservice",
   ],
   "initialModules": {
     "/hello": "pjssamples/hello",
     "/hello2": "pjssamples/hello2",
     "/connect4": "pjssamples/connect4",
-    "/upload": "pjssamples/upload"
+    "/upload": "pjssamples/upload",
+    "/customerservice": "customerservice/customers.json"
   },
   "databaseConnections": [
     {
