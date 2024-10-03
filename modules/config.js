@@ -9,6 +9,7 @@ module.exports = {
     "NORTHWIND",
     "pjssamples",
     "customerservice",
+    "myaiagent",
   ],
   "initialModules": {
     "/hello": "pjssamples/hello",

@@ -334,36 +334,22 @@
       },
       "items": [
         {
-          "id": "Layout1",
+          "id": "CenteringLayout",
           "field type": "layout",
-          "left": "0px",
-          "top": "15px",
-          "template": "responsive layout",
-          "height": "100%",
-          "width": "100%",
-          "layout items": "1",
-          "style rules": "@media screen { #_id_ > .puiresp { display:grid; grid-template-rows:auto; grid-template-columns:repeat(4, 1fr); grid-column-gap:3px; grid-row-gap:3px; } #_id_ > .puiresp > div:nth-of-type(1) { grid-column-end:span 5; } } ",
-          "use viewport": "true"
-        },
-        {
-          "id": "isScreenPJS",
-          "field type": "output field",
-          "value": "PJS",
-          "css class": "customer--label-right",
-          "css class 2": "customer--constant",
-          "width": "210px",
-          "visibility": "hidden",
-          "top": "0px",
-          "left": "0px",
-          "layout": "Layout1",
-          "container": "1"
+          "left": "calc(50% - 536px)",
+          "top": "20px",
+          "template": "simple container",
+          "height": "595px",
+          "width": "1072px",
+          "center horizontally": "true",
+          "locked in place": "true"
         },
         {
           "id": "SearchBox",
           "field type": "textbox",
           "css class": "input",
-          "left": "20px",
-          "top": "85px",
+          "left": "30px",
+          "top": "95px",
           "width": "345px",
           "height": "25px",
           "css class 2": "--ai--input",
@@ -378,7 +364,7 @@
             "textTransform": "none",
             "designValue": "[searchValue]"
           },
-          "layout": "Layout1",
+          "layout": "CenteringLayout",
           "container": "1"
         },
         {
@@ -386,12 +372,12 @@
           "field type": "graphic button",
           "css class": "ai--button--secondary",
           "value": "Search",
-          "top": "85px",
+          "top": "95px",
           "width": "130px",
           "icon position": "left",
           "height": "25px",
           "icon": "material:search",
-          "left": "375px",
+          "left": "390px",
           "response": {
             "fieldName": "searchButton",
             "customTrue": "",
@@ -401,15 +387,15 @@
             "indFormat": "1 / 0"
           },
           "css class 2": "no-icon",
-          "layout": "Layout1",
+          "layout": "CenteringLayout",
           "container": "1"
         },
         {
           "id": "Grid",
           "field type": "grid",
           "css class": "office-copy-grid",
-          "left": "20px",
-          "top": "125px",
+          "left": "25px",
+          "top": "140px",
           "number of rows": "10",
           "number of columns": "4",
           "column widths": "94,347,312,227",
@@ -455,15 +441,15 @@
             "designValue": "display orders"
           },
           "css class 3": "--ai--grid",
-          "layout": "Layout1",
+          "layout": "CenteringLayout",
           "container": "1"
         },
         {
           "id": "ClearIcon",
           "field type": "icon",
           "icon": "material:clear",
-          "left": "335px",
-          "top": "85px",
+          "left": "350px",
+          "top": "95px",
           "z index": "22",
           "cursor": "pointer",
           "onclick": {
@@ -471,7 +457,7 @@
             "designValue": "clear search"
           },
           "height": "25px",
-          "layout": "Layout1",
+          "layout": "CenteringLayout",
           "container": "1"
         },
         {
@@ -479,7 +465,7 @@
           "field type": "graphic button",
           "value": "Exit",
           "left": "905px",
-          "top": "80px",
+          "top": "100px",
           "width": "90px",
           "onclick": {
             "routine": "exit button click",
@@ -490,7 +476,7 @@
           "css class": "ai--button--primary",
           "css class 2": "no-icon",
           "height": "25px",
-          "layout": "Layout1",
+          "layout": "CenteringLayout",
           "container": "1"
         },
         {
@@ -498,10 +484,10 @@
           "field type": "output field",
           "css class": "heading",
           "value": "Customers",
-          "left": "25px",
-          "top": "35px",
+          "left": "35px",
+          "top": "30px",
           "css class 2": "ai--h1",
-          "layout": "Layout1",
+          "layout": "CenteringLayout",
           "container": "1"
         },
         {
@@ -626,15 +612,6 @@
         }
       },
       "items": [
-        {
-          "id": "isScreenPJS",
-          "field type": "output field",
-          "value": "PJS",
-          "css class": "customer--label-right",
-          "css class 2": "customer--constant",
-          "width": "210px",
-          "visibility": "hidden"
-        },
         {
           "id": "DetailPanel",
           "field type": "layout",
@@ -1117,15 +1094,6 @@
       },
       "items": [
         {
-          "id": "isScreenPJS",
-          "field type": "output field",
-          "value": "PJS",
-          "css class": "customer--label-right",
-          "css class 2": "customer--constant",
-          "width": "210px",
-          "visibility": "hidden"
-        },
-        {
           "id": "CenteringLayout",
           "field type": "layout",
           "left": "calc(50% - 252px)",
@@ -1523,15 +1491,6 @@
         }
       },
       "items": [
-        {
-          "id": "isScreenPJS",
-          "field type": "output field",
-          "value": "PJS",
-          "css class": "customer--label-right",
-          "css class 2": "customer--constant",
-          "width": "210px",
-          "visibility": "hidden"
-        },
         {
           "id": "CenteringLayout",
           "field type": "layout",
