@@ -4,6 +4,55 @@
     "load customers": {
       "steps": [
         {
+          "text": "Set work variable(s)",
+          "answers": {
+            "plugin": "Program Data:set-work-variable",
+            "work-variable-values": {
+              "htmlKPI": "''"
+            },
+            "comment": ""
+          },
+          "disabled": true
+        },
+        {
+          "text": "Ask AI Agent",
+          "answers": {
+            "plugin": "Custom:ask-ai-agent",
+            "agent-name": "customerservice.agent.json",
+            "agent-data-values": {
+              "orderID": "'10398'",
+              "customerID": "'SAVEA'"
+            },
+            "message": "Run this SQL Statement:  sql SELECT Customers.CompanyName, SUM(Orders.Freight) as TotalSales FROM Orders JOIN Customers ON Orders.CustomerID = Customers.CustomerID WHERE YEAR(OrderDate) = 2023 GROUP BY Customers.CompanyName ORDER BY SUM(Orders.Freight) DESC\n\nThen output the results in kpi format using html",
+            "custom-config": "",
+            "work-variable": "htmlKPI",
+            "comment": ""
+          },
+          "disabled": true
+        },
+        {
+          "text": "Set screen field(s)",
+          "answers": {
+            "plugin": "Program Data:set-screen-fields",
+            "screen": "customers",
+            "source": "Specify each value individually",
+            "screen-values": {
+              "htmlKPIContent": "htmlKPI"
+            },
+            "comment": ""
+          },
+          "disabled": true
+        },
+        {
+          "text": "Custom Node.js",
+          "answers": {
+            "plugin": "Custom:code",
+            "custom-code": "console.log(htmlKPI)",
+            "comment": ""
+          },
+          "disabled": true
+        },
+        {
           "text": "Search criteria entered?",
           "answers": {
             "plugin": "Conditions:comparison",
@@ -237,14 +286,6 @@
     "Return to order list": {
       "steps": [
         {
-          "text": "Hide the Agent",
-          "answers": {
-            "plugin": "Client-side:client-side-code",
-            "code": "try {\r\nprofound.ai.removeEmbedIcon()\r\n} catch {}",
-            "comment": ""
-          }
-        },
-        {
           "text": "Return to Previous Screen",
           "answers": {
             "plugin": "Navigation:show-previous-screen",
@@ -310,14 +351,6 @@
             "grid": "odggrid",
             "comment": ""
           }
-        },
-        {
-          "text": "Custom JavaScript",
-          "answers": {
-            "plugin": "Client-side:client-side-code",
-            "code": "profound.ai.startAgent({\r\n  agent: \"customers.agent.json\",\r\n  data: () => ({\r\n    // Replace these sample values for dynamic agent instructions\r\n    \"orderID\": get(\"orderid\"),\r\n    \"customerID\": get(\"customerid\")\r\n  }),\r\n  server: \"http://profound.iinthecloud.com:8080\",\r\n  embed: true\r\n\r\n});\r\n",
-            "comment": ""
-          }
         }
       ]
     }
@@ -334,22 +367,37 @@
       },
       "items": [
         {
-          "id": "CenteringLayout",
-          "field type": "layout",
-          "left": "calc(50% - 536px)",
-          "top": "20px",
-          "template": "simple container",
-          "height": "595px",
-          "width": "1072px",
-          "center horizontally": "true",
-          "locked in place": "true"
+          "id": "isScreenPJS",
+          "field type": "output field",
+          "value": "PJS",
+          "css class": "customer--label-right",
+          "css class 2": "customer--constant",
+          "width": "210px",
+          "visibility": "hidden"
+        },
+        {
+          "id": "CssButton1",
+          "field type": "graphic button",
+          "value": "Exit",
+          "left": "1905px",
+          "top": "75px",
+          "width": "90px",
+          "onclick": {
+            "routine": "exit button click",
+            "designValue": "exit button click"
+          },
+          "icon": "material:exit_to_app",
+          "icon position": "left",
+          "css class": "ai--button--primary",
+          "css class 2": "no-icon",
+          "height": "25px"
         },
         {
           "id": "SearchBox",
           "field type": "textbox",
           "css class": "input",
-          "left": "30px",
-          "top": "95px",
+          "left": "65px",
+          "top": "75px",
           "width": "345px",
           "height": "25px",
           "css class 2": "--ai--input",
@@ -363,21 +411,19 @@
             "formatting": "Text",
             "textTransform": "none",
             "designValue": "[searchValue]"
-          },
-          "layout": "CenteringLayout",
-          "container": "1"
+          }
         },
         {
           "id": "SearchButton",
           "field type": "graphic button",
           "css class": "ai--button--secondary",
           "value": "Search",
-          "top": "95px",
+          "top": "75px",
           "width": "130px",
           "icon position": "left",
           "height": "25px",
           "icon": "material:search",
-          "left": "390px",
+          "left": "430px",
           "response": {
             "fieldName": "searchButton",
             "customTrue": "",
@@ -386,16 +432,14 @@
             "formatting": "Indicator",
             "indFormat": "1 / 0"
           },
-          "css class 2": "no-icon",
-          "layout": "CenteringLayout",
-          "container": "1"
+          "css class 2": "no-icon"
         },
         {
           "id": "Grid",
           "field type": "grid",
           "css class": "office-copy-grid",
-          "left": "25px",
-          "top": "140px",
+          "left": "65px",
+          "top": "130px",
           "number of rows": "10",
           "number of columns": "4",
           "column widths": "94,347,312,227",
@@ -440,55 +484,30 @@
             "routine": "display orders",
             "designValue": "display orders"
           },
-          "css class 3": "--ai--grid",
-          "layout": "CenteringLayout",
-          "container": "1"
+          "css class 3": "--ai--grid"
         },
         {
           "id": "ClearIcon",
           "field type": "icon",
           "icon": "material:clear",
-          "left": "350px",
-          "top": "95px",
+          "left": "380px",
+          "top": "75px",
           "z index": "22",
           "cursor": "pointer",
           "onclick": {
             "routine": "clear search",
             "designValue": "clear search"
           },
-          "height": "25px",
-          "layout": "CenteringLayout",
-          "container": "1"
-        },
-        {
-          "id": "CssButton1",
-          "field type": "graphic button",
-          "value": "Exit",
-          "left": "905px",
-          "top": "100px",
-          "width": "90px",
-          "onclick": {
-            "routine": "exit button click",
-            "designValue": "exit button click"
-          },
-          "icon": "material:exit_to_app",
-          "icon position": "left",
-          "css class": "ai--button--primary",
-          "css class 2": "no-icon",
-          "height": "25px",
-          "layout": "CenteringLayout",
-          "container": "1"
+          "height": "25px"
         },
         {
           "id": "OutputField3",
           "field type": "output field",
           "css class": "heading",
           "value": "Customers",
-          "left": "35px",
-          "top": "30px",
-          "css class 2": "ai--h1",
-          "layout": "CenteringLayout",
-          "container": "1"
+          "left": "70px",
+          "top": "20px",
+          "css class 2": "ai--h1"
         },
         {
           "field type": "output field",
@@ -612,6 +631,15 @@
         }
       },
       "items": [
+        {
+          "id": "isScreenPJS",
+          "field type": "output field",
+          "value": "PJS",
+          "css class": "customer--label-right",
+          "css class 2": "customer--constant",
+          "width": "210px",
+          "visibility": "hidden"
+        },
         {
           "id": "DetailPanel",
           "field type": "layout",
@@ -1094,6 +1122,15 @@
       },
       "items": [
         {
+          "id": "isScreenPJS",
+          "field type": "output field",
+          "value": "PJS",
+          "css class": "customer--label-right",
+          "css class 2": "customer--constant",
+          "width": "210px",
+          "visibility": "hidden"
+        },
+        {
           "id": "CenteringLayout",
           "field type": "layout",
           "left": "calc(50% - 252px)",
@@ -1488,9 +1525,20 @@
         "initial routine": {
           "routine": "Load Order Detail",
           "designValue": "Load Order Detail"
-        }
+        },
+        "onload": "profound.ai.startAgent({\n  agent: \"customerservice.agent.json\",\n  data: () => ({\n    // Replace these sample values for dynamic agent instructions\n    \"orderID\": get(\"orderid\"),\n    \"customerID\": get(\"customerid\")\n  }),\n  server: \"http://profound.iinthecloud.com:8080\",\n  embed: true\n});\n",
+        "onsubmit": "try {\nprofound.ai.removeEmbedIcon()\n} catch {}\n"
       },
       "items": [
+        {
+          "id": "isScreenPJS",
+          "field type": "output field",
+          "value": "PJS",
+          "css class": "customer--label-right",
+          "css class 2": "customer--constant",
+          "width": "210px",
+          "visibility": "hidden"
+        },
         {
           "id": "CenteringLayout",
           "field type": "layout",
@@ -1640,7 +1688,7 @@
             "designValue": "[orderid]"
           },
           "top": "115px",
-          "left": "175px",
+          "left": "170px",
           "id": "orderid",
           "width": "70px",
           "text align": "left",
@@ -1757,21 +1805,6 @@
           "left": "495px",
           "top": "115px",
           "width": "150px",
-          "layout": "CenteringLayout",
-          "container": "1"
-        },
-        {
-          "id": "Button2",
-          "field type": "styled button",
-          "value": "AI!",
-          "left": "780px",
-          "top": "85px",
-          "width": "100px",
-          "height": "23px",
-          "button style": "Bright Gold",
-          "color": "#000000",
-          "onclick": "var screenOrderID = get(\"orderid\");\nvar screenCustomerID = get(\"customerid\");\n\nprofound.ai.startAgent({\n  agent: \"customers.agent.json\",\n  data: () => ({\n    // Replace these sample values for dynamic agent instructions\n    \"orderID\": screenOrderID,\n    \"customerID\": screenCustomerID\n  }),\n  server: \"http://profound.iinthecloud.com:8080\",\n  embed: true\n\n});\n\n\nconsole.log(`orderID: ${screenOrderID}`);\nconsole.log(`customerID: ${screenCustomerID}`);\n",
-          "visibility": "hidden",
           "layout": "CenteringLayout",
           "container": "1"
         },
