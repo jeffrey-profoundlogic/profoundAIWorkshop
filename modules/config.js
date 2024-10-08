@@ -26,21 +26,6 @@ module.exports = {
       "driverOptions": {
         "SQL_ATTR_COMMIT": "SQL_TXN_NO_COMMIT"
       }
-    },
-    {
-      "name": "MSSQL",
-      "driver": "mssql",
-      "credentialsFile": path.resolve(currentDir, "../mssql_credentials"),
-      "driverOptions": {
-        "server": "18.220.19.245",
-        "database": "northwind",
-        "options": { "enableArithAbort": false },
-        "pool": {
-          "max": 50,
-          "min": 0,
-          "idleTimeoutMillis": 30000
-        }
-      }
     }
   ],
   pjscallKeys: [
