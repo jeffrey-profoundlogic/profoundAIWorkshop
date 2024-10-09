@@ -1,0 +1,696 @@
+{
+  "aiAgent": {
+    "greeting": "I'm here to give you insights on customers, products, and orders. How may I assist you today?",
+    "instructions": "You are assisting a customer service representative, providing insights and information on the customer and orderID being inquired upon.\r\n\r\nThe customerID is ${customerid} and orderID is ${orderid}. You may be asked to give insights on the customer and all its orders, or even all customers, products, orders.\r\n\r\nAlways include the customer's company name. \r\nAlways refer to products by product name. \r\n\r\nFollow the context of the questions and don't always assume that the question refers to the current order. If in doubt confirm with the user before answering. ",
+    "theme": "Dark",
+    "security": {
+      "authentication": "None"
+    },
+    "model": "GPT-4o",
+    "heading": "CRM Assistant",
+    "brandColor": "#3B82F6",
+    "": "You are assisting a customer service representative, providing insights and information on the customer and orderID being inquired upon.\n\nThe customerID is ${customerid} and orderID is ${orderidID}. You may be asked to give insights on the customer and all its orders, or even all customers, products, orders.\n\nAlways include the customer's company name. \n",
+    "variables": [
+      {
+        "name": "customerid",
+        "value": "SAVEA"
+      },
+      {
+        "name": "orderid",
+        "value": "10398"
+      }
+    ],
+    "analytics": true,
+    "docs": [
+      {
+        "id": "file-y5yT8pgZirB6ktJKrPAvqBNF",
+        "name": "Customer_Service_SOP.pdf"
+      }
+    ],
+    "vectorStoreId": "vs_EOg7eKwoyqPunOlC8KxsjZ4q"
+  },
+  "dataAccess": [
+    {
+      "table": "CUSTOMERS",
+      "schema": "NORTHWIND",
+      "connection": "default",
+      "columns": [
+        {
+          "active": true,
+          "column": "CUSTOMERID",
+          "type": "char(5)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "COMPANYNAME",
+          "type": "varchar(40)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "CONTACTNAME",
+          "type": "varchar(30)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "CONTACTTITLE",
+          "type": "varchar(30)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "ADDRESS",
+          "type": "varchar(60)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "CITY",
+          "type": "varchar(15)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "REGION",
+          "type": "varchar(15)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "POSTALCODE",
+          "type": "varchar(10)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "COUNTRY",
+          "type": "varchar(15)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "PHONE",
+          "type": "varchar(24)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "FAX",
+          "type": "varchar(24)",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "table": "EMPLOYEES",
+      "schema": "NORTHWIND",
+      "connection": "default",
+      "columns": [
+        {
+          "active": true,
+          "column": "EMPLOYEEID",
+          "type": "integer(9)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "LASTNAME",
+          "type": "varchar(20)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "FIRSTNAME",
+          "type": "varchar(10)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "TITLE",
+          "type": "varchar(30)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "TITLEOFCOURTESY",
+          "type": "varchar(25)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "BIRTHDATE",
+          "type": "date",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "HIREDATE",
+          "type": "date",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "ADDRESS",
+          "type": "varchar(60)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "CITY",
+          "type": "varchar(15)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "REGION",
+          "type": "varchar(15)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "POSTALCODE",
+          "type": "varchar(10)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "COUNTRY",
+          "type": "varchar(15)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "HOMEPHONE",
+          "type": "varchar(24)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "EXTENSION",
+          "type": "varchar(4)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "NOTES",
+          "type": "clob(1048576)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "REPORTSTO",
+          "type": "integer(9)",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "table": "EMPLOYEETERRITORIES",
+      "schema": "NORTHWIND",
+      "connection": "default",
+      "columns": [
+        {
+          "active": true,
+          "column": "EMPLOYEEID",
+          "type": "integer(9)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "TERRITORYID",
+          "type": "varchar(20)",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "table": "INVOICES",
+      "schema": "NORTHWIND",
+      "connection": "default",
+      "columns": [
+        {
+          "active": true,
+          "column": "SHIPNAME",
+          "type": "varchar(40)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "SHIPADDRESS",
+          "type": "varchar(60)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "SHIPCITY",
+          "type": "varchar(15)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "SHIPREGION",
+          "type": "varchar(15)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "SHIPPOSTALCODE",
+          "type": "varchar(10)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "SHIPCOUNTRY",
+          "type": "varchar(15)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "CUSTOMERID",
+          "type": "char(5)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "CUSTOMERNAME",
+          "type": "varchar(40)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "ADDRESS",
+          "type": "varchar(60)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "CITY",
+          "type": "varchar(15)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "REGION",
+          "type": "varchar(15)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "POSTALCODE",
+          "type": "varchar(10)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "COUNTRY",
+          "type": "varchar(15)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "SALESPERSON",
+          "type": "varchar(31)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "ORDERID",
+          "type": "integer(9)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "ORDERDATE",
+          "type": "date",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "REQUIREDDATE",
+          "type": "date",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "SHIPPEDDATE",
+          "type": "date",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "SHIPPERNAME",
+          "type": "varchar(40)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "PRODUCTID",
+          "type": "integer(9)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "PRODUCTNAME",
+          "type": "varchar(40)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "UNITPRICE",
+          "type": "decimal(19,4)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "QUANTITY",
+          "type": "smallint(4)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "DISCOUNT",
+          "type": "float(24)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "EXTENDEDPRICE",
+          "type": "decimal(31,16)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "FREIGHT",
+          "type": "decimal(19,4)",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "table": "ORDERDETAILS",
+      "schema": "NORTHWIND",
+      "connection": "default",
+      "columns": [
+        {
+          "active": true,
+          "column": "ORDERID",
+          "type": "integer(9)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "PRODUCTID",
+          "type": "integer(9)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "UNITPRICE",
+          "type": "decimal(19,4)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "QUANTITY",
+          "type": "smallint(4)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "DISCOUNT",
+          "type": "float(24)",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "table": "ORDERS",
+      "schema": "NORTHWIND",
+      "connection": "default",
+      "columns": [
+        {
+          "active": true,
+          "column": "ORDERID",
+          "type": "integer(9)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "CUSTOMERID",
+          "type": "char(5)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "EMPLOYEEID",
+          "type": "integer(9)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "ORDERDATE",
+          "type": "date",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "REQUIREDDATE",
+          "type": "date",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "SHIPPEDDATE",
+          "type": "date",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "SHIPVIA",
+          "type": "integer(9)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "FREIGHT",
+          "type": "decimal(19,4)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "SHIPNAME",
+          "type": "varchar(40)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "SHIPADDRESS",
+          "type": "varchar(60)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "SHIPCITY",
+          "type": "varchar(15)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "SHIPREGION",
+          "type": "varchar(15)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "SHIPPOSTALCODE",
+          "type": "varchar(10)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "SHIPCOUNTRY",
+          "type": "varchar(15)",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "table": "PRODUCTS",
+      "schema": "NORTHWIND",
+      "connection": "default",
+      "columns": [
+        {
+          "active": true,
+          "column": "PRODUCTID",
+          "type": "integer(9)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "PRODUCTNAME",
+          "type": "varchar(40)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "SUPPLIERID",
+          "type": "integer(9)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "CATEGORYID",
+          "type": "integer(9)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "QUANTITYPERUNIT",
+          "type": "varchar(20)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "UNITPRICE",
+          "type": "decimal(19,4)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "UNITSINSTOCK",
+          "type": "smallint(4)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "UNITSONORDER",
+          "type": "smallint(4)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "REORDERLEVEL",
+          "type": "smallint(4)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "DISCONTINUED",
+          "type": "smallint(4)",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "table": "SHIPPERS",
+      "schema": "NORTHWIND",
+      "connection": "default",
+      "columns": [
+        {
+          "active": true,
+          "column": "SHIPPERID",
+          "type": "integer(9)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "COMPANYNAME",
+          "type": "varchar(40)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "PHONE",
+          "type": "varchar(24)",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "table": "SUPPLIERS",
+      "schema": "NORTHWIND",
+      "connection": "default",
+      "columns": [
+        {
+          "active": true,
+          "column": "SUPPLIERID",
+          "type": "integer(9)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "COMPANYNAME",
+          "type": "varchar(40)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "CONTACTNAME",
+          "type": "varchar(30)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "CONTACTTITLE",
+          "type": "varchar(30)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "ADDRESS",
+          "type": "varchar(60)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "CITY",
+          "type": "varchar(15)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "REGION",
+          "type": "varchar(15)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "POSTALCODE",
+          "type": "varchar(10)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "COUNTRY",
+          "type": "varchar(15)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "PHONE",
+          "type": "varchar(24)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "FAX",
+          "type": "varchar(24)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "HOMEPAGE",
+          "type": "clob(1048576)",
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "routines": [
+    {
+      "name": "Unnamed Function - 1"
+    }
+  ]
+}

@@ -18,8 +18,7 @@
           "text": "Search records",
           "answers": {
             "plugin": "Database:get-records",
-            "connection": "MSSQL",
-            "tables": "NORTHWIND/CUSTOMERS",
+            "tables": "CUSTOMERS",
             "columns": "customerid,companyname,city,country",
             "criteria": "UPPER(customerid) LIKE CONCAT(CONCAT('%', UPPER(?)), '%') OR UPPER(companyname) LIKE CONCAT(CONCAT('%', UPPER(?)), '%') OR upper(contactname) LIKE CONCAT(CONCAT('%', UPPER(?)), '%') OR upper(contacttitle) LIKE CONCAT(CONCAT('%', UPPER(?)), '%') OR upper(address) LIKE CONCAT(CONCAT('%', UPPER(?)), '%') OR upper(city) LIKE CONCAT(CONCAT('%', UPPER(?)), '%') OR upper(region) LIKE CONCAT(CONCAT('%', UPPER(?)), '%') OR postalcode LIKE CONCAT(CONCAT('%', ?), '%') OR upper(country) LIKE CONCAT(CONCAT('%', UPPER(?)), '%') OR phone LIKE CONCAT(CONCAT('%', ?), '%') OR fax LIKE CONCAT(CONCAT('%', ?), '%')",
             "parameter": "customers[\"searchValue\"]",
@@ -56,7 +55,6 @@
           "text": "Load all records",
           "answers": {
             "plugin": "Database:get-records",
-            "connection": "MSSQL",
             "tables": "NORTHWIND/CUSTOMERS",
             "columns": "customerid,companyname,city,country",
             "criteria": "",
@@ -94,7 +92,6 @@
           "text": "Update/insert record",
           "answers": {
             "plugin": "Database:update-insert-record",
-            "connection": "MSSQL",
             "table": "CUSTOMERS",
             "criteria": "customerid = ?",
             "parameter": "customerDetail[\"customeridKey\"]",
@@ -176,31 +173,6 @@
           "text": "Custom SQL",
           "answers": {
             "plugin": "Database:custom-sql",
-            "connection": "MSSQL",
-            "sql": "SELECT \r\n    o.*,\r\n    s.COMPANYNAME as shipper,\r\n    COUNT(od.PRODUCTID) AS lines,\r\n    SUM((od.UNITPRICE * od.QUANTITY) * (1 - od.DISCOUNT)) AS total\r\nFROM \r\n    ORDERS o\r\nJOIN \r\n    ORDERDETAILS od ON o.ORDERID = od.ORDERID\r\nJOIN \r\n    SHIPPERS s ON o.SHIPVIA = s.SHIPPERID\r\nWHERE \r\n    o.CUSTOMERID = ?\r\n    \r\nGROUP BY \r\n    o.ORDERID, \r\n    o.CUSTOMERID, \r\n    o.EMPLOYEEID, \r\n    o.ORDERDATE, \r\n    o.REQUIREDDATE, \r\n    o.SHIPPEDDATE, \r\n    o.SHIPVIA, \r\n    o.FREIGHT, \r\n    o.SHIPNAME, \r\n    o.SHIPADDRESS, \r\n    o.SHIPCITY, \r\n    o.SHIPREGION, \r\n    o.SHIPPOSTALCODE, \r\n    o.SHIPCOUNTRY,\r\n    s.COMPANYNAME\r\nORDER BY \r\n    o.ORDERID;",
-            "parameter": "activeGridRecord[\"customerid\"]",
-            "save_result": true,
-            "first_record_only": false,
-            "destination": "Work variable",
-            "work_variable": "_results",
-            "comment": ""
-          },
-          "disabled": true
-        },
-        {
-          "text": "Custom Node.js",
-          "answers": {
-            "plugin": "Custom:code",
-            "custom-code": "console.log(_results)",
-            "comment": ""
-          },
-          "disabled": true
-        },
-        {
-          "text": "Custom SQL",
-          "answers": {
-            "plugin": "Database:custom-sql",
-            "connection": "MSSQL",
             "sql": "SELECT \r\n    o.OrderID as orderid,\r\n    o.CustomerID as customerid,\r\n    o.EmployeeID as employeeid,\r\n    o.OrderDate as orderdate,\r\n    o.RequiredDate as requireddate,\r\n    o.ShippedDate as shippeddate,\r\n    o.ShipVia as shivia,\r\n    o.Freight as freight,\r\n    o.ShipName as shipname,\r\n    o.ShipAddress as shipaddress,\r\n    o.ShipCity as shipcity,\r\n    o.ShipRegion as shipregion,\r\n    o.ShipPostalCode as shippostalcode,\r\n    o.ShipCountry as shipcounty,\r\n    s.COMPANYNAME as shipper,\r\n    COUNT(od.PRODUCTID) AS lines,\r\n    SUM((od.UNITPRICE * od.QUANTITY) * (1 - od.DISCOUNT)) AS total\r\nFROM \r\n    ORDERS o\r\nJOIN \r\n    ORDERDETAILS od ON o.ORDERID = od.ORDERID\r\nJOIN \r\n    SHIPPERS s ON o.SHIPVIA = s.SHIPPERID\r\nWHERE \r\n    o.CUSTOMERID = ?\r\n    \r\nGROUP BY \r\n    o.ORDERID, \r\n    o.CUSTOMERID, \r\n    o.EMPLOYEEID, \r\n    o.ORDERDATE, \r\n    o.REQUIREDDATE, \r\n    o.SHIPPEDDATE, \r\n    o.SHIPVIA, \r\n    o.FREIGHT, \r\n    o.SHIPNAME, \r\n    o.SHIPADDRESS, \r\n    o.SHIPCITY, \r\n    o.SHIPREGION, \r\n    o.SHIPPOSTALCODE, \r\n    o.SHIPCOUNTRY,\r\n    s.COMPANYNAME\r\nORDER BY \r\n    o.ORDERID;",
             "parameter": "activeGridRecord[\"customerid\"]",
             "save_result": true,
@@ -236,14 +208,6 @@
     },
     "Return to order list": {
       "steps": [
-        {
-          "text": "Hide the Agent",
-          "answers": {
-            "plugin": "Client-side:client-side-code",
-            "code": "try {\r\nprofound.ai.removeEmbedIcon()\r\n} catch {}",
-            "comment": ""
-          }
-        },
         {
           "text": "Return to Previous Screen",
           "answers": {
@@ -300,7 +264,6 @@
           "text": "Custom SQL",
           "answers": {
             "plugin": "Database:custom-sql",
-            "connection": "MSSQL",
             "sql": "SELECT \r\n    o.ORDERID as orderid,\r\n    o.CUSTOMERID as customerid,\r\n    o.EMPLOYEEID as employeeid,\r\n    o.ORDERDATE as orderdate,\r\n    o.REQUIREDDATE as requiredate,\r\n    o.SHIPPEDDATE as shippeddate,\r\n    o.SHIPVIA as shipvia,\r\n    o.FREIGHT as freight,\r\n    o.SHIPNAME as shipname,\r\n    o.SHIPADDRESS as shipaddress,\r\n    o.SHIPCITY as shipcity,\r\n    o.SHIPREGION as shipregion,\r\n    o.SHIPPOSTALCODE as shippostalcode,\r\n    o.SHIPCOUNTRY as shipcountry,\r\n    od.PRODUCTID as productid,\r\n    p.PRODUCTNAME as productname,\r\n    p.CATEGORYID as categoryid,\r\n    c.CATEGORYNAME as categoryname,\r\n    od.UNITPRICE as unitprice,\r\n    od.QUANTITY as quantity,\r\n    (od.DISCOUNT * 100) as discount,\r\n    (od.UNITPRICE * od.QUANTITY * (1 - od.DISCOUNT)) AS extended,\r\n    s.COMPANYNAME AS shippername,\r\n    s.PHONE AS shipperphone,\r\n    p.UNITSINSTOCK as unitsinstock,\r\n    p.UNITSONORDER as unitsonorder\r\nFROM \r\n    ORDERS o\r\nINNER JOIN \r\n    ORDERDETAILS od ON o.ORDERID = od.ORDERID\r\nINNER JOIN \r\n    PRODUCTS p ON od.PRODUCTID = p.PRODUCTID\r\nINNER JOIN \r\n    SHIPPERS s ON o.SHIPVIA = s.SHIPPERID\r\nLEFT JOIN \r\n    CATEGORIES c ON p.CATEGORYID = c.CATEGORYID\r\nWHERE \r\n    o.CUSTOMERID = ? AND\r\n    o.ORDERID = ?       \r\nORDER BY  \r\n    o.ORDERID, od.PRODUCTID;  ",
             "parameter": "orders[\"customerid\"]",
             "parameter_2": "activeGridRecord[\"orderid\"]",
@@ -308,14 +271,6 @@
             "first_record_only": false,
             "destination": "Grid",
             "grid": "odggrid",
-            "comment": ""
-          }
-        },
-        {
-          "text": "Custom JavaScript",
-          "answers": {
-            "plugin": "Client-side:client-side-code",
-            "code": "profound.ai.startAgent({\r\n  agent: \"customers.agent.json\",\r\n  data: () => ({\r\n    // Replace these sample values for dynamic agent instructions\r\n    \"orderID\": get(\"orderid\"),\r\n    \"customerID\": get(\"customerid\")\r\n  }),\r\n  server: \"http://profound.iinthecloud.com:8080\",\r\n  embed: true\r\n\r\n});\r\n",
             "comment": ""
           }
         }
@@ -344,19 +299,6 @@
           "layout items": "1",
           "style rules": "@media screen { #_id_ > .puiresp { display:grid; grid-template-rows:auto; grid-template-columns:repeat(4, 1fr); grid-column-gap:3px; grid-row-gap:3px; } #_id_ > .puiresp > div:nth-of-type(1) { grid-column-end:span 5; } } ",
           "use viewport": "true"
-        },
-        {
-          "id": "isScreenPJS",
-          "field type": "output field",
-          "value": "PJS",
-          "css class": "customer--label-right",
-          "css class 2": "customer--constant",
-          "width": "210px",
-          "visibility": "hidden",
-          "top": "0px",
-          "left": "0px",
-          "layout": "Layout1",
-          "container": "1"
         },
         {
           "id": "SearchBox",
@@ -511,7 +453,6 @@
           "value": {
             "fieldName": "customerid",
             "refField": "customerid CUSTOMERS",
-            "refFieldConnection": "MSSQL",
             "trimLeading": "false",
             "trimTrailing": "true",
             "blankFill": "false",
@@ -534,7 +475,6 @@
           "value": {
             "fieldName": "companyname",
             "refField": "companyname CUSTOMERS",
-            "refFieldConnection": "MSSQL",
             "trimLeading": "false",
             "trimTrailing": "true",
             "blankFill": "false",
@@ -557,7 +497,6 @@
           "value": {
             "fieldName": "city",
             "refField": "CITY CUSTOMERS",
-            "refFieldConnection": "MSSQL",
             "trimLeading": "false",
             "trimTrailing": "true",
             "blankFill": "false",
@@ -580,7 +519,6 @@
           "value": {
             "fieldName": "country",
             "refField": "COUNTRY CUSTOMERS",
-            "refFieldConnection": "MSSQL",
             "trimLeading": "false",
             "trimTrailing": "true",
             "blankFill": "false",
@@ -626,15 +564,6 @@
         }
       },
       "items": [
-        {
-          "id": "isScreenPJS",
-          "field type": "output field",
-          "value": "PJS",
-          "css class": "customer--label-right",
-          "css class 2": "customer--constant",
-          "width": "210px",
-          "visibility": "hidden"
-        },
         {
           "id": "DetailPanel",
           "field type": "layout",
@@ -1117,15 +1046,6 @@
       },
       "items": [
         {
-          "id": "isScreenPJS",
-          "field type": "output field",
-          "value": "PJS",
-          "css class": "customer--label-right",
-          "css class 2": "customer--constant",
-          "width": "210px",
-          "visibility": "hidden"
-        },
-        {
           "id": "CenteringLayout",
           "field type": "layout",
           "left": "calc(50% - 252px)",
@@ -1195,7 +1115,6 @@
           "value": {
             "fieldName": "customerid",
             "refField": "CUSTOMERID CUSTOMERS",
-            "refFieldConnection": "MSSQL",
             "trimLeading": "false",
             "trimTrailing": "true",
             "blankFill": "false",
@@ -1220,7 +1139,6 @@
           "value": {
             "fieldName": "companyname",
             "refField": "COMPANYNAME CUSTOMERS",
-            "refFieldConnection": "MSSQL",
             "trimLeading": "false",
             "trimTrailing": "true",
             "blankFill": "false",
@@ -1274,7 +1192,6 @@
           "value": {
             "fieldName": "orderid",
             "refField": "orderid ORDERS",
-            "refFieldConnection": "MSSQL",
             "numSep": "false",
             "zeroBalance": "false",
             "numBlankFill": "false",
@@ -1302,7 +1219,6 @@
           "value": {
             "fieldName": "orderdate",
             "refField": "orderdate ORDERS",
-            "refFieldConnection": "MSSQL",
             "dataType": "reference",
             "formatting": "Date",
             "dateFormat": "",
@@ -1323,7 +1239,6 @@
           "value": {
             "fieldName": "shipname",
             "refField": "SHIPNAME ORDERS",
-            "refFieldConnection": "MSSQL",
             "trimLeading": "false",
             "trimTrailing": "true",
             "blankFill": "false",
@@ -1346,7 +1261,6 @@
           "value": {
             "fieldName": "shipaddress",
             "refField": "SHIPADDRESS ORDERS",
-            "refFieldConnection": "MSSQL",
             "trimLeading": "false",
             "trimTrailing": "true",
             "blankFill": "false",
@@ -1369,7 +1283,6 @@
           "value": {
             "fieldName": "shipcity",
             "refField": "SHIPCITY ORDERS",
-            "refFieldConnection": "MSSQL",
             "trimLeading": "false",
             "trimTrailing": "true",
             "blankFill": "false",
@@ -1392,7 +1305,6 @@
           "value": {
             "fieldName": "shipregion",
             "refField": "SHIPREGION ORDERS",
-            "refFieldConnection": "MSSQL",
             "trimLeading": "false",
             "trimTrailing": "true",
             "blankFill": "false",
@@ -1524,15 +1436,6 @@
       },
       "items": [
         {
-          "id": "isScreenPJS",
-          "field type": "output field",
-          "value": "PJS",
-          "css class": "customer--label-right",
-          "css class 2": "customer--constant",
-          "width": "210px",
-          "visibility": "hidden"
-        },
-        {
           "id": "CenteringLayout",
           "field type": "layout",
           "left": "calc(50% - 252px)",
@@ -1599,7 +1502,6 @@
           "value": {
             "fieldName": "customerid",
             "refField": "CUSTOMERID CUSTOMERS",
-            "refFieldConnection": "MSSQL",
             "trimLeading": "false",
             "trimTrailing": "true",
             "blankFill": "false",
@@ -1624,7 +1526,6 @@
           "value": {
             "fieldName": "companyname",
             "refField": "COMPANYNAME CUSTOMERS",
-            "refFieldConnection": "MSSQL",
             "trimLeading": "false",
             "trimTrailing": "true",
             "blankFill": "false",
@@ -1667,7 +1568,6 @@
           "value": {
             "fieldName": "orderid",
             "refField": "orderid ORDERS",
-            "refFieldConnection": "MSSQL",
             "numSep": "false",
             "zeroBalance": "false",
             "numBlankFill": "false",
@@ -1695,7 +1595,6 @@
           "value": {
             "fieldName": "orderdate",
             "refField": "orderdate ORDERS",
-            "refFieldConnection": "MSSQL",
             "dataType": "reference",
             "formatting": "Date",
             "dateFormat": "",
@@ -1802,21 +1701,6 @@
           "container": "1"
         },
         {
-          "id": "Button2",
-          "field type": "styled button",
-          "value": "AI!",
-          "left": "780px",
-          "top": "85px",
-          "width": "100px",
-          "height": "23px",
-          "button style": "Bright Gold",
-          "color": "#000000",
-          "onclick": "var screenOrderID = get(\"orderid\");\nvar screenCustomerID = get(\"customerid\");\n\nprofound.ai.startAgent({\n  agent: \"customers.agent.json\",\n  data: () => ({\n    // Replace these sample values for dynamic agent instructions\n    \"orderID\": screenOrderID,\n    \"customerID\": screenCustomerID\n  }),\n  server: \"http://profound.iinthecloud.com:8080\",\n  embed: true\n\n});\n\n\nconsole.log(`orderID: ${screenOrderID}`);\nconsole.log(`customerID: ${screenCustomerID}`);\n",
-          "visibility": "hidden",
-          "layout": "CenteringLayout",
-          "container": "1"
-        },
-        {
           "id": "Label1_copy4",
           "field type": "output field",
           "css class": "label",
@@ -1873,7 +1757,6 @@
           "value": {
             "fieldName": "productid",
             "refField": "PRODUCTID PRODUCTS",
-            "refFieldConnection": "MSSQL",
             "numSep": "false",
             "zeroBalance": "false",
             "numBlankFill": "false",
@@ -1902,7 +1785,6 @@
           "value": {
             "fieldName": "productname",
             "refField": "PRODUCTNAME PRODUCTS",
-            "refFieldConnection": "MSSQL",
             "trimLeading": "false",
             "trimTrailing": "true",
             "blankFill": "false",
@@ -1925,7 +1807,6 @@
           "value": {
             "fieldName": "quantity",
             "refField": "QUANTITY OrderDetails",
-            "refFieldConnection": "MSSQL",
             "numSep": "false",
             "zeroBalance": "false",
             "numBlankFill": "false",
@@ -2010,7 +1891,6 @@
           "value": {
             "fieldName": "categoryname",
             "refField": "CATEGORYNAME CATEGORIES",
-            "refFieldConnection": "MSSQL",
             "trimLeading": "false",
             "trimTrailing": "true",
             "blankFill": "false",
@@ -2035,7 +1915,6 @@
           "value": {
             "fieldName": "unitsinstock",
             "refField": "UNITSINSTOCK PRODUCTS",
-            "refFieldConnection": "MSSQL",
             "numSep": "false",
             "zeroBalance": "true",
             "numBlankFill": "true",
@@ -2064,7 +1943,6 @@
           "value": {
             "fieldName": "unitsonorder",
             "refField": "UNITSONORDER PRODUCTS",
-            "refFieldConnection": "MSSQL",
             "numSep": "false",
             "zeroBalance": "true",
             "numBlankFill": "true",
