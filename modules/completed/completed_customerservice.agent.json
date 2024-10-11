@@ -1,15 +1,15 @@
 {
   "aiAgent": {
     "greeting": "I'm here to give you insights on customers, products, and orders. How may I assist you today?",
-    "instructions": "You are assisting a customer service representative, providing insights and information on the customer and orderID being inquired upon.\r\n\r\nThe customerID is ${customerid} and orderID is ${orderid}. You may be asked to give insights on the customer and all its orders, or even all customers, products, orders.\r\n\r\nAlways include the customer's company name. \r\nAlways refer to products by product name. \r\n\r\nFollow the context of the questions and don't always assume that the question refers to the current order. If in doubt confirm with the user before answering. ",
+    "instructions": "You are assisting a customer service representative, providing insights and information on the customer and orderID being inquired upon.\r\n\r\nYou may be asked to give insights on the customer and all its orders, or even all customers, products, orders.\r\n\r\nAlways include the customer's company name. \r\nAlways refer to products by product name. \r\n\r\nFollow the context of the questions and don't always assume that the question refers to the current order. If in doubt confirm with the user before answering. \r\n\r\nIf information is not present in the uploaded files, use data access to retrieve the information, followed by routines.  When retrieving information via data access, use SQL views first, then SQL Tables.\r\n\r\n<%\r\nconst { companyname, address, city, region, weathercondition, weatherimageurl, weathertempf } = await call(\"getCustomerInformation\", { customerid });\r\n%>\r\n\r\nThe current customer number is: <%- customerid %>.\r\nThe current order number is: <%- orderid %>\r\nThe customer name is: <%- companyname %>.\r\nThe current weather for this customer is <%- weathertempf %> <%- weathercondition %> <%- weatherimageurl %>",
     "theme": "Dark",
     "security": {
       "authentication": "None"
     },
-    "model": "GPT-4o",
+    "model": "GPT-3.5 Turbo",
     "heading": "CRM Assistant",
     "brandColor": "#3B82F6",
-    "": "You are assisting a customer service representative, providing insights and information on the customer and orderID being inquired upon.\n\nThe customerID is ${customerid} and orderID is ${orderidID}. You may be asked to give insights on the customer and all its orders, or even all customers, products, orders.\n\nAlways include the customer's company name. \n",
+    "": "\nThe current customer number is: <%- customerid %>.\nThe current order number is: <%- orderid %>\nThe customer name is: <%- companyname %>.\nThe current weather for this customer is <%- weathertempf %> <%- weathercondition %> <%- weatherimageurl %>",
     "variables": [
       {
         "name": "customerid",
@@ -101,7 +101,8 @@
           "type": "varchar(24)",
           "description": ""
         }
-      ]
+      ],
+      "description": ""
     },
     {
       "table": "EMPLOYEES",
@@ -686,11 +687,390 @@
           "description": ""
         }
       ]
+    },
+    {
+      "table": "CATEGORIES",
+      "schema": "NORTHWIND",
+      "connection": "default",
+      "description": "",
+      "columns": [
+        {
+          "active": true,
+          "column": "CATEGORYID",
+          "type": "integer(9)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "CATEGORYNAME",
+          "type": "varchar(15)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "DESCRIPTION",
+          "type": "clob(1048576)",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "table": "PRODUCTSALESBYYEAR",
+      "schema": "NORTHWIND",
+      "connection": "default",
+      "description": "",
+      "columns": [
+        {
+          "active": true,
+          "column": "CATEGORYNAME",
+          "type": "varchar(15)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "PRODUCTNAME",
+          "type": "varchar(40)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "PRODUCTSALES",
+          "type": "decimal(31,16)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "SHIPPEDYEAR",
+          "type": "integer(9)",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "table": "SALESTOTALSBYCUSTCATYEARQTRAMOUNT",
+      "schema": "NORTHWIND",
+      "connection": "default",
+      "description": "",
+      "columns": [
+        {
+          "active": true,
+          "column": "CUSTOMERID",
+          "type": "char(5)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "COMPANYNAME",
+          "type": "varchar(40)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "PRODUCTSALES",
+          "type": "decimal(31,16)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "SHIPPEDYEAR",
+          "type": "integer(9)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "SHIPPEDQUARTER",
+          "type": "integer(9)",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "table": "PRODUCTSBYCATEGORY",
+      "schema": "NORTHWIND",
+      "connection": "default",
+      "description": "",
+      "columns": [
+        {
+          "active": true,
+          "column": "CATEGORYNAME",
+          "type": "varchar(15)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "PRODUCTNAME",
+          "type": "varchar(40)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "QUANTITYPERUNIT",
+          "type": "varchar(20)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "UNITSINSTOCK",
+          "type": "smallint(4)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "DISCONTINUED",
+          "type": "smallint(4)",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "table": "PRODUCTSABOVEAVERAGEPRICE",
+      "schema": "NORTHWIND",
+      "connection": "default",
+      "description": "",
+      "columns": [
+        {
+          "active": true,
+          "column": "PRODUCTNAME",
+          "type": "varchar(40)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "UNITPRICE",
+          "type": "decimal(19,4)",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "table": "ORDERDETAILSEXTENDED",
+      "schema": "NORTHWIND",
+      "connection": "default",
+      "description": "",
+      "columns": [
+        {
+          "active": true,
+          "column": "ORDERID",
+          "type": "integer(9)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "PRODUCTID",
+          "type": "integer(9)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "PRODUCTNAME",
+          "type": "varchar(40)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "UNITPRICE",
+          "type": "decimal(19,4)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "QUANTITY",
+          "type": "smallint(4)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "DISCOUNT",
+          "type": "float(24)",
+          "description": ""
+        },
+        {
+          "active": true,
+          "column": "EXTENDEDPRICE",
+          "type": "decimal(31,16)",
+          "description": ""
+        }
+      ]
     }
   ],
   "routines": [
     {
-      "name": "Unnamed Function - 1"
+      "name": "getWeatherByCity",
+      "description": "Retrieve Weather Information by City\nhttps://www.weatherapi.com/api-explorer.aspx",
+      "inputs": [
+        {
+          "type": "string",
+          "name": "city",
+          "example": "London",
+          "description": "Target City (retrieve weather for this city)",
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "type": "string",
+          "name": "condition",
+          "example": "Overcast",
+          "description": "Weather Condition Description"
+        },
+        {
+          "type": "string",
+          "name": "imageURL",
+          "example": "//cdn.weatherapi.com/weather/64x64/night/122.png",
+          "description": "Weather Image URL"
+        },
+        {
+          "type": "string",
+          "name": "temperatureFahrenheit",
+          "example": "55.8",
+          "description": "Temperature in fahrenheit"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Consume REST service",
+          "answers": {
+            "plugin": "Custom:web-service",
+            "uri": "http://api.weatherapi.com/v1/current.json?key=${process.env.WEATHER_API_KEY}&q=${encodeURIComponent(input[\"city\"])}&aqi=no",
+            "use_openAPI": false,
+            "method": "GET",
+            "headers": "",
+            "body": "",
+            "json": true,
+            "auth": "",
+            "capture_response": true,
+            "capture_on_error": false,
+            "capture_as": "Record",
+            "specific_property": "",
+            "destination": "Work variable",
+            "work_variable": "_weatherData",
+            "capture_status": false,
+            "capture_response_header": false,
+            "comment": ""
+          }
+        },
+        {
+          "text": "Set Module output",
+          "answers": {
+            "plugin": "Program Data:set-module-output",
+            "module-output-values": {
+              "condition": "_weatherData.current.condition.text",
+              "imageURL": "_weatherData.current.condition.icon",
+              "temperatureFahrenheit": "_weatherData.current.temp_f"
+            },
+            "comment": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "getCustomerInformation",
+      "description": "Retrieve Customer Information for initial display in agent.",
+      "inputs": [
+        {
+          "type": "string",
+          "name": "customerid",
+          "required": true,
+          "example": "SAVEA",
+          "description": "Customer Id"
+        }
+      ],
+      "outputs": [
+        {
+          "type": "string",
+          "name": "companyname",
+          "example": "Around the Horn",
+          "description": "Company Name"
+        },
+        {
+          "type": "string",
+          "name": "address",
+          "example": "Brook Farm Stratford Street",
+          "description": "Customer Address"
+        },
+        {
+          "type": "string",
+          "name": "city",
+          "example": "London",
+          "description": "City"
+        },
+        {
+          "type": "string",
+          "name": "region",
+          "description": "Region"
+        },
+        {
+          "type": "string",
+          "name": "weathercondition",
+          "example": "OverCast",
+          "description": "Weather Condition Description"
+        },
+        {
+          "type": "string",
+          "name": "weatherimageurl",
+          "description": "Weather Image URL",
+          "example": "//cdn.weatherapi.com/weather/64x64/night/122.png"
+        },
+        {
+          "type": "string",
+          "name": "weathertempf",
+          "description": "Weather Temperature in fahrenheit",
+          "example": "55.8"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Get record",
+          "answers": {
+            "plugin": "Database:get-record",
+            "tables": "CUSTOMERS",
+            "columns": "customerid,companyname,address,city,region",
+            "criteria": "customerid = ?",
+            "parameter": "input[\"customerid\"]",
+            "destination": "Work variable",
+            "work_variable": "_customerInformation",
+            "comment": ""
+          }
+        },
+        {
+          "text": "Consume REST service",
+          "answers": {
+            "plugin": "Custom:web-service",
+            "uri": "http://api.weatherapi.com/v1/current.json?key=${process.env.WEATHER_API_KEY}&q=${encodeURIComponent(_customerInformation[\"city\"])}&aqi=no",
+            "use_openAPI": false,
+            "method": "GET",
+            "headers": "",
+            "body": "",
+            "json": true,
+            "auth": "",
+            "capture_response": true,
+            "capture_on_error": false,
+            "capture_as": "Record",
+            "specific_property": "",
+            "destination": "Work variable",
+            "work_variable": "_weatherData",
+            "capture_status": false,
+            "capture_response_header": false,
+            "comment": ""
+          }
+        },
+        {
+          "text": "Set Module output",
+          "answers": {
+            "plugin": "Program Data:set-module-output",
+            "module-output-values": {
+              "companyname": "_customerInformation[\"companyname\"]",
+              "address": "_customerInformation[\"address\"]",
+              "city": "_customerInformation[\"city\"]",
+              "region": "_customerInformation[\"region\"]",
+              "weathercondition": "_weatherData.current.condition.text",
+              "weatherimageurl": "_weatherData.current.condition.icon",
+              "weathertempf": "_weatherData.current.temp_f"
+            },
+            "comment": ""
+          }
+        }
+      ]
     }
   ]
 }

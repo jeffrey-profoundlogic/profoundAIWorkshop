@@ -1433,8 +1433,8 @@
           "routine": "Load Order Detail",
           "designValue": "Load Order Detail"
         },
-        "onsubmit": "try {\nprofound.ai.removeEmbedIcon()\n} catch {}",
-        "onload": "profound.ai.startAgent({\n  agent: \"customerservice.agent.json\",\n  data: () => ({\n    // Replace these sample values for dynamic agent instructions\n    \"orderid\": get(\"orderid\"),\n    \"customerid\": get(\"customerid\")\n  }),\n  embed: true\n});"
+        "onload": "profound.ai.startAgent({\n  agent: \"customerservice.agent.json\",\n  data: () => ({\n    // Replace these sample values for dynamic agent instructions\n    \"orderid\": get(\"orderid\"),\n    \"customerid\": get(\"customerid\")\n  }),\n  embed: true\n});",
+        "onsubmit": "try {\nprofound.ai.removeEmbedIcon()\n} catch {}"
       },
       "items": [
         {
