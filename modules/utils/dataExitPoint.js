@@ -1,8 +1,8 @@
-function dataExitPoint(data) {
-  // const sessionId = data.sessionId;
-  // const identity = data.identity;
-  // logic to retrieve session data goes here
-  // return myData;
-  console.log("dataExitPoint: ", data);
+function dataExitPoint(object) {
+  // logic to evaluate data access goes here
+  console.log("dataExitPoint: ", object);
+
+  // if not authorized, throw an error
+  // throw new Error("data not authorized");
 }
 exports.default = dataExitPoint;
