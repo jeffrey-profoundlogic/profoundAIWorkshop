@@ -10,6 +10,7 @@ module.exports = {
     "pjssamples",
     "customerservice",
     "myaiagent",
+    "utils",
   ],
   "initialModules": {
     "/hello": "pjssamples/hello",
