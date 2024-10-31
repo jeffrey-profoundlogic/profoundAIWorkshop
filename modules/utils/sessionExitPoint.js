@@ -1,9 +1,12 @@
 function sessionExitPoint(data) {
-  // const sessionId = data.sessionId;
-  // const identity = data.identity;
-  // logic to retrieve session data goes here
-  // return myData;
+  
+  const sessionId = pjs.getSessionId();
+ 
   console.log("sessionExitPoint: ", data);
+  console.log("sessionId: ", sessionId);
 
+  let myData = {};
+  myData.sessionId = sessionId;
+  return myData;
 }
 exports.default = sessionExitPoint;
