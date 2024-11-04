@@ -1,0 +1,5 @@
+productid	productname	saleprice
+5	Chef Anton's Gumbo Mix	19.99
+72	Mozzarella di Giovanni	29.99
+15	Genen Shouyu	12.99
+76	Lakkalik””ri	15.99
