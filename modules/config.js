@@ -44,9 +44,9 @@ module.exports = {
   "userdataDirectory": path.resolve(currentDir, "../userdata"),
   "modulesDirectory": path.resolve(currentDir, "../modules"),
   models: {
-    "GPT-3.5 Turbo": {
+    "GPT-4o": {
       provider: "openai",
-      model: "gpt-3.5-turbo-0125",
+      model: "gpt-4o",
       apiKey: process.env.OPENAI_API_KEY,
       defaultAssistantId: process.env.OPENAI_ASSISTANT_ID
     },
