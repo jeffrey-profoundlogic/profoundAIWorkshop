@@ -18,9 +18,9 @@
   "license": "SEE LICENSE IN LICENSE.txt",
   "private": true,
   "dependencies": {
-    "profoundjs": "^7.13.0"
+    "profoundjs": "^7.15.0"
   },
   "optionalDependencies": {
-    "profoundjs-node-pty": "^2.0.3"
+    "profoundjs-node-pty": "^2.0.4"
   }
 }
