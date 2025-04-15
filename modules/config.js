@@ -36,7 +36,7 @@ module.exports = {
   "defaultMode": "case-sensitive",
   "connectorLibrary": "PJSPOCDEMO",
   "profounduiLibrary": "PUIPOCDEMO",
-  "connectorURL": "http://65.183.178.37:9981/",
+  "connectorURL": "https://training.profoundlogic.com:9982/",
   "connectorCredentials": path.resolve(currentDir, "../credentials"),
   "encryptionKey": fs.readFileSync(path.join(currentDir, "../ekey")),
   "connectorIPFilter": (ip) => true,
